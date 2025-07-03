@@ -114,7 +114,7 @@ t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
 }
 
 //get unit vector
-t_vec3	vec3_unit(t_vec3 vec3)
+t_vec3	vec3_normalized(t_vec3 vec3)
 {
 	double len = vec3_length(vec3);
 	if (len == 0.0)
