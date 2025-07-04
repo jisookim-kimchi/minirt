@@ -1,7 +1,5 @@
 #include "struct.h"
 
-
-
 t_vec3	vec3(double x, double y, double z)
 {
     t_vec3	vec;
@@ -23,6 +21,7 @@ t_point3	point3(double x, double y, double z)
 	
 	return (point);
 }
+
 t_color3	color3(double x, double y, double z)
 {
 	t_color3	color3;
@@ -54,6 +53,7 @@ void	point_set(t_point3 *point3, double x, double y, double z)
 	point3->y = y;
 	point3->z = z;
 }
+
 //vector len squared
 double	vec3_length_squared(t_vec3 vec)
 {
@@ -74,12 +74,28 @@ t_vec3	vec3_add(t_vec3 vec, double x, double y, double z)
     return (vec);
 }
 
+t_vec3	vec3_plus_vec3(t_vec3 vec1, t_vec3 vec2)
+{
+    vec1.x += vec2.x;
+    vec1.y += vec2.y;
+    vec1.z += vec2.z;
+    return (vec1);
+}
+
 t_vec3      vec3_sub(t_vec3 vec, double x, double y, double z)
 {
     vec.x -= x;
     vec.y -= y;
     vec.z -= z;
     return (vec);
+}
+
+t_vec3      vec3_sub_vec3(t_vec3 vec1, t_vec3 vec2)
+{
+    vec1.x -= vec2.x;
+    vec1.y -= vec2.y;
+    vec1.z -= vec2.z;
+    return (vec1);
 }
 
 t_vec3      vec3_multiply(t_vec3 vec, double t)
@@ -89,6 +105,15 @@ t_vec3      vec3_multiply(t_vec3 vec, double t)
     vec.z *= t;
     return (vec);
 }
+
+t_vec3      vec3_multiply_vec3(t_vec3 vec1, t_vec3 vec2)
+{
+    vec1.x *= vec2.x;
+    vec1.y *= vec2.y;
+    vec1.z *= vec2.z;
+    return (vec1);
+}
+
 t_vec3      vec3_divide(t_vec3 vec, double t)
 {
     vec.x *= 1 / t;
@@ -129,3 +154,4 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	vec3.z = vec3.z / len;
 	return vec3;
 }
+
