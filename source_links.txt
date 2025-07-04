@@ -1,0 +1,17 @@
+Websites
+
+Ray traycing in One Weekend
+Short description: This website introduce in the Ray Traycing concept. The examples shows in CPP.
+Link: https://raytracing.github.io/books/RayTracingInOneWeekend.html
+
+Ray Traycing Wikipedia
+Short description: This give a general information about the graphical solution methodes:
+different Ray traycind and Ray casting metodes.
+Link: https://en.wikipedia.org/wiki/Ray_tracing_(graphics)
+
+Videos:
+Ray tracing video (Computerphile)
+Short description: This video give a good insight how the rays, and lights works.
+Introduction of Ray traycinng method 
+Link: https://www.youtube.com/watch?v=ezXGTRSx1g8
+
