@@ -154,4 +154,3 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	vec3.z = vec3.z / len;
 	return vec3;
 }
-
