@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "vector_struct.h"
 
 t_ray       ray(t_point3 orig, t_vec3 dir)
 {
