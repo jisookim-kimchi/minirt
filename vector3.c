@@ -33,7 +33,7 @@ t_color3	color3(double x, double y, double z)
 	return (color3);
 }
 
-void	vec_set(t_vec3 *vec3, double x, double y, double z)
+void	vec3_set(t_vec3 *vec3, double x, double y, double z)
 {
 	vec3->x = x;
 	vec3->y = y;
@@ -146,7 +146,7 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	double len = vec3_length(vec3);
 	if (len == 0.0)
 	{
-		printf("vec3_unit cant be divided\n");
+		printf("vec2_normalized: length is 0, cannot normalize\n");
 		exit(0);
 	}
 	vec3.x = vec3.x / len;

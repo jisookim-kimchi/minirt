@@ -1,7 +1,6 @@
 
 #include <stdio.h>
-#include "struct.h"
-
+#include "vector_struct.h"
 
 void    write_color(t_color3 pixel_color)
 {
@@ -11,6 +10,7 @@ void    write_color(t_color3 pixel_color)
 }
 
 int	main(void)
+
 {
     int     i;
     int     j;
