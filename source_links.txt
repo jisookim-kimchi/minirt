@@ -12,14 +12,20 @@ Short description: This give a general information about the graphical solution 
 different Ray traycind and Ray casting metodes.
 Link: https://en.wikipedia.org/wiki/Ray_tracing_(graphics)
 
+Lightings
+Ambient, Diffues, Specular, phong shader
+Link : https://learnopengl.com/Lighting/Basic-Lighting
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 Videos:
 Ray tracing video (Computerphile)
 Short description: This video give a good insight how the rays, and lights works.
 Introduction of Ray traycinng method 
 Link: https://www.youtube.com/watch?v=ezXGTRSx1g8
 
-
-lightings
-Ambient, Diffues, Specular, phong shader
-Link : https://learnopengl.com/Lighting/Basic-Lighting
+Ray tracing general
+Short description: This series has 3 part. It describes how the rays works. In the 2 part it explains the shadows.
+The 3 part shows how the refraction works.
+Link: https://www.youtube.com/watch?v=H5TB2l7zq6s
 
