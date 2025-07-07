@@ -1,4 +1,4 @@
-#include "struct.h"
+#include "vector_struct.h"
 
 typedef struct s_vec2 
 {

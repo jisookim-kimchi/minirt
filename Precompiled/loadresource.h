@@ -35,16 +35,19 @@ typedef struct s_engine
     int             texture_count;
     t_game_object   scene[MAX_SCENE_OBJECTS];
     int             scene_count;
+    //mlx_t         *mlx;
 }   t_engine;
 
+//
 typedef struct s_game_object
 {
     char    name[64];
-    size_t  hash;
+    //size_t  hash;
     int     mash_key;
     t_vec2  position;
     float   rotation;
     t_vec2  scale;
     int     is_visible;
 }   t_game_object;
+
 

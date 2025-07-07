@@ -103,7 +103,7 @@ void draw_gizmo2d(mlx_image_t *img, int grid_unit)
 
 void    load_scene2d()
 {
-
+    mlx_image_t 
 }
 
 void    updated2d(float in_deltasecconds)
