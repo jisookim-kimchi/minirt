@@ -1,7 +1,7 @@
 NAME = miniRT
 
 #lib directory includes the libft files. The obj folder will consists the .o files
-LIB_DIR = lib
+LIBFT_DIR = libft
 SRC_DIR = src
 OBJ_DIR = obj
 
@@ -15,9 +15,9 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
 HEADER = -I $(LIBMLX)/include
 
-LIB = $(LIB_DIR)/lib.a
+LIBFT = $(LIBFT_DIR)/libft.a
 
-SRCS :=	main.c
+SRCS :=	window.c
 
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS :=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
@@ -25,11 +25,11 @@ OBJS :=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 all: libmlx $(NAME)
 	@echo "$(NAME) built succesfully.\n"
 
-$(NAME): $(LIB) $(OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
 
-$(LIB):
-	@$(MAKE) -C $(LIB_DIR) --silent
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR) --silent
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@(CC) $(CFLAGS) -c $< -o $@
@@ -60,11 +60,11 @@ cleanmlx:
 
 clean:
 	@rm -rf $(OBJS)
-	@$(MAKE) -C $(LIB_DIR) clean
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean cleanmlx
 	@rm -f $(NAME)
-	@$(MAKE) -C $(LIB_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
