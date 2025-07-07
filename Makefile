@@ -9,7 +9,7 @@ OBJ_DIR = obj
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a
 LIBMLX = ./MLX42
-LIBSM :=$(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
@@ -23,10 +23,10 @@ SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS :=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 all: libmlx $(NAME)
-	@echo "$(NAME) built succesfully.\n"
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) $(LIBSM) -o $(NAME) $(OBJ) $(LIBFT)
+	@echo "$(NAME) built succesfully.\n"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) --silent
@@ -44,7 +44,7 @@ libmlx:
 	fi
 	git submodule update --init --recursive > /dev/null 2>&1
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 > /dev/null 2>&1
-	echo "$(MLX_DIR) downloaded succesfully.\n"
+	@echo "$(MLX_DIR) downloaded succesfully.\n"
 
 #Delete MLX42
 cleanmlx:
