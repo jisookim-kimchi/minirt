@@ -13,7 +13,6 @@ t_ray       ray(t_point3 orig, t_vec3 dir)
     ray origin point ------> ray dir * t
     from [ray_origin] point to [ray->dir * t]
 */
-
 t_point3    ray_at(t_ray *ray, double t)
 {
     t_point3 at;
