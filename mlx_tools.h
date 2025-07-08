@@ -6,14 +6,15 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/07 19:41:28 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/08 11:44:21 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_TOOLS_H
 # define MLX_TOOLS_H
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "MLX42/include/MLX42/MLX42.h"
+# include "libft/libft.h"
 # include <stdbool.h>
 
 # define IMAGE_WIDTH 1200

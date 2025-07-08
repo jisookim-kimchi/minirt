@@ -24,15 +24,15 @@ OBJS :=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 all: libmlx $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(LIBSM) -o $(NAME) $(OBJ) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(LIBSM) -o $(NAME) $(OBJS) $(LIBFT)
 	@echo "$(NAME) built succesfully.\n"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) --silent
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	@(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
