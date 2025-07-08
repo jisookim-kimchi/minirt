@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/07 20:31:47 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/08 11:43:25 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	image_hook(void *param)
 		x = 0;
 		while (x < win->image->width)
 		{
-			mlx_put_pixel(win->mlx, x, y, blue);
+			mlx_put_pixel(win->image, x, y, blue);
 			x++;
 		}
 		y++;
