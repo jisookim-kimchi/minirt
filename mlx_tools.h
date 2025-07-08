@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/08 11:44:21 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/08 12:17:54 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
+# include <stdio.h>
 # include <stdbool.h>
 
 # define IMAGE_WIDTH 1200
-# define IMAGE_RATIO 16/9
+# define IMAGE_RATIO (16.0f/9.0f)
 
 typedef struct s_window
 {
