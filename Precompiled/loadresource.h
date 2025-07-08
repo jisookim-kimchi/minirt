@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector_struct.h"
+#include "../math/mathheader.h"
 
 //#include <vector2.h>
 //#include <vector3.h>
@@ -26,6 +27,22 @@ typedef struct s_texture
     int initialized;
 } t_texture;
 
+typedef struct s_camera
+{
+
+} t_camera;
+
+//it must have transform_component;
+typedef struct s_game_object
+{
+    char    name[64];
+    //size_t  hash;
+    //int     mash_key;
+    t_transform tramsform;
+    //t_Linearcolor color;
+    int     is_visible;
+}   t_game_object;
+
 //later it is better to add mlx* and mlx_image? 
 typedef struct s_engine
 {
@@ -35,19 +52,8 @@ typedef struct s_engine
     int             texture_count;
     t_game_object   scene[MAX_SCENE_OBJECTS];
     int             scene_count;
+    t_camera        camera;
     //mlx_t         *mlx;
 }   t_engine;
-
-//
-typedef struct s_game_object
-{
-    char    name[64];
-    //size_t  hash;
-    int     mash_key;
-    t_vec2  position;
-    float   rotation;
-    t_vec2  scale;
-    int     is_visible;
-}   t_game_object;
 
 

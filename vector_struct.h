@@ -26,6 +26,7 @@ typedef struct s_ray
 	t_vec3   dir;
 } t_ray;
 
+// change it later double to float
 typedef struct s_vec3
 {
 	double x;
