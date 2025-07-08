@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/08 12:20:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/08 12:42:51 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ void	error_window(t_window *win)
 	ft_putendl_fd((char *)mlx_strerror(mlx_errno), 2);
 	if (win->mlx)
 		mlx_terminate(win->mlx);
+}
+
+void	ft_key_hook(mlx_key_data_t keydata, void *param)
+{
+	t_window	*win;
+
+	win = (t_window *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(win->mlx);
 }
 
 /*
@@ -68,6 +77,7 @@ int main(void)
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 		error_window(&win);
+	mlx_key_hook(win.mlx, ft_key_hook, &win);
 	mlx_loop(win.mlx);
 	mlx_terminate(win.mlx);
 	return (0);
