@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/08 11:43:25 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/08 12:20:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	error_window(t_window *win)
 }
 
 /*
-	The color layout: 0xAARRGGBB
-	AA = Alpha (opacity)
+	The color layout: 0xRRGGBBAA
 	RR = Red
 	GG = Green
-	BB = Blue 
+	BB = Blue
+	AA = Alpha (opacity)
 */
 void	image_hook(void *param)
 {
@@ -33,7 +33,7 @@ void	image_hook(void *param)
 	uint32_t	y;
 	uint32_t	blue;
 
-	blue = 0xFF0000FF;
+	blue = 0x0000FFFF;
 	win = (t_window *)param;
 	y = 0;
 	while (y < win->image->height)
@@ -60,6 +60,11 @@ int main(void)
 		(int32_t)IMAGE_WIDTH, (int32_t)(IMAGE_WIDTH / IMAGE_RATIO));
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
 		error_window(&win);
+		
+	// printf("The image width: %d\nThe image height: %d\n", win.image->width, win.image->height);
+	// printf("The value IMAGE_WIDTH/IMAGE_RATIO: %f\n", (IMAGE_WIDTH / IMAGE_RATIO));
+	// printf("The value IMAGE_RATIO: %f\n", IMAGE_RATIO);
+	
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 		error_window(&win);
