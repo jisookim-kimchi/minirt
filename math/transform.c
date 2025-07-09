@@ -54,16 +54,21 @@ void    set_position(t_transform *transform, t_vec3 *in_pos)
 
 /*
     quaternion -> rotation.
-
     rotation -> quaternion.
 */
 
-void    add_yaw_rot(float in_degree)
-{
-    t_transform transform;
-    t_rotator r = transform.rotation.to_ratator();
-    r.yaw += in_degree;
-    r.clamp();
+// void    add_yaw_rot(t_transform *transform, float in_degree)
+// {
+//     t_rotator r = transform.rotation.to_rotator();
+//     r.yaw += in_degree;
+//     clamp(&r);
+//     transform.rotation = quaternion(r);
+// }
 
-    transform.rotation = quaternion(r);
-}
+// void    add_pitch_rot(t_transform *transform, float in_degree)
+// {
+//     t_rotator r = transform->rotation.to_rotator();
+//     r.pitch += in_degree;
+//     r.
+
+// }

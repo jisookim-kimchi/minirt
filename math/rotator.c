@@ -37,7 +37,7 @@ float clamp_axis(float angle)
     return (angle);
 }
 
-void clamp_rotator(t_rotator *rotator)
+void clamp(t_rotator *rotator)
 {
     if (!rotator)
         return;
@@ -48,6 +48,9 @@ void clamp_rotator(t_rotator *rotator)
 }
 
 // from Euler'angle to local_axes
+/*
+    when a obj rotate, update new axes 
+*/
 void get_local_axes(const t_rotator* rot, t_vec3* outRight, t_vec3* outUp, t_vec3* outForward)
 {
     float sy = sinf(rot->yaw);
