@@ -27,11 +27,6 @@ typedef struct s_texture
     int initialized;
 } t_texture;
 
-typedef struct s_screenpoint
-{
-    int x;
-    int y;
-} t_screenpoint;
 
 /*
     fov : field of view

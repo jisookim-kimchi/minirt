@@ -1,5 +1,10 @@
 #include "mathheader.h"
 
+/*
+    pitch = x.
+    yaw = y.
+    roll = z.
+*/
 t_rotator init_rotator()
 {
     t_rotator rotator;

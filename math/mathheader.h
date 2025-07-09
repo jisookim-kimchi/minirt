@@ -23,6 +23,16 @@ typedef struct s_rotator
     float pitch;
 } t_rotator;
 
+/*
+    aspectratio = x / y
+*/
+typedef struct s_screenpoint
+{
+    int     x;
+    int     y;
+    float   aspect_ratio;
+} t_screenpoint;
+
 t_quaternion init_quaternion();
 
 //rotator.c
