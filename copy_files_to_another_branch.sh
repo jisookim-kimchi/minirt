@@ -80,3 +80,7 @@ echo -e "$COMMIT_MSG"
 echo -e "\nRun the following command to commit:"
 echo "  git add $DESTINATION_PLACE_1 $DESTINATION_PLACE_2"
 echo -e "  git commit -m \$'$COMMIT_MSG'"
+
+# Add and commit
+git add "$DESTINATION_PLACE_1" "$DESTINATION_PLACE_2"
+git commit -m "$(echo -e "$COMMIT_MSG")"
