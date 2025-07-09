@@ -1,4 +1,5 @@
 #include "vector_struct.h"
+#include <math.h>
 
 typedef struct s_transform
 {
@@ -14,3 +15,12 @@ typedef struct s_quaternion
     float   z;
     float   w;
 } t_quaternion;
+
+typedef struct s_rotator
+{
+    float yaw;
+    float roll;
+    float pitch;
+} t_rotator;
+
+t_quaternion init_quaternion();

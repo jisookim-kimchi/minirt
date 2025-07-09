@@ -1,4 +1,4 @@
-#include <math.h>
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,9 +27,24 @@ typedef struct s_texture
     int initialized;
 } t_texture;
 
+typedef struct s_screenpoint
+{
+    int x;
+    int y;
+} t_screenpoint;
+
+/*
+    fov : field of view
+    far_clip : Distance from the camera to the far clipping plane
+    far_clip : Distance from the camera to the near clipping plane
+*/
 typedef struct s_camera
 {
-
+    t_transform     transform;
+    t_screenpoint   viewportsize;
+    float           fov;
+    float           far_clip;
+    float           near_clip;
 } t_camera;
 
 //it must have transform_component;
@@ -38,7 +53,7 @@ typedef struct s_game_object
     char    name[64];
     //size_t  hash;
     //int     mash_key;
-    t_transform tramsform;
+    t_transform transform;
     //t_Linearcolor color;
     int     is_visible;
 }   t_game_object;
@@ -55,5 +70,12 @@ typedef struct s_engine
     t_camera        camera;
     //mlx_t         *mlx;
 }   t_engine;
+
+typedef struct s_transform_comp
+{
+    t_transform *local_transform;
+    t_transform *world_transform;
+}   t_transform_comp;
+
 
 

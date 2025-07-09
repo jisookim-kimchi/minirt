@@ -17,7 +17,6 @@ typedef struct s_canvas
 {
 	int	width;
 	int	height;
-	
 } t_canvas;
 
 typedef struct s_ray
@@ -38,6 +37,7 @@ t_ray		ray(t_point3 orig, t_vec3 dir);
 t_point3    ray_at(t_ray *ray, double t);
 
 t_vec3		vec3(double x, double y, double z);
+t_vec3		vec3_one();
 t_point3	point3(double x, double y, double z);
 t_color3	color3(double x, double y, double z);
 void		vec3_set(t_vec3 *vec3, double x, double y, double z);

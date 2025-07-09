@@ -1,5 +1,10 @@
 #include "vector_struct.h"
 
+t_vec3  vec3_one()
+{
+    return (t_vec3){1.f, 1.f, 1.f};
+}
+
 t_vec3	vec3(double x, double y, double z)
 {
     t_vec3	vec;
