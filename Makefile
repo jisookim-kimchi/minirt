@@ -2,7 +2,6 @@ NAME = miniRT
 
 #lib directory includes the libft files. The obj folder will consists the .o files
 LIBFT_DIR = libft
-SRC_DIR = src
 OBJ_DIR = obj
 
 #Download and build MLX42
@@ -17,10 +16,10 @@ HEADER = -I $(LIBMLX)/include
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRCS :=	window.c
+SRCS :=	render/window.c
 
-SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
-OBJS :=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
+
 
 all: libmlx $(NAME)
 
@@ -31,11 +30,10 @@ $(NAME): $(LIBFT) $(OBJS)
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) --silent
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
 
 #Build the MLX42
 libmlx:
