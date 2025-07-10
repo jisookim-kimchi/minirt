@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/10 17:04:56 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/10 20:40:22 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_obj_fill
 {
 	SOLID,
 	SHELL
-}	t_obj_fill
+}	t_obj_fill;
 
 typedef struct s_objs_list
 {
@@ -70,8 +70,33 @@ typedef struct s_cylinder
 	t_obj_fill		obj_fill;
 }	t_cylinder;
 
+/*
+	Maybe it is good to store the color, front face, and the object
+	t_color_float	hit_color;
+	bool			front_face;
+	t_objs_list		object;
+*/
+typedef struct s_hit
+{
+	float	t;
+	t_vec3	hit_point;
+	t_vec3	normal;
+}	t_hit;
+
 //2d_objects.c
-t_objs_list	*create_plane(t_vec3 in_unit_normal_vec, 
-	t_vec3 in_point, t_color_float in_plane_color);
+t_objs_list	*create_plane(t_vec3 in_unit_normal_vec,
+				t_vec3 in_point, t_color_float in_plane_color);
+
+//3d_objects.c
+t_objs_list	*create_sphere(t_vec3 in_center,
+				float in_diameter, t_color_float in_sphere_color);
+t_objs_list	*create_cylinder(t_vec3 in_axis, 
+				float in_diameter, float in_height,
+				t_color_float in_cylinder_color);
+
+//object_list.c
+void		add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member);
+void		free_objs_list(t_objs_list **list);
+bool		ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit);
 
 #endif
