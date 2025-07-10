@@ -1,18 +1,13 @@
 #include "loadresource.h"
 
-t_transform *get_local_transform_comp(t_transform_comp *transform)
+t_transform *get_world_transform(t_transform_comp *transform_comp)
 {
-    return (transform->local_transform);
+    return (transform_comp->transform);
 }
 
-t_transform *get_world_transform(t_transform_comp *transform)
+t_vec3  get_world_position(t_transform_comp *transform_comp)
 {
-    return (transform->world_transform);
-}
-
-t_vec3  get_world_position(t_transform_comp *transform)
-{
-    return (transform->world_transform->position);
+    return (transform_comp->transform->position);
 }
 
 // t_rotator get_world_rotator(t_transform_comp *transform)

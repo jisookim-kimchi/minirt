@@ -1,18 +1,16 @@
 #include "../math/mathheader.h"
 #include "loadresource.h"
 
-typedef struct s_plane t_plane;
-
 typedef struct s_plane
 {
-    t_vec3  vec3;
+    t_vec3  normal;
     float   d;
 }   t_plane;
 
 /*
     init plane 
 */
-static inline t_plane plain_init(const t_vec3* normal, float d)
+static inline t_plane plane_init(const t_vec3* normal, float d)
 {
     if (fabs(vec3_length((*normal)) - 1.f) > 0.0001f)
     {

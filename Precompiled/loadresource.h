@@ -32,8 +32,8 @@ typedef struct s_transform_comp
     t_vec3 right;
     t_vec3 up;
     t_vec3 forward;
-    t_transform *local_transform;
-    t_transform *world_transform;
+    //t_transform *local_transform;
+    t_transform *transform;
 }   t_transform_comp;
 
 /*
