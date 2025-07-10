@@ -27,6 +27,14 @@ typedef struct s_texture
     int initialized;
 } t_texture;
 
+typedef struct s_transform_comp
+{
+    t_vec3 right;
+    t_vec3 up;
+    t_vec3 forward;
+    t_transform *local_transform;
+    t_transform *world_transform;
+}   t_transform_comp;
 
 /*
     fov : field of view
@@ -35,11 +43,11 @@ typedef struct s_texture
 */
 typedef struct s_camera
 {
-    t_transform     transform;
-    t_screenpoint   viewportsize;
-    float           fov;
-    float           far_clip;
-    float           near_clip;
+    t_transform_comp    transform_comp;
+    t_screenpoint       viewportsize;
+    float               fov;
+    float               far_clip;
+    float               near_clip;
 } t_camera;
 
 //it must have transform_component;
@@ -66,11 +74,6 @@ typedef struct s_engine
     //mlx_t         *mlx;
 }   t_engine;
 
-typedef struct s_transform_comp
-{
-    t_transform *local_transform;
-    t_transform *world_transform;
-}   t_transform_comp;
 
 
 

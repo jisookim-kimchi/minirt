@@ -1,14 +1,14 @@
 #include "loadresource.h"
 
-t_camera    camera(t_screenpoint screen, t_vec3 vec3)
-{
-    t_camera camera;
-    float 
-}
+// t_camera    init_camera(t_screenpoint screen, t_vec3 vec3)
+// {
+//     t_camera camera;
+//     camera.transform.position = 
+// }
 
-struct s_transform *get_transform(t_camera *camera)
+struct s_transform_comp *get_transform(t_camera *camera)
 {
-    return &(camera->transform);
+    return &(camera->transform_comp);
 }
 
 //field of view 
@@ -32,7 +32,6 @@ float   get_near_clip(const t_camera *camera)
     modeling matrix ?? : local - >world
     view matrix : world -> camera
 */
-
 // void    get_view_axes(t_vec3 *outview_x, const t_vec3 *outview_y, const t_vec3 *outview_z)
 // {
 //     outview_x = -getlocal_x()
@@ -40,10 +39,10 @@ float   get_near_clip(const t_camera *camera)
 //     outview_z = -getlocal_z();
 // }
 
+
 /*
     get view axes
 */
-
 // t_matrix_4x4    get_view_matrix(t_transform_comp * transform)
 // {
 //     t_vec3  view_x;
@@ -73,15 +72,38 @@ void    setfov(float infov, t_camera *camera)
 }
 
 //rotate to game_obj.
-void    set_look_at_rotation_obj(const t_game_object *in_game_obj, const t_vec3 *in_up)
+void    set_look_at_rotation_obj(t_camera *camera, const t_game_object *in_game_obj, const t_vec3 *in_up)
 {
-    
+   
 }
 
 //rotate to target.
-void    set_look_at_rotation_vec3(const t_vec3 target, const t_vec3 *in_up)
-{
+/*
     
+*/
+void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
+{
+    t_vec3  local_x;
+    t_vec3  local_y;
+    t_vec3  local_z;
+
+    local_z = vec3_sub_vec3(in_target_position, camera->transform_comp.world_transform->position);
+    local_z = vec3_normalized(local_z);
+
+    if(fabs(local_z.y) >= (1.f - 1e-8))
+    {
+        local_x = vec3(1.f, 0.f, 0.f);
+    }
+    else
+    {
+        local_x = vec3_cross(in_up, local_z);
+        local_x = vec3_normalized(local_x);
+    }
+    local_y = vec3_cross(local_z, local_x);
+
+    camera->transform_comp.up = local_y;
+    camera->transform_comp.right = local_x;
+    camera->transform_comp.forward = local_z;
 }
 
 //
