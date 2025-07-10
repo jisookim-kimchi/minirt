@@ -79,32 +79,36 @@ void    set_look_at_rotation_obj(t_camera *camera, const t_game_object *in_game_
 
 //rotate to target.
 /*
-    
+
 */
 void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
 {
-    t_vec3  local_x;
-    t_vec3  local_y;
-    t_vec3  local_z;
 
-    local_z = vec3_sub_vec3(in_target_position, camera->transform_comp.world_transform->position);
-    local_z = vec3_normalized(local_z);
 
-    if(fabs(local_z.y) >= (1.f - 1e-8))
-    {
-        local_x = vec3(1.f, 0.f, 0.f);
-    }
-    else
-    {
-        local_x = vec3_cross(in_up, local_z);
-        local_x = vec3_normalized(local_x);
-    }
-    local_y = vec3_cross(local_z, local_x);
-
-    camera->transform_comp.up = local_y;
-    camera->transform_comp.right = local_x;
-    camera->transform_comp.forward = local_z;
 }
 
-//
+// void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
+// {
+//     t_vec3  local_x;
+//     t_vec3  local_y;
+//     t_vec3  local_z;
+
+//     local_z = vec3_sub_vec3(in_target_position, camera->transform_comp.world_transform->position);
+//     local_z = vec3_normalized(local_z);
+
+//     if(fabs(local_z.y) >= (1.f - 1e-8))
+//     {
+//         local_x = vec3(1.f, 0.f, 0.f);
+//     }
+//     else
+//     {
+//         local_x = vec3_cross(in_up, local_z);
+//         local_x = vec3_normalized(local_x);
+//     }
+//     local_y = vec3_cross(local_z, local_x);
+
+//     camera->transform_comp.up = local_y;
+//     camera->transform_comp.right = local_x;
+//     camera->transform_comp.forward = local_z;
+// }
 
