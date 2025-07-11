@@ -7,6 +7,14 @@ typedef struct s_vec3 t_point3;
 typedef struct s_vec3 t_color3;
 typedef struct s_ray  t_ray;
 
+typedef struct s_vec4
+{
+	float x;
+	float y;
+	float z;
+	float w;
+}	t_vec4;
+
 typedef struct s_vec2
 {
 	float x;

@@ -1,10 +1,15 @@
 #include "loadresource.h"
 
-// t_camera    init_camera(t_screenpoint screen, t_vec3 vec3)
-// {
-//     t_camera camera;
-//     camera.transform.position = 
-// }
+t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
+{
+    t_camera camera;
+    camera.transform_comp = transform_comp;
+    camera.viewportsize = screen;
+    camera.fov = 60.f;
+    camera.far_clip = 5000.f;
+    camera.near_clip = 5.f;
+    return (camera);
+}
 
 struct s_transform_comp *get_transform(t_camera *camera)
 {
@@ -70,6 +75,19 @@ void    setfov(float infov, t_camera *camera)
 {
     camera->fov = infov;
 }
+
+void    set_near_clip(t_camera *camera, float in_near_clip)
+{
+    camera->near_clip = in_near_clip;
+}
+
+void    set_far_clip(t_camera *camera, float in_far_clip)
+{
+    camera->far_clip = in_far_clip;
+}
+
+
+
 
 //rotate to game_obj.
 void    set_look_at_rotation_obj(t_camera *camera, const t_game_object *in_game_obj, const t_vec3 *in_up)

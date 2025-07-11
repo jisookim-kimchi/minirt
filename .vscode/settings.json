@@ -3,6 +3,7 @@
 		"math.h": "c",
 		"struct.h": "c",
 		"vector_struct.h": "c",
-		"cmath": "cpp"
+		"cmath": "cpp",
+		"optional": "c"
 	}
 }
