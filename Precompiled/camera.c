@@ -12,10 +12,13 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     float theta = deg2rad(camera.fov);
     float half_of_fov = theta / 2.f;
     float focal_length = 1 / tanf(half_of_fov);
+    camera.viewportsize.y = 2.f;
+    camera.viewportsize.x = camera.viewportsize.y * camera.viewportsize.aspect_ratio;
+    
+    camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
+    camera.vertical = vec3(0, camera.viewportsize.y, 0);
 
-    camera.horizontal = 
-    camera.vertical = 
-    camera.left_bottom;
+    camera.left_bottom 
     //fov to change
 
     return (camera);
