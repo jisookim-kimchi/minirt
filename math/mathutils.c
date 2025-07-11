@@ -6,7 +6,7 @@
 #define InvPI   0.31830988618f
 
 //degree ---> radian.
-float Deg2Rad(float indegree)
+float deg2rad(float indegree)
 {
 	return indegree * PI / 180.f;
 }

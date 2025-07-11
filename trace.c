@@ -20,3 +20,4 @@ t_point3    ray_at(t_ray *ray, double t)
     at = vec3_plus_vec3(ray->orig, vec3_multiply(ray->dir, t));
     return (at);
 }
+

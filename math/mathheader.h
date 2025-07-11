@@ -42,3 +42,6 @@ float clamp_axis(float angle);
 void clamp(t_rotator *rotator);
 void get_local_axes(const t_rotator* rot, t_vec3* outRight, t_vec3* outUp, t_vec3* outForward);
 
+
+//mathutils.c
+float deg2rad(float indegree);

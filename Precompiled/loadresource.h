@@ -48,6 +48,9 @@ typedef struct s_camera
     float               fov;
     float               far_clip;
     float               near_clip;
+    t_vec3              horizontal;
+    t_vec3              vertical;
+    t_vec3              left_bottom;
 } t_camera;
 
 //it must have transform_component;
@@ -56,7 +59,7 @@ typedef struct s_game_object
     char    name[64];
     //size_t  hash;
     //int     mash_key;
-    t_transform transform;
+    t_transform_comp transform_comp;
     //t_Linearcolor color;
     int     is_visible;
 }   t_game_object;

@@ -8,6 +8,16 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     camera.fov = 60.f;
     camera.far_clip = 5000.f;
     camera.near_clip = 5.f;
+
+    float theta = deg2rad(camera.fov);
+    float half_of_fov = theta / 2.f;
+    float focal_length = 1 / tanf(half_of_fov);
+
+    camera.horizontal = 
+    camera.vertical = 
+    camera.left_bottom;
+    //fov to change
+
     return (camera);
 }
 
@@ -32,6 +42,26 @@ float   get_near_clip(const t_camera *camera)
     return camera->near_clip;
 }
 
+struct s_screenpoint *get_viewport_size(const t_camera *camera)
+{
+    return &(camera->viewportsize);
+}
+
+void    setfov(float infov, t_camera *camera)
+{
+    camera->fov = infov;
+}
+
+void    set_near_clip(t_camera *camera, float in_near_clip)
+{
+    camera->near_clip = in_near_clip;
+}
+
+void    set_far_clip(t_camera *camera, float in_far_clip)
+{
+    camera->far_clip = in_far_clip;
+}
+
 /*
     change modeling matrix to view matrix
     modeling matrix ?? : local - >world
@@ -43,7 +73,6 @@ float   get_near_clip(const t_camera *camera)
 //     outview_y = getlocal_y()
 //     outview_z = -getlocal_z();
 // }
-
 
 /*
     get view axes
@@ -65,29 +94,6 @@ float   get_near_clip(const t_camera *camera)
 //         t_vec4(view_x)
 //     )
 // }
-
-struct s_screenpoint *get_viewport_size(const t_camera *camera)
-{
-    return &(camera->viewportsize);
-}
-
-void    setfov(float infov, t_camera *camera)
-{
-    camera->fov = infov;
-}
-
-void    set_near_clip(t_camera *camera, float in_near_clip)
-{
-    camera->near_clip = in_near_clip;
-}
-
-void    set_far_clip(t_camera *camera, float in_far_clip)
-{
-    camera->far_clip = in_far_clip;
-}
-
-
-
 
 //rotate to game_obj.
 void    set_look_at_rotation_obj(t_camera *camera, const t_game_object *in_game_obj, const t_vec3 *in_up)
