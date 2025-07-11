@@ -6,11 +6,24 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/10 13:32:44 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:37:17 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_tools.h"
+
+/*
+	The check_value_in_range check if the float input value is 
+	in the given intervallum. If the input value smaller, or bigger 
+	than the given minimum and maximum value it return false, 
+	otherwise it return true.
+*/
+bool	check_value_in_range(float input_value, float min, float max)
+{
+	if (input_value < min || input_value > max)
+		return (false);
+	return (true);
+}
 
 /*
 	The clamp_calculation function not allow the input value will 

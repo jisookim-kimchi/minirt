@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/10 12:43:45 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/11 16:38:03 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ typedef struct s_window
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 }	t_window;
+
+float	clamp_calculation(float input_value, float min, float max);
+bool	check_value_in_range(float input_value, float min, float max);
 
 #endif
