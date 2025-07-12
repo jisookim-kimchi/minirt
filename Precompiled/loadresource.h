@@ -33,6 +33,7 @@ typedef struct s_transform_comp
     t_vec3 up;
     t_vec3 forward;
     //t_transform *local_transform;
+	t_vec3 pos;
     t_transform *transform;
 }   t_transform_comp;
 
@@ -46,8 +47,8 @@ typedef struct s_camera
     t_transform_comp    transform_comp;
     t_screenpoint       viewportsize;
     float               fov;
-    float               far_clip;
-    float               near_clip;
+    // float               far_clip;
+    // float               near_clip;
     t_vec3              horizontal;
     t_vec3              vertical;
     t_vec3              left_bottom;
@@ -80,3 +81,5 @@ typedef struct s_engine
 
 
 
+//transform_comp.c
+t_vec3  get_world_position(t_transform_comp *transform_comp);

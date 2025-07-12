@@ -1,13 +1,14 @@
 #include "loadresource.h"
 
+
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
     camera.transform_comp = transform_comp;
     camera.viewportsize = screen;
     camera.fov = 60.f;
-    camera.far_clip = 5000.f;
-    camera.near_clip = 5.f;
+    // camera.far_clip = 5000.f;
+    // camera.near_clip = 5.f;
 
     float theta = deg2rad(camera.fov);
     float half_of_fov = theta / 2.f;
@@ -19,14 +20,28 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
     camera.vertical = vec3(0, camera.viewportsize.y, 0);
 
-    camera.left_bottom = 
+	//camera pos
+	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
+	t_vec3 forward = get_forward_vector(transform_comp);
 
+	t_vec3 center = vec3_plus_vec3(camera_position, vec3_multiply(forward, focal_length));
+	
+	t_vec3 half_horizontal = vec3_multiply(camera.horizontal, 0.5);
+	t_vec3 half_vertical = vec3_multiply(camera.vertical, 0.5);
+	camera.left_bottom = vec3_sub_vec3(center, half_horizontal);
+	camera.left_bottom = vec3_sub_vec3(camera.left_bottom, half_vertical);
     return (camera);
 }
 
-struct s_transform_comp *get_transform(t_camera *camera)
+t_vec3 get_forward_vector(t_transform_comp t)
 {
-    return &(camera->transform_comp);
+    return t.forward;
+}
+
+
+struct s_transform_comp get_transform(t_camera *camera)
+{
+    return (camera->transform_comp);
 }
 
 //field of view 
@@ -35,15 +50,15 @@ float   get_fov (const t_camera *camera)
     return camera->fov;
 }
 
-float   get_far_clip(const t_camera *camera)
-{
-    return camera->far_clip;
-}
+// float   get_far_clip(const t_camera *camera)
+// {
+//     return camera->far_clip;
+// }
 
-float   get_near_clip(const t_camera *camera)
-{
-    return camera->near_clip;
-}
+// float   get_near_clip(const t_camera *camera)
+// {
+//     return camera->near_clip;
+// }
 
 struct s_screenpoint *get_viewport_size(const t_camera *camera)
 {
@@ -55,15 +70,15 @@ void    setfov(float infov, t_camera *camera)
     camera->fov = infov;
 }
 
-void    set_near_clip(t_camera *camera, float in_near_clip)
-{
-    camera->near_clip = in_near_clip;
-}
+// void    set_near_clip(t_camera *camera, float in_near_clip)
+// {
+//     camera->near_clip = in_near_clip;
+// }
 
-void    set_far_clip(t_camera *camera, float in_far_clip)
-{
-    camera->far_clip = in_far_clip;
-}
+// void    set_far_clip(t_camera *camera, float in_far_clip)
+// {
+//     camera->far_clip = in_far_clip;
+// }
 
 /*
     change modeling matrix to view matrix

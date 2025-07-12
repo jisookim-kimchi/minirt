@@ -4,6 +4,7 @@
 		"struct.h": "c",
 		"vector_struct.h": "c",
 		"cmath": "cpp",
-		"optional": "c"
+		"optional": "c",
+		"complex": "c"
 	}
 }

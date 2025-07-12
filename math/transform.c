@@ -1,5 +1,4 @@
 #include "mathheader.h"
-#include "../vector_struct.h"
 
 t_transform make_transform_pos(const t_vec3* position)
 {
