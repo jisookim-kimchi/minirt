@@ -51,7 +51,10 @@ typedef struct s_camera
     // float               near_clip;
     t_vec3              horizontal;
     t_vec3              vertical;
+    t_vec3              delta_horizontal;
+    t_vec3              delta_vertical;
     t_vec3              left_bottom;
+    t_vec3              pixel00loc;
 } t_camera;
 
 //it must have transform_component;
