@@ -63,3 +63,32 @@ t_vec3      vec3_divide(t_vec3 vec, double t);
 double		vec3_dot(t_vec3 vec1, t_vec3 vec2);
 t_vec3		vec3_cross(t_vec3 vec1, t_vec3 vec2);
 t_vec3		vec3_normalized(t_vec3 vec3);
+
+
+//vector4.c
+
+t_vec4 vec4(float x, float y, float z, float w);
+t_vec4 vec4_from_vec3(t_vec3 v3, int is_point);
+t_vec4 vec4_from_vec2(t_vec2 v2, int is_point);
+
+t_vec2 vec4_to_vec2(t_vec4 v4);
+t_vec3 vec4_to_vec3(t_vec4 v4);
+
+t_vec4	vec4_add(t_vec4 a, t_vec4 b);
+t_vec4	vec4_sub(t_vec4 a, t_vec4 b);
+t_vec4	vec4_mul(t_vec4 a, float scale);
+t_vec4	vec4_div(t_vec4 a, float scale);
+float	vec4_dot(t_vec4 a, t_vec4 b);
+float	vec4_size(t_vec4 v);
+float	vec4_size_squared(t_vec4 v);
+t_vec4	vec4_negate(t_vec4 v);
+t_vec4	vec4_normalize(t_vec4 v);
+int		vec4_equals_tol(t_vec4 a, t_vec4 b, float tolerance);
+float	vec4_max_component(t_vec4 v);
+
+extern const t_vec4 VEC4_ZERO;
+extern const t_vec4 VEC4_ONE;
+extern const t_vec4 VEC4_UNIT_X;
+extern const t_vec4 VEC4_UNIT_Y;
+extern const t_vec4 VEC4_UNIT_Z;
+extern const t_vec4 VEC4_UNIT_W;

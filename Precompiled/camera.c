@@ -19,8 +19,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
     camera.vertical = vec3(0, camera.viewportsize.y, 0);
 
-    camera.left_bottom 
-    //fov to change
+    camera.left_bottom = 
 
     return (camera);
 }
