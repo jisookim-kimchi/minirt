@@ -1,5 +1,18 @@
 #include "loadresource.h"
+#include "../mlx_tools.h"
 
+static void calculate_pixel00loc(t_camera *camera)
+{
+    t_vec3 
+    
+    camera->pixel00loc = 
+}
+
+/*
+    We need to consider how we want to pass the information 
+    about mlx image_width and image_height size. Currently 
+    it use the mlx_tools.h IMAGE_WIDTH and IMAGE_RATIO values
+*/
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
@@ -14,10 +27,13 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     float focal_length = 1 / tanf(half_of_fov);
 
     camera.viewportsize.y = 2.f * tanf(half_of_fov);
-    camera.viewportsize.x = camera.viewportsize.y * camera.viewportsize.aspect_ratio;
+    camera.viewportsize.x = camera.viewportsize.y
+                            * camera.viewportsize.aspect_ratio;
     
     camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
     camera.vertical = vec3(0, camera.viewportsize.y, 0);
+    camera.delta_horizontal = vec3_divide(camera.horizontal, (double)IMAGE_WIDTH);
+    camera.delta_vertical = vec3_divide(camera.vertical, (double)(IMAGE_WIDTH / IMAGE_RATIO);
 
 	//camera pos
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
@@ -29,6 +45,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 	t_vec3 half_vertical = vec3_multiply(camera.vertical, 0.5);
 	camera.left_bottom = vec3_sub_vec3(center, half_horizontal);
 	camera.left_bottom = vec3_sub_vec3(camera.left_bottom, half_vertical);
+    camera.pixel00loc = vec3_plus_vec3()
     return (camera);
 }
 
