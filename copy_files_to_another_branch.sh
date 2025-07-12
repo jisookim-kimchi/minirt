@@ -8,6 +8,8 @@ DESTINATION_PLACE_2="object"
 COPIED_FILES=()
 
 # List of files what you want to copy from the source branch
+# Write the full path. If the source file in the math folder
+# You need to write math/source.c
 FILES_1=(
 	"trace.c"
 	"vector2.c"
