@@ -79,7 +79,6 @@ typedef struct s_engine
 }   t_engine;
 
 
-
-
 //transform_comp.c
 t_vec3  get_world_position(t_transform_comp *transform_comp);
+t_vec3 get_forward_vector(t_transform_comp transform_comp);

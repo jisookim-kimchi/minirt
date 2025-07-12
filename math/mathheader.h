@@ -1,6 +1,10 @@
 #include "vector_struct.h"
 #include <math.h>
 
+typedef struct s_vec3 t_vec3;
+typedef struct s_vec3 t_point3;
+typedef struct s_vec3 t_color3;
+
 typedef struct s_transform
 {
     t_vec3          position;

@@ -5,6 +5,7 @@
 		"vector_struct.h": "c",
 		"cmath": "cpp",
 		"optional": "c",
-		"complex": "c"
+		"complex": "c",
+		"__locale": "c"
 	}
 }

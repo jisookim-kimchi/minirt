@@ -1,6 +1,5 @@
 #include "loadresource.h"
 
-
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
@@ -33,13 +32,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     return (camera);
 }
 
-t_vec3 get_forward_vector(t_transform_comp t)
-{
-    return t.forward;
-}
-
-
-struct s_transform_comp get_transform(t_camera *camera)
+struct s_transform_comp get_transform_comp(t_camera *camera)
 {
     return (camera->transform_comp);
 }
@@ -50,15 +43,7 @@ float   get_fov (const t_camera *camera)
     return camera->fov;
 }
 
-// float   get_far_clip(const t_camera *camera)
-// {
-//     return camera->far_clip;
-// }
 
-// float   get_near_clip(const t_camera *camera)
-// {
-//     return camera->near_clip;
-// }
 
 struct s_screenpoint *get_viewport_size(const t_camera *camera)
 {
@@ -69,16 +54,6 @@ void    setfov(float infov, t_camera *camera)
 {
     camera->fov = infov;
 }
-
-// void    set_near_clip(t_camera *camera, float in_near_clip)
-// {
-//     camera->near_clip = in_near_clip;
-// }
-
-// void    set_far_clip(t_camera *camera, float in_far_clip)
-// {
-//     camera->far_clip = in_far_clip;
-// }
 
 /*
     change modeling matrix to view matrix
@@ -154,3 +129,24 @@ void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_posit
 //     camera->transform_comp.forward = local_z;
 // }
 
+
+
+// float   get_far_clip(const t_camera *camera)
+// {
+//     return camera->far_clip;
+// }
+
+// float   get_near_clip(const t_camera *camera)
+// {
+//     return camera->near_clip;
+// }
+
+// void    set_near_clip(t_camera *camera, float in_near_clip)
+// {
+//     camera->near_clip = in_near_clip;
+// }
+
+// void    set_far_clip(t_camera *camera, float in_far_clip)
+// {
+//     camera->far_clip = in_far_clip;
+// }

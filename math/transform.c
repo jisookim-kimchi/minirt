@@ -51,7 +51,6 @@ t_vec3  get_position(t_transform *transform)
 }
 
 
-
 //transformation in 3d world
 // t_transform transform(const Matrix4x4& InMatrix)
 // {
