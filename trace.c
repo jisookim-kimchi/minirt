@@ -24,6 +24,7 @@ t_point3    ray_at(t_ray *ray, double t)
     We want to get the direction from the camera to a point on the viewport.
     That point is calculated by:
         left_bottom_corner + u * horizontal + v * vertical.
+    When we draw something on it, we gonna do mapping 0~1, this is UV
 */
 t_ray   from_camera_ray(t_camera *camera, double u, double v)
 {
