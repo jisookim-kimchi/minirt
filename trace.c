@@ -20,10 +20,16 @@ t_point3    ray_at(t_ray *ray, double t)
     return (at);
 }
 
+/*
+    we want to just direction where we shoot a ray, so we get a unit vector
+    left_bottom + u * horizontal + v * vertical - origin
+*/
 t_ray   from_camera_ray(t_camera *camera, double u, double v)
 {
     t_ray   ray;
 
     ray.orign = camera->transform_comp.pos;
-    
+
+    ray.dir = vec3_normalized(vec3_sub_vec3(vec3_plus_vec3(vec3_plus_vec3(camera->left_bottom, vec3_multiply(camera->horizontal, u)), vec3_multiply(camera->vertical, v)), camera->transform_comp.pos));
+    return (ray);
 }
