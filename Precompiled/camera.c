@@ -1,11 +1,22 @@
 #include "loadresource.h"
 #include "../mlx_tools.h"
 
+/*
+    The calculate_pixel00loc is a helper function to execute 
+    the pixel00loc value. This does the following steps:
+    sum_delta_hv = add delta_horizontal vector to the delta_vertical vector
+    half_sum_delta_hv = sum_delta_hv divided by 2
+    camera->pixel00loc = add camera->left_bottom vector to 
+                        half_sum_delta_hv vector
+*/
 static void calculate_pixel00loc(t_camera *camera)
 {
-    t_vec3 
+    t_vec3  sum_delta_hv;
+    t_vec3  half_sum_delta_hv;
     
-    camera->pixel00loc = 
+    sum_delta_hv = vec3_plus_vec3(camera->delta_horizontal, camera->delta_vertical);
+    half_sum_delta_hv = vec3_divide(sum_delta_hv, 2.0);
+    camera->pixel00loc = vec3_plus_vec3(camera->left_bottom, half_sum_delta_hv);
 }
 
 /*
@@ -45,7 +56,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 	t_vec3 half_vertical = vec3_multiply(camera.vertical, 0.5);
 	camera.left_bottom = vec3_sub_vec3(center, half_horizontal);
 	camera.left_bottom = vec3_sub_vec3(camera.left_bottom, half_vertical);
-    camera.pixel00loc = vec3_plus_vec3()
+    calculate_pixel00loc(&camera);
     return (camera);
 }
 
