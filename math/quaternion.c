@@ -21,6 +21,15 @@ t_quaternion quaternion_constructor(float inx, float iny, float inz, float inw)
     return quaternion;
 }
 
+t_quaternion quat_from_axis_angle(t_vec3 axis, float degree)
+{
+    float angle_rad = deg2rad(degree) * 0.5f;
+    float s = sinf(angle_rad);
 
-
-
+    t_quaternion q;
+    q.w = cosf(angle_rad);
+    q.x = axis.x * s;
+    q.y = axis.y * s;
+    q.z = axis.z * s;
+    return q;
+}
