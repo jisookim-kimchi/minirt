@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/10 20:40:22 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/13 18:24:00 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "../math/mathheader.h"
 # include "../math/vector_struct.h"
 # include "../mlx_tools.h"
+
+typedef struct s_objs_list	t_objs_list;
+typedef struct s_objs_list	t_hittable_objs;
 
 typedef enum e_obj_type
 {
