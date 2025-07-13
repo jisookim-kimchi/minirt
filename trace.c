@@ -21,8 +21,9 @@ t_point3    ray_at(t_ray *ray, double t)
 }
 
 /*
-    we want to just direction where we shoot a ray, so we get a unit vector
-    left_bottom + u * horizontal + v * vertical - origin
+    We want to get the direction from the camera to a point on the viewport.
+    That point is calculated by:
+        left_bottom_corner + u * horizontal + v * vertical.
 */
 t_ray   from_camera_ray(t_camera *camera, double u, double v)
 {
