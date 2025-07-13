@@ -82,3 +82,8 @@ typedef struct s_engine
 //transform_comp.c
 t_vec3  get_world_position(t_transform_comp *transform_comp);
 t_vec3 get_forward_vector(t_transform_comp transform_comp);
+
+
+//trace.c
+t_ray		ray(t_point3 orign, t_vec3 dir);
+t_point3    ray_at(t_ray *ray, double t);
