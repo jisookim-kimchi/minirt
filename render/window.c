@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 17:34:41 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 20:05:47 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,6 @@ float	clamp_calculation(float input_value, float min, float max)
 	return (input_value);
 }
 
-/*
-	The color_transform_to_int funtion change the color 
-	float value  (which should be in the range 0.0 and 1.0)
-	into uint_32 format which the renderer can use
-*/
-t_color_32	color_transform_to_int(t_color_float *col_float)
-{
-	t_color_32	col_32;
-
-	col_32.red = (uint32_t)(255.999
-			* clamp_calculation(col_float->red, 0.0f, 1.0f));
-	col_32.green = (uint32_t)(255.999
-			* clamp_calculation(col_float->green, 0.0f, 1.0f));
-	col_32.blue = (uint32_t)(255.999
-			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
-	col_32.alpha = 255;
-	col_32.result_color = (col_32.red << 24) | (col_32.green << 16)
-		| (col_32.blue << 8) | (col_32.alpha);
-	return (col_32);
-}
-
 void	error_window(t_window *win)
 {
 	ft_putendl_fd((char *)mlx_strerror(mlx_errno), 2);
@@ -89,9 +68,9 @@ void	image_hook(void *param)
 	t_window	*win;
 	uint32_t	x;
 	uint32_t	y;
-	uint32_t	blue;
+	uint32_t	pixel_center_col;
+	t_ray		ray_pixel_center;
 
-	blue = 0x0000FFFF;
 	win = (t_window *)param;
 	y = 0;
 	while (y < win->image->height)
@@ -99,12 +78,14 @@ void	image_hook(void *param)
 		x = 0;
 		while (x < win->image->width)
 		{
-			mlx_put_pixel(win->image, x, y, blue);
+			ray_pixel_center = get_ray_from_camera(win->camera,
+					&ray_pixel_center, x, y);
+			pixel_center_col = pixel_center_color(&ray_pixel_center);
+			mlx_put_pixel(win->image, x, y, pixel_center_col);
 			x++;
 		}
 		y++;
 	}
-	
 }
 
 int main(void)
