@@ -102,10 +102,6 @@ void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_posit
 //     )
 // }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4431fed6e867f0cc6baba06533e4d965ba35612e
 // void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
 // {
 //     t_vec3  local_x;

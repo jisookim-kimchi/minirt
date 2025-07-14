@@ -24,7 +24,7 @@ t_point3    ray_at(t_ray *ray, double t)
     We want to get the direction from the camera to a point on the viewport.
     That point is calculated by:
         left_bottom_corner + u * horizontal + v * vertical.
-    When we draw something on it, we gonna do mapping 0~1, this is UV
+    When we draw something on it, we gonna do mapping 10~, this is UV
 */
 t_ray   from_camera_ray(t_camera *camera, double u, double v)
 {
@@ -35,3 +35,5 @@ t_ray   from_camera_ray(t_camera *camera, double u, double v)
     ray.dir = vec3_normalized(vec3_sub_vec3(vec3_plus_vec3(vec3_plus_vec3(camera->left_bottom, vec3_multiply(camera->horizontal, u)), vec3_multiply(camera->vertical, v)), camera->transform_comp.pos));
     return (ray);
 }
+
+while()
