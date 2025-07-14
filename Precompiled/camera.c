@@ -21,8 +21,8 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 
 	//camera pos
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
+	
 	t_vec3 forward = get_forward_vector(transform_comp);
-
 	t_vec3 center = vec3_plus_vec3(camera_position, vec3_multiply(forward, focal_length));
 	
 	t_vec3 half_horizontal = vec3_multiply(camera.horizontal, 0.5);

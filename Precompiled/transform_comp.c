@@ -5,6 +5,7 @@ t_transform_comp init_transform_comp()
 {
 	t_transform_comp transform_comp;
     transform_comp.transform = malloc(sizeof(t_transform));
+	
 	//todo we should have value for position form parameters
     transform_comp.transform->position = vec3(0, 0, 0);
 
