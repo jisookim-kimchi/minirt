@@ -43,8 +43,6 @@ float   get_fov (const t_camera *camera)
     return camera->fov;
 }
 
-
-
 struct s_screenpoint *get_viewport_size(const t_camera *camera)
 {
     return &(camera->viewportsize);
@@ -53,6 +51,22 @@ struct s_screenpoint *get_viewport_size(const t_camera *camera)
 void    setfov(float infov, t_camera *camera)
 {
     camera->fov = infov;
+}
+
+//rotate to game_obj.
+void    set_look_at_rotation_obj(t_camera *camera, const t_game_object *in_game_obj, const t_vec3 *in_up)
+{
+   
+}
+
+//rotate to target.
+/*
+
+*/
+void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
+{
+
+
 }
 
 /*
@@ -87,22 +101,6 @@ void    setfov(float infov, t_camera *camera)
 //         t_vec4(view_x)
 //     )
 // }
-
-//rotate to game_obj.
-void    set_look_at_rotation_obj(t_camera *camera, const t_game_object *in_game_obj, const t_vec3 *in_up)
-{
-   
-}
-
-//rotate to target.
-/*
-
-*/
-void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
-{
-
-
-}
 
 // void    set_look_at_rotation_vec3(t_camera *camera, const t_vec3 in_target_position, const t_vec3 in_up)
 // {
