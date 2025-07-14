@@ -44,7 +44,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
     camera.vertical = vec3(0, camera.viewportsize.y, 0);
     camera.delta_horizontal = vec3_divide(camera.horizontal, (double)IMAGE_WIDTH);
-    camera.delta_vertical = vec3_divide(camera.vertical, (double)(IMAGE_WIDTH / IMAGE_RATIO);
+    camera.delta_vertical = vec3_divide(camera.vertical, (double)(IMAGE_WIDTH / IMAGE_RATIO));
 
 	//camera pos
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
