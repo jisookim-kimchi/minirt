@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/13 18:24:00 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 17:29:31 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_cylinder
 typedef struct s_hit
 {
 	float	t;
+	float	t_min;
+	float	t_max;
 	t_vec3	hit_point;
 	t_vec3	normal;
 }	t_hit;
@@ -101,5 +103,7 @@ t_objs_list	*create_cylinder(t_vec3 in_axis,
 void		add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member);
 void		free_objs_list(t_objs_list **list);
 bool		ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit);
+void		set_ray_interval(t_hit *hit, float set_t_min, float set_t_max);
+void		print_objs(t_objs_list *obj);
 
 #endif
