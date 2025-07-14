@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/13 19:11:32 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 13:51:09 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	change_member_in_list(t_objs_list **list, t_objs_list *old_member, t_objs_l
 	
 }
 
+// add a node at tail.
 void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 {
 	t_objs_list	*current;
@@ -34,6 +35,21 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 		current->next = new_member;
 	}
 }
+//jisoo's suggestion
+// void	free_objs_list(t_objs_list **list)
+// {
+// 	t_objs_list	*current;
+
+// 	if (!list || !*list)
+// 		return ;
+// 	while ((*list))
+// 	{
+// 		current = (*list)->next;
+// 		free(*list);
+// 		*list = current;
+// 	}
+// 	*list = NULL;
+// }
 
 void	free_objs_list(t_objs_list **list)
 {
@@ -82,4 +98,21 @@ t_hittable_objs	get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		obj = obj->next;
 	}
 	return (hittable_list);
+}
+
+void	print_objs(t_objs_list *obj)
+{
+	t_objs_list *cur;
+
+	cur = obj;
+	while (cur)
+	{
+		if (cur->obj_type == PLANE)
+			printf("current object is PLANE\n");
+		else if (cur->obj_type == CYLINDER)
+			printf("current object is CYLINDER\n");
+		else if (cur->obj_type == SPHERE)
+			("current object is SPHERE\n");
+		cur = cur->next;
+	}
 }
