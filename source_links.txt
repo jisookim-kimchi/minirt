@@ -5,7 +5,10 @@ Short description: This website introduce in the Ray Traycing concept. The examp
 Link: https://raytracing.github.io/books/RayTracingInOneWeekend.html
 
 Ray tracing in One Weekend but in minibx version
-Linkhttps://github.com/cos18/ray-tracing-in-one-weekend-mlx
+Link : https://github.com/cos18/ray-tracing-in-one-weekend-mlx
+
+Ray tracing in C
+Link : https://github.com/GaepoMorningEagles/mini_raytracing_in_c/blob/main/06.hit_record.md
 
 Ray Traycing Wikipedia
 Short description: This give a general information about the graphical solution methodes:
