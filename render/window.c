@@ -6,11 +6,12 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/11 16:37:17 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 17:34:41 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_tools.h"
+#include "precompiled/loadresource.h"
 
 /*
 	The check_value_in_range check if the float input value is 

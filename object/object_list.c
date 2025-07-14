@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 15:00:33 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 17:29:03 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,13 @@ t_hittable_objs	get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 	return (hittable_list);
 }
 
+/*
+	The print_objs function created to check the object list object types.
+	Print out the terminal the object type name.
+*/
 void	print_objs(t_objs_list *obj)
 {
-	t_objs_list *cur;
+	t_objs_list	*cur;
 
 	cur = obj;
 	while (cur)
@@ -113,7 +117,13 @@ void	print_objs(t_objs_list *obj)
 		else if (cur->obj_type == CYLINDER)
 			printf("current object is CYLINDER\n");
 		else if (cur->obj_type == SPHERE)
-			("current object is SPHERE\n");
+			printf("current object is SPHERE\n");
 		cur = cur->next;
 	}
+}
+
+void	set_ray_interval(t_hit *hit, float set_t_min, float set_t_max)
+{
+	hit->t_min = set_t_min;
+	hit->t_max = set_t_max;
 }

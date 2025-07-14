@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/10 19:15:43 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 17:09:14 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_objs_list	*create_cylinder(t_vec3 in_axis,
 	float in_diameter, float in_height, t_color_float in_cylinder_color)
 {
 	t_cylinder		*new_cylinder;
-	t_objs_list	*new_list_member;
+	t_objs_list		*new_list_member;
 
 	new_cylinder = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (!new_cylinder)
