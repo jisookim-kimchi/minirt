@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 13:51:09 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/14 15:00:33 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,35 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 	}
 }
 //jisoo's suggestion
+void	free_objs_list(t_objs_list **list)
+{
+	t_objs_list	*current;
+
+	if (!list || !*list)
+		return ;
+	while ((*list))
+	{
+		current = (*list)->next;
+		free(*list);
+		*list = current;
+	}
+	*list = NULL;
+}
+
+
 // void	free_objs_list(t_objs_list **list)
 // {
 // 	t_objs_list	*current;
 
-// 	if (!list || !*list)
-// 		return ;
-// 	while ((*list))
+// 	while ((*list)->next)
 // 	{
 // 		current = (*list)->next;
 // 		free(*list);
 // 		*list = current;
 // 	}
-// 	*list = NULL;
+// 	free(list);
+// 	list = NULL;
 // }
-
-void	free_objs_list(t_objs_list **list)
-{
-	t_objs_list	*current;
-
-	while ((*list)->next)
-	{
-		current = (*list)->next;
-		free(*list);
-		list = current;
-	}
-	free(list);
-	list = NULL;
-}
 
 bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {
