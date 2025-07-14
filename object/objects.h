@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 17:29:31 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/14 19:47:32 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,17 @@ typedef struct s_cylinder
 
 /*
 	Maybe it is good to store the color, front face, and the object
-	t_color_float	hit_color;
 	bool			front_face;
 	t_objs_list		object;
 */
 typedef struct s_hit
 {
-	float	t;
-	float	t_min;
-	float	t_max;
-	t_vec3	hit_point;
-	t_vec3	normal;
+	float			t;
+	float			t_min;
+	float			t_max;
+	t_vec3			hit_point;
+	t_vec3			normal;
+	t_color_float	hit_color;
 }	t_hit;
 
 //2d_objects.c
@@ -105,5 +105,8 @@ void		free_objs_list(t_objs_list **list);
 bool		ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit);
 void		set_ray_interval(t_hit *hit, float set_t_min, float set_t_max);
 void		print_objs(t_objs_list *obj);
+
+//object_intersect.c
+bool		hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit);
 
 #endif
