@@ -16,11 +16,10 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     camera.viewportsize.y = 2.f * tanf(half_of_fov);
     camera.viewportsize.x = camera.viewportsize.y * camera.viewportsize.aspect_ratio;
     
-    camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
-    camera.vertical = vec3(0, camera.viewportsize.y, 0);
-
 	//camera pos
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
+    camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
+    camera.vertical = vec3(0, camera.viewportsize.y, 0);
 	
 	t_vec3 forward = get_forward_vector(transform_comp);
 	t_vec3 center = vec3_plus_vec3(camera_position, vec3_multiply(forward, focal_length));

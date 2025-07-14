@@ -1,6 +1,9 @@
 #include "loadresource.h"
 
 //need to make init transform_comp.c
+/*
+	at scene passer we need to set appropriated rocation of objects 
+*/
 t_transform_comp init_transform_comp()
 {
 	t_transform_comp transform_comp;
