@@ -71,8 +71,6 @@ float   get_fov (const t_camera *camera)
     return camera->fov;
 }
 
-
-
 struct s_screenpoint *get_viewport_size(const t_camera *camera)
 {
     return &(camera->viewportsize);
