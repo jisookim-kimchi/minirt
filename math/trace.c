@@ -1,10 +1,10 @@
-#include "vector_struct.h"
+#include "mathheader.h"
 
 t_ray       ray(t_point3 orig, t_vec3 dir)
 {
     t_ray ray;
 
-    ray.orig = orig;
+    ray.orign = orig;
     ray.dir = vec3_normalized(dir);
     return (ray);
 }
@@ -17,6 +17,6 @@ t_point3    ray_at(t_ray *ray, double t)
 {
     t_point3 at;
 
-    at = vec3_plus_vec3(ray->orig, vec3_multiply(ray->dir, t));
+    at = vec3_plus_vec3(ray->orign, vec3_multiply(ray->dir, t));
     return (at);
 }
