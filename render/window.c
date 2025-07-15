@@ -3,42 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 13:59:07 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 18:02:32 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_tools.h"
-#include "precompiled/loadresource.h"
-
-/*
-	The check_value_in_range check if the float input value is 
-	in the given intervallum. If the input value smaller, or bigger 
-	than the given minimum and maximum value it return false, 
-	otherwise it return true.
-*/
-bool	check_value_in_range(float input_value, float min, float max)
-{
-	if (input_value < min || input_value > max)
-		return (false);
-	return (true);
-}
-
-/*
-	The clamp_calculation function not allow the input value will 
-	be bigger or smaller than the given intervallum. If the input value smaller, 
-	it returns the min value, if bigger, return the max value.
-*/
-float	clamp_calculation(float input_value, float min, float max)
-{
-	if (input_value <= min)
-		return (min);
-	if (input_value >= max)
-		return (max);
-	return (input_value);
-}
+#include "../Precompiled/loadresource.h"
 
 void	error_window(t_window *win)
 {
@@ -68,7 +41,7 @@ void	image_hook(void *param)
 	t_window	*win;
 	uint32_t	x;
 	uint32_t	y;
-	uint32_t	pixel_center_col;
+	t_color_32	pixel_center_col;
 	t_ray		ray_pixel_center;
 
 	win = (t_window *)param;
@@ -78,10 +51,9 @@ void	image_hook(void *param)
 		x = 0;
 		while (x < win->image->width)
 		{
-			ray_pixel_center = get_ray_from_camera(win->camera,
-					&ray_pixel_center, x, y);
-			pixel_center_col = pixel_center_color(&ray_pixel_center);
-			mlx_put_pixel(win->image, x, y, pixel_center_col);
+			get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
+			pixel_center_col = pixel_center_color(&ray_pixel_center, win);
+			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
 			x++;
 		}
 		y++;
@@ -91,7 +63,12 @@ void	image_hook(void *param)
 int main(void)
 {
 	t_window	win;
+	t_screenpoint screen;
+	t_transform_comp transform_comp;
 
+	transform_comp = init_transform_comp();
+	screen = make_screen(400, 300);
+	win.camera = init_camera(screen, transform_comp);
 	win.objs = init_objs_list();
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 15:14:22 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 17:49:28 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../precompiled/loadresource.h"
-#include "../math/vector_struct.h"
-#include "../object/objects.h"
-
+//#include "../Precompiled/loadresource.h"
+//#include "../object/objects.h"
+#include "../mlx_tools.h"
 /*
 	The get_ray_from_camera function calculate the ray direction for the viewport
 	pixel center.
@@ -36,12 +35,12 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	t_vec3	v_vertical;
 	t_vec3	uv;
 
-	ray->orig = camera->transform_comp.pos;
+	ray->orign = camera->transform_comp.pos;
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orig));
+	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
 }
 
 /*
@@ -77,13 +76,13 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	t_hit		record;
 
 	set_ray_interval(&record, 0.001f, INFINITY);
-	if (hit_world(ray, record, win->objs))
+	if (hit_world(ray, &record, win->objs))
 	{
-		result_color = color_transform_to_int(record.hit_color);
+		result_color = color_transform_to_int(&record.hit_color);
 	}
 	else
 	{
-		result_color = color_transform_to_int(win->ambient);
+		result_color = color_transform_to_int(&win->ambient);
 	}
 	return (result_color);
 }

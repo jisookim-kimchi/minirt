@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 13:07:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 17:44:06 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
 
-void	change_member_in_list(t_objs_list **list, t_objs_list *old_member, t_objs_list *new_member)
-{
-	t_objs_list	*temp;
+// void	change_member_in_list(t_objs_list **list, t_objs_list *old_member, t_objs_list *new_member)
+// {
+// 	t_objs_list	*temp;
 
-	temp = *list;
+// 	temp = *list;
 	
-}
+// }
 
 // add a node at tail.
 void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
@@ -68,12 +68,12 @@ void	free_objs_list(t_objs_list **list)
 
 bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {
-	if (obj->obj_type == PLANE)
-		return (hit_plane((t_plane *)obj->data, ray, hit));
+	// if (obj->obj_type == PLANE)
+	// 	return (hit_plane((t_plane *)obj->data, ray, hit));
 	if (obj->obj_type == SPHERE)
 		return (hit_sphere((t_sphere *)obj->data, ray, hit));
-	if (obj->obj_type == CYLINDER)
-		return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
+	// if (obj->obj_type == CYLINDER)
+	// 	return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
 	return (false);
 }
 
@@ -111,9 +111,9 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	It will give the hittable_list, if in the hittable_list already doesn't 
 	exist an object which is hited by the ray and it is closer to the ray origin
 */
-t_hittable_objs	get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
+t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {
-	t_hittable_objs	hittable_list;
+	t_hittable_objs	*hittable_list;
 
 	hittable_list = NULL;
 	while (obj->next)
@@ -122,7 +122,7 @@ t_hittable_objs	get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		{
 			if (hit)
 			{
-				add_member_to_obj_list(hittable_list, obj);
+				add_member_to_obj_list(&hittable_list, obj);
 			}
 		}
 		obj = obj->next;

@@ -4,14 +4,13 @@
 /*
 	at scene passer we need to set appropriated rocation of objects 
 */
-t_transform_comp init_transform_comp()
+t_transform_comp init_transform_comp(void)
 {
 	t_transform_comp transform_comp;
     transform_comp.transform = malloc(sizeof(t_transform));
-	
-	//todo we should have value for position form parameters
-    transform_comp.transform->position = vec3(0, 0, 0);
 
+	// //todo we should have value for position form parameters
+    transform_comp.transform->position = vec3(0, 0, 0);
     transform_comp.transform->rotation = init_quaternion();
     transform_comp.transform->scale = vec3(1, 1, 1);
 	transform_comp.forward = vec3(0, 0, 1);

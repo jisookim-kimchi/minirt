@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_objects.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 17:09:14 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 17:26:35 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_objs_list	*create_cylinder(t_vec3 in_axis,
 		return (free(new_cylinder), NULL);
 	}
 	new_cylinder->axis = in_axis;
-	new_cylinder->diameter = in_diameter;
+	new_cylinder->diamater = in_diameter;
 	new_cylinder->height = in_height;
 	new_cylinder->cylinder_color = in_cylinder_color;
 	new_cylinder->obj_fill = SOLID;

@@ -6,16 +6,15 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 14:04:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:42:40 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-# include "../math/mathheader.h"
-# include "../math/vector_struct.h"
-# include "../mlx_tools.h"
+# include "../Precompiled/loadresource.h"
+//# include "../mlx_tools.h"
 
 typedef struct s_objs_list	t_objs_list;
 typedef struct s_objs_list	t_hittable_objs;
@@ -41,9 +40,9 @@ typedef enum e_obj_fill
 
 typedef struct s_objs_list
 {
-	t_obj_type	obj_type;
-	void		*data;
-	s_objs_list	*next;
+	t_obj_type			obj_type;
+	void				*data;
+	struct s_objs_list	*next;
 }	t_objs_list;
 
 /*
@@ -100,14 +99,18 @@ t_objs_list	*create_cylinder(t_vec3 in_axis,
 				t_color_float in_cylinder_color);
 
 //object_list.c
-void		add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member);
-void		free_objs_list(t_objs_list **list);
-bool		ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit);
-bool		hit_world(t_ray *ray, t_hit *record, t_objs_list *objects);
-void		set_ray_interval(t_hit *hit, float set_t_min, float set_t_max);
-void		print_objs(t_objs_list *obj);
+void			add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member);
+void			free_objs_list(t_objs_list **list);
+bool			ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit);
+bool			hit_world(t_ray *ray, t_hit *record, t_objs_list *objects);
+void			set_ray_interval(t_hit *hit, float set_t_min, float set_t_max);
+void			print_objs(t_objs_list *obj);
+t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit);
 
 //object_intersect.c
 bool		hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit);
 
+//check_interval.c
+float		clamp_calculation(float input_value, float min, float max);
+bool		check_value_in_range(float input_value, float min, float max);
 #endif
