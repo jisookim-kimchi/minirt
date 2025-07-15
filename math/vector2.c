@@ -1,4 +1,4 @@
-#include "vector_struct.h"
+#include "../include/mathheader.h"
 
 t_vec2 vec2(double x, double y)
 {
