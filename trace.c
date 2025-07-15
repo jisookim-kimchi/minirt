@@ -30,9 +30,9 @@ t_ray   from_camera_ray(t_camera *camera, double u, double v)
 {
     t_ray   ray;
 
-    ray.orign = camera->transform_comp.pos;
+    ray.orign = camera->transform_comp.transform->position;
 
-    ray.dir = vec3_normalized(vec3_sub_vec3(vec3_plus_vec3(vec3_plus_vec3(camera->left_bottom, vec3_multiply(camera->horizontal, u)), vec3_multiply(camera->vertical, v)), camera->transform_comp.pos));
+    ray.dir = vec3_normalized(vec3_sub_vec3(vec3_plus_vec3(vec3_plus_vec3(camera->left_bottom, vec3_multiply(camera->horizontal, u)), vec3_multiply(camera->vertical, v)), camera->transform_comp.transform->position));
     return (ray);
 }
 
