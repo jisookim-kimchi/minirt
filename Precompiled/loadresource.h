@@ -33,7 +33,7 @@ typedef struct s_transform_comp
     t_vec3 up;
     t_vec3 forward;
     //t_transform *local_transform;
-	t_vec3 pos;
+	//t_vec3 pos;
     t_transform *transform;
 }   t_transform_comp;
 
