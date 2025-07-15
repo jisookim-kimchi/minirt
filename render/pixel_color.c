@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 13:14:31 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 14:39:31 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 	Check if camera->transform_comp.pos is ok. Maybe it need to change
 	camera->transform_comp->pos. It is depend on the structure scope
 */
+
+ray.dir = vec3_normalized(vec3_sub_vec3(vec3_plus_vec3(vec3_plus_vec3(camera->left_bottom, vec3_multiply(camera->horizontal, u)), 
+			vec3_multiply(camera->vertical, v)), camera->transform_comp.transform->position));
+
 void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	uint32_t x, uint32_t y)
 {
@@ -40,7 +44,7 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	ray->dir = vec3_sub_vec3(pixel_center, ray->orig);
+	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orig));
 }
 
 /*
