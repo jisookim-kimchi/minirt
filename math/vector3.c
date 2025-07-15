@@ -1,4 +1,4 @@
-#include "vector_struct.h"
+#include "../include/mathheader.h"
 
 t_vec3  vec3_one()
 {

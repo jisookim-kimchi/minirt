@@ -2,11 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "vector_struct.h"
-#include "../math/mathheader.h"
-
-//#include <vector2.h>
-//#include <vector3.h>
+#include "../include/mathheader.h"
 
 #define MAX_MESHES 100
 #define MAX_TEXTURES 100
