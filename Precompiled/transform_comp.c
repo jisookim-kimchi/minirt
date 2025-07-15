@@ -1,13 +1,24 @@
 #include "loadresource.h"
 
 //need to make init transform_comp.c
+/*
+	at scene passer we need to set appropriated rocation of objects 
+*/
 t_transform_comp init_transform_comp()
 {
 	t_transform_comp transform_comp;
     transform_comp.transform = malloc(sizeof(t_transform));
+	
+	//todo we should have value for position form parameters
     transform_comp.transform->position = vec3(0, 0, 0);
-    transform_comp.transform->rotation = init_quaternion(); // 또는 회전 초기값
+
+    transform_comp.transform->rotation = init_quaternion();
     transform_comp.transform->scale = vec3(1, 1, 1);
+	transform_comp.forward = vec3(0, 0, 1);
+	transform_comp.up = vec3(0, 1, 0);
+	transform_comp.right = vec3(1, 0, 0);
+
+	// transform_comp.pos = transform_comp.transform->position;
 	return (transform_comp);
 }
 

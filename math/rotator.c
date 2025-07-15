@@ -1,4 +1,4 @@
-#include "../include/mathheader.h"
+#include "mathheader.h"
 
 /*
     pitch = x.

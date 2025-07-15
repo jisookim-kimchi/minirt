@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/mathheader.h"
+#include "../math/mathheader.h"
 
 #define MAX_MESHES 100
 #define MAX_TEXTURES 100
