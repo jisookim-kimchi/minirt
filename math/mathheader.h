@@ -46,11 +46,8 @@ float clamp_axis(float angle);
 void clamp(t_rotator *rotator);
 void get_local_axes(const t_rotator* rot, t_vec3* outRight, t_vec3* outUp, t_vec3* outForward);
 
-
 //mathutils.c
 float deg2rad(float indegree);
-
-
 
 //vector_struct.h
 typedef struct s_vec4
@@ -87,8 +84,6 @@ typedef struct s_vec3
 	double z;
 }	t_vec3;
 
-
-
 t_vec3		vec3(double x, double y, double z);
 t_vec3		vec3_one();
 t_point3	point3(double x, double y, double z);
@@ -109,12 +104,9 @@ double		vec3_dot(t_vec3 vec1, t_vec3 vec2);
 t_vec3		vec3_cross(t_vec3 vec1, t_vec3 vec2);
 t_vec3		vec3_normalized(t_vec3 vec3);
 
-
 //vector4.c
-
 t_vec4 vec4(float x, float y, float z, float w);
 t_vec4 vec4_from_vec3(t_vec3 v3, int is_point);
-
 
 //t_vec4 vec4_from_vec2(t_vec2 v2, int is_point);
 //t_vec2 vec4_to_vec2(t_vec4 v4);
@@ -122,7 +114,6 @@ t_vec3 vec4_to_vec3(t_vec4 v4);
 float	vec4_size(t_vec4 v);
 float	vec4_size_squared(t_vec4 v);
 float	vec4_dot(t_vec4 a, t_vec4 b);
-
 
 t_vec4	vec4_add(t_vec4 a, t_vec4 b);
 t_vec4	vec4_sub(t_vec4 a, t_vec4 b);
