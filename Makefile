@@ -24,6 +24,7 @@ SRCS :=	render/window.c \
 		object/object_intersect.c \
 		object/object_list.c \
 		object/check_interval.c\
+		math/mathutils.c \
 		math/quaternion.c \
 		math/rotator.c \
 		math/screenpoint.c \
@@ -31,7 +32,9 @@ SRCS :=	render/window.c \
 		math/transform.c \
 		math/vector2.c \
 		math/vector3.c \
-		math/vector4.c
+		math/vector4.c \
+		Precompiled/camera.c \
+		Precompiled/transform_comp.c
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 

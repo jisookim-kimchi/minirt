@@ -11,6 +11,8 @@ float deg2rad(float indegree)
 	return indegree * PI / 180.f;
 }
 
+
+/*
 void    get_sin_cos(float* outcos, float* outsin, float indegree)
 {
     if (indegree == 0.f)
@@ -38,4 +40,5 @@ void    get_sin_cos(float* outcos, float* outsin, float indegree)
         get_sin_cos_rad(outcos, outsin, deg2rad(indegree));
     }
 }
+    */
 
