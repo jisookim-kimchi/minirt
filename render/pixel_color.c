@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 14:39:31 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:14:22 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 	Check if camera->transform_comp.pos is ok. Maybe it need to change
 	camera->transform_comp->pos. It is depend on the structure scope
 */
-
-ray.dir = vec3_normalized(vec3_sub_vec3(vec3_plus_vec3(vec3_plus_vec3(camera->left_bottom, vec3_multiply(camera->horizontal, u)), 
-			vec3_multiply(camera->vertical, v)), camera->transform_comp.transform->position));
 
 void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	uint32_t x, uint32_t y)
@@ -79,6 +76,7 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	t_color_32	result_color;
 	t_hit		record;
 
+	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, record, win->objs))
 	{
 		result_color = color_transform_to_int(record.hit_color);

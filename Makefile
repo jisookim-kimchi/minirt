@@ -16,7 +16,21 @@ HEADER = -I $(LIBMLX)/include
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRCS :=	render/window.c
+SRCS :=	render/window.c \
+		render/pixel_color.c \
+		render/init_objects.c \
+		object/2d_objects.c \
+		object/3d_objects.c \
+		object/object_intersect.c \
+		object/object_list.c \
+		math/quaternion.c \
+		math/rotator.c \
+		math/screenpoint.c \
+		math/trace.c \
+		math/transform.c \s
+		math/vector2.c \
+		math/vector3.c \
+		math/vector4.c
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
