@@ -1,5 +1,15 @@
 #include "mathheader.h"
 
+t_transform init_transform(void)
+{
+	t_transform t;
+	t.position = (t_vec3){0.f, 0.f, 0.f};
+	t.rotation = init_quaternion();
+	t.scale = (t_vec3){1.f, 1.f, 1.f};
+
+	return (t);
+}
+
 t_transform make_transform_pos(const t_vec3* position)
 {
     t_transform t;

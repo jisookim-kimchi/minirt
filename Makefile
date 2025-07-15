@@ -12,7 +12,7 @@ LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
-HEADER = -I $(LIBMLX)/include
+HEADER = -I $(LIBMLX)/include /math /object /Precompiled 
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -23,11 +23,12 @@ SRCS :=	render/window.c \
 		object/3d_objects.c \
 		object/object_intersect.c \
 		object/object_list.c \
+		object/check_interval.c\
 		math/quaternion.c \
 		math/rotator.c \
 		math/screenpoint.c \
 		math/trace.c \
-		math/transform.c \s
+		math/transform.c \
 		math/vector2.c \
 		math/vector3.c \
 		math/vector4.c

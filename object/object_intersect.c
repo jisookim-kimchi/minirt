@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 17:18:41 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 17:28:27 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 */
 static void	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
 {
-	if (t_root1 < t_root2 && check_value_in_range(t_root1, hit->t_min, hit_t->max))
+	if (t_root1 < t_root2 && check_value_in_range(t_root1, hit->t_min, hit->t_max))
 		hit->t = t_root1;
-	else if (check_value_in_range(t_root2, hit->t_min, hit_t->max))
+	else if (check_value_in_range(t_root2, hit->t_min, hit->t_max))
 		hit->t = t_root2;
 	else
 		hit = NULL ;
@@ -47,9 +47,13 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	double	sphere_radius;
 	float	t_root1;
 	float	t_root2;
+	double	a;
+	double	h;
+	double	c;
+	double	discriminant;
 
 	sphere_radius = (double)((sphere->diameter) / 2);
-	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orig);
+	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
 	a = vec3_length_squared(ray->dir);
 	h = vec3_dot(ray->dir, oc);
 	c = vec3_length_squared(oc) - sphere_radius * sphere_radius;

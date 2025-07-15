@@ -1,12 +1,16 @@
+#ifndef LOADRESOURCE_H
+# define LOADRESOURCE_H
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "../math/mathheader.h"
+# include "../math/mathheader.h"
+# include "../libft/libft.h"
+# include <assert.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdbool.h>
 
-#define MAX_MESHES 100
-#define MAX_TEXTURES 100
-#define MAX_SCENE_OBJECTS 100
+# define MAX_MESHES 100
+# define MAX_TEXTURES 100
+# define MAX_SCENE_OBJECTS 100
 
 typedef struct s_mesh
 {
@@ -77,8 +81,11 @@ typedef struct s_engine
     //mlx_t         *mlx;
 }   t_engine;
 
-
+//camera.c
+t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp);
 
 //transform_comp.c
 t_vec3  get_world_position(t_transform_comp *transform_comp);
 t_vec3 get_forward_vector(t_transform_comp transform_comp);
+t_transform_comp init_transform_comp(void);
+#endif

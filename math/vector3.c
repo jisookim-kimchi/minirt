@@ -27,16 +27,16 @@ t_point3	point3(double x, double y, double z)
 	return (point);
 }
 
-t_color3	color3(double x, double y, double z)
-{
-	t_color3	color3;
+// t_color3	color3(double x, double y, double z)
+// {
+// 	t_color3	color3;
 
-	color3.x = x;
-	color3.y = y;
-	color3.z = z;
+// 	color3.x = x;
+// 	color3.y = y;
+// 	color3.z = z;
 
-	return (color3);
-}
+// 	return (color3);
+// }
 
 void	vec3_set(t_vec3 *vec3, double x, double y, double z)
 {
@@ -45,12 +45,12 @@ void	vec3_set(t_vec3 *vec3, double x, double y, double z)
 	vec3->z = z;
 }
 
-void	color_set(t_color3 *color3, double x, double y, double z)
-{
-	color3->x = x;
-	color3->y = y;
-	color3->z = z;
-}
+// void	color_set(t_color_float *color3, double x, double y, double z)
+// {
+// 	color3->x = x;
+// 	color3->y = y;
+// 	color3->z = z;
+// }
 
 void	point_set(t_point3 *point3, double x, double y, double z)
 {
@@ -153,7 +153,7 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	len = vec3_length(vec3);
 	if (len == 0.0)
 	{
-		printf("vec2_normalized: length is 0, cannot normalize\n");
+		printf("vec3_normalized: length is 0, cannot normalize %f\n", len);
 		exit(0);
 	}
 	vec3.x = vec3.x / len;
