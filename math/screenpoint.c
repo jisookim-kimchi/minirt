@@ -1,4 +1,4 @@
-#include "../include/mathheader.h"
+#include "mathheader.h"
 
 /*
     X * Y = pixelcounts on screen

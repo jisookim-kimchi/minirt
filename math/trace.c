@@ -1,4 +1,4 @@
-#include "../include/mathheader.h"
+#include "mathheader.h"
 
 t_ray       ray(t_point3 orig, t_vec3 dir)
 {

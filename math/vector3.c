@@ -1,4 +1,4 @@
-#include "../include/mathheader.h"
+#include "mathheader.h"
 
 t_vec3  vec3_one()
 {
@@ -65,7 +65,7 @@ double	vec3_length_squared(t_vec3 vec)
     return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-//vector length
+//vector length (size)
 double      vec3_length(t_vec3 vec)
 {
     return (sqrt(vec3_length_squared(vec)));
@@ -148,7 +148,9 @@ t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
 //get unit vector
 t_vec3	vec3_normalized(t_vec3 vec3)
 {
-	double len = vec3_length(vec3);
+	double len;
+	
+	len = vec3_length(vec3);
 	if (len == 0.0)
 	{
 		printf("vec2_normalized: length is 0, cannot normalize\n");
