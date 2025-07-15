@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 20:28:49 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 13:14:31 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,13 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 	value in uint32_t.
 	If the ray hit an object, than return the hit structure hit colore value.
 	Otherwise it return the background color
-
-	TODO:
-	hit_world function
 */
 t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 {
 	t_color_32	result_color;
 	t_hit		record;
 
-	if (hit_world(ray, record))
+	if (hit_world(ray, record, win->objs))
 	{
 		result_color = color_transform_to_int(record.hit_color);
 	}

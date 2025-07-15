@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/14 17:29:03 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/15 13:07:26 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,35 @@ bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 	if (obj->obj_type == CYLINDER)
 		return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
 	return (false);
+}
+
+/*
+	The hit_world function loop over all of the object in the object list.
+	Check if the ray hit any of the object.
+	The temporary hit structure t_max value will always refresh with the
+	founded hit object t value. This way it will found a hit if the new 
+	object closer to the ray origin, than the previous one.
+*/
+bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
+{
+	bool		found_hit;
+	t_objs_list	*loop_objects;
+	t_hit		temp;
+
+	temp.t_max = record->t_max;
+	found_hit = false;
+	loop_objects = objects;
+	while (loop_objects->next)
+	{
+		if (ray_intersect(loop_objects, ray, &temp))
+		{
+			found_hit = true;
+			temp.t_max = temp.t;
+			*record = temp;
+		}
+		loop_objects = loop_objects->next;
+	}
+	return (found_hit);
 }
 
 /*
