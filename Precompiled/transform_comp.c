@@ -21,12 +21,12 @@ t_transform_comp init_transform_comp(void)
 	return (transform_comp);
 }
 
-void set_position(t_transform_comp *comp, t_vec3 pos)
+void set_transform_comp_position(t_transform_comp *comp, t_vec3 pos)
 {
     comp->transform->position = pos;
 }
 
-void add_position(t_transform_comp *comp, t_vec3 delta)
+void add_transform_comp_position(t_transform_comp *comp, t_vec3 delta)
 {
     comp->transform->position = vec3_plus_vec3(comp->transform->position, delta);
 }
