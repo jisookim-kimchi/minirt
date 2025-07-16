@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 17:28:27 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:59:09 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 	The t minimum and maximum value stored in hit structure. 
 	Still need to initialize with the desired ray intervallum
 */
-static void	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
+static bool	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
 {
 	if (t_root1 < t_root2 && check_value_in_range(t_root1, hit->t_min, hit->t_max))
 		hit->t = t_root1;
 	else if (check_value_in_range(t_root2, hit->t_min, hit->t_max))
 		hit->t = t_root2;
 	else
-		hit = NULL ;
+		return (false);
+	return (true);
 }
 
 /*
@@ -62,8 +63,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 		return (false);
 	t_root1 = (float)((h - sqrt(discriminant)) / a);
 	t_root2 = (float)((h + sqrt(discriminant)) / a);
-	set_hit_sphere_point(t_root1, t_root2, hit);
-	if (hit == NULL)
+	if (set_hit_sphere_point(t_root1, t_root2, hit) == false)
 		return (false);
 	hit->hit_point = ray_at(ray, hit->t);
 	hit->normal = vec3_divide(vec3_sub_vec3(hit->hit_point,

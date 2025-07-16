@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 19:27:09 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/16 20:06:48 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,10 @@ void	print_objs(t_objs_list *obj)
 		}
 		cur = cur->next;
 	}
+}
+
+void	print_hit_t(const t_hit *hit)
+{
+	printf("The hit t_min: %f\tt_max: %f\tt: %f values\n",
+		hit->t_min, hit->t_max, hit->t);
 }
