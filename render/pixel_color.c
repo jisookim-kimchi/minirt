@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 17:49:28 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/16 14:48:23 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
+	printf("The pixel center\n");
+	print_vec3(&pixel_center);
+	printf("The ray origin\n");
+	print_vec3(&(ray->orign));
 	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
 }
 

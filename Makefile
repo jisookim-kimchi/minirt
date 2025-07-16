@@ -34,7 +34,8 @@ SRCS :=	render/window.c \
 		math/vector3.c \
 		math/vector4.c \
 		Precompiled/camera.c \
-		Precompiled/transform_comp.c
+		Precompiled/transform_comp.c \
+		debug/messages.c
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
