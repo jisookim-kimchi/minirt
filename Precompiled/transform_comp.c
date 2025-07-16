@@ -1,5 +1,4 @@
 #include "loadresource.h"
-#include "../debug/debug.h"
 
 //need to make init transform_comp.c
 /*
@@ -19,8 +18,6 @@ t_transform_comp init_transform_comp(void)
 	transform_comp.right = vec3(1, 0, 0);
 
 	// transform_comp.pos = transform_comp.transform->position;
-    printf("The transform_comp.right in init_transform_comp\n");
-    print_vec3(&transform_comp.right);
 	return (transform_comp);
 }
 

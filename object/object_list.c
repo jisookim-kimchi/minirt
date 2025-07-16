@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 17:44:06 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/16 18:55:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,27 +128,6 @@ t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		obj = obj->next;
 	}
 	return (hittable_list);
-}
-
-/*
-	The print_objs function created to check the object list object types.
-	Print out the terminal the object type name.
-*/
-void	print_objs(t_objs_list *obj)
-{
-	t_objs_list	*cur;
-
-	cur = obj;
-	while (cur)
-	{
-		if (cur->obj_type == PLANE)
-			printf("current object is PLANE\n");
-		else if (cur->obj_type == CYLINDER)
-			printf("current object is CYLINDER\n");
-		else if (cur->obj_type == SPHERE)
-			printf("current object is SPHERE\n");
-		cur = cur->next;
-	}
 }
 
 void	set_ray_interval(t_hit *hit, float set_t_min, float set_t_max)
