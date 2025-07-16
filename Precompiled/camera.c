@@ -1,5 +1,46 @@
 #include "loadresource.h"
 
+/*
+    Get camera orientation to set the horizontal and vertical values of the screen
+    
+    TODO:
+    Need to check if get_right_vector and get_up vector is correct
+*/
+static void camera_orientation(t_camera *camera)
+{
+    t_vec3  right;
+    t_vec3  up;
+
+    right = get_right_vector(camera->transform_comp);
+    up = get_up_vector(camera->transform_comp);
+    camera->horizontal = vec3_multiply(right, camera->viewportsize.x);
+    camera->vertical = vec3_multiply(up, camera->viewportsize.y);
+}
+
+/*
+    The calculate_pixel00loc is a helper function to execute 
+    the pixel00loc value. This does the following steps:
+    sum_delta_hv = add delta_horizontal vector to the delta_vertical vector
+    half_sum_delta_hv = sum_delta_hv divided by 2
+    camera->pixel00loc = add camera->left_bottom vector to 
+                        half_sum_delta_hv vector
+*/
+static void calculate_pixel00loc(t_camera *camera)
+{
+    t_vec3  sum_delta_hv;
+    t_vec3  half_sum_delta_hv;
+
+    sum_delta_hv = vec3_plus_vec3(camera->delta_horizontal, camera->delta_vertical);
+    half_sum_delta_hv = vec3_divide(sum_delta_hv, 2.0);
+    camera->pixel00loc = vec3_plus_vec3(camera->left_bottom, half_sum_delta_hv);
+}
+
+/*
+    We need to consider how we want to pass the information 
+    about mlx image_width and image_height size. Currently 
+    it use the mlx_tools.h IMAGE_WIDTH and IMAGE_RATIO values
+*/
+
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
@@ -18,8 +59,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     
 	//camera pos
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
-    camera.horizontal = vec3(camera.viewportsize.x, 0, 0);
-    camera.vertical = vec3(0, camera.viewportsize.y, 0);
+    camera_orientation(&camera);
 	
 	t_vec3 forward = get_forward_vector(transform_comp);
 	t_vec3 center = vec3_plus_vec3(camera_position, vec3_multiply(forward, focal_length));
@@ -28,6 +68,7 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 	t_vec3 half_vertical = vec3_multiply(camera.vertical, 0.5);
 	camera.left_bottom = vec3_sub_vec3(center, half_horizontal);
 	camera.left_bottom = vec3_sub_vec3(camera.left_bottom, half_vertical);
+    calculate_pixel00loc(&camera);
     return (camera);
 }
 
