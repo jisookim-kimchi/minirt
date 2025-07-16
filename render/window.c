@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 18:02:32 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/16 15:17:45 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,12 @@ int main(void)
 	t_transform_comp transform_comp;
 
 	transform_comp = init_transform_comp();
+	printf("The transform_comp.right in main\n");
+	print_vec3(&transform_comp.right);
 	screen = make_screen(400, 300);
 	win.camera = init_camera(screen, transform_comp);
+	printf("The transform_comp.right in main after init camera\n");
+	print_vec3(&win.camera.transform_comp.right);
 	win.objs = init_objs_list();
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)

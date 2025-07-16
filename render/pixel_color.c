@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 14:48:23 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/16 15:37:06 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	t_vec3	v_vertical;
 	t_vec3	uv;
 
+	printf("%s\nIn the get_ray_from_camera function%s\n", MAGENTA, DEFAULT);
+	printf("The camera->forward:\n");
+	print_vec3(&camera->forward);
+	printf("The camera->center:\n");
 	ray->orign = camera->transform_comp.pos;
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
