@@ -6,11 +6,12 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 18:55:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/16 20:27:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
+#include "../debug/debug.h"
 
 // void	change_member_in_list(t_objs_list **list, t_objs_list *old_member, t_objs_list *new_member)
 // {
@@ -93,7 +94,7 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	temp.t_max = record->t_max;
 	found_hit = false;
 	loop_objects = objects;
-	while (loop_objects->next)
+	while (loop_objects)
 	{
 		if (ray_intersect(loop_objects, ray, &temp))
 		{
