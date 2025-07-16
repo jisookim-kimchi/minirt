@@ -52,6 +52,13 @@ void	vec3_set(t_vec3 *vec3, double x, double y, double z)
 // 	color3->z = z;
 // }
 
+void	color_float_set(t_color_float *color3, float in_red, float in_green, float in_blue)
+{
+	color3->red = in_red;
+	color3->green = in_green;
+	color3->blue = in_blue;
+}
+
 void	point_set(t_point3 *point3, double x, double y, double z)
 {
 	point3->x = x;

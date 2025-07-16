@@ -15,6 +15,8 @@ static void camera_orientation(t_camera *camera)
     up = get_up_vector(camera->transform_comp);
     camera->horizontal = vec3_multiply(right, camera->viewportsize.x);
     camera->vertical = vec3_multiply(up, camera->viewportsize.y);
+    camera->delta_horizontal = vec3_divide(camera->horizontal, (double)IMAGE_WIDTH);
+    camera->delta_vertical = vec3_divide(camera->vertical, (double)(IMAGE_WIDTH / IMAGE_RATIO));
 }
 
 /*

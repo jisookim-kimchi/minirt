@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 17:32:46 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/16 18:30:04 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,23 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	t_vec3	v_vertical;
 	t_vec3	uv;
 
-	printf("%s\nIn the get_ray_from_camera function%s\n", MAGENTA, DEFAULT);
-	printf("The camera->forward:\n");
-
-	printf("The camera->center:\n");
+	// printf("%s\nIn the get_ray_from_camera function%s\n", MAGENTA, DEFAULT);
+	// printf("The x: %i\ty: %i\n", x, y);
+	// printf("The camera delta horizontal:\n");
+	// print_vec3(&camera->delta_horizontal);
+	// printf("The camera delta vertical:\n");
+	// print_vec3(&camera->delta_vertical);
 	ray->orign = camera->transform_comp.pos;
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
+	// printf("The uv vector:\n");
+	// print_vec3(&uv);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	printf("The pixel center\n");
-	print_vec3(&pixel_center);
-	printf("The ray origin\n");
-	print_vec3(&(ray->orign));
+	// printf("The pixel center\n");
+	// print_vec3(&pixel_center);
+	// printf("The ray origin\n");
+	// print_vec3(&(ray->orign));
 	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
 }
 

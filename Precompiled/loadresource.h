@@ -12,6 +12,9 @@
 # define MAX_TEXTURES 100
 # define MAX_SCENE_OBJECTS 100
 
+# define IMAGE_WIDTH 1200
+# define IMAGE_RATIO (16.0f/9.0f)
+
 //Bold colors
 # define RED        "\033[1;31m"
 # define BLACK      "\033[1;30m"

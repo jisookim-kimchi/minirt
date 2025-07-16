@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 14:43:54 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/16 18:02:26 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 // # include "Precompiled/loadresource.h"
 # include "object/objects.h"
 # include "debug/debug.h"
-
-# define IMAGE_WIDTH 1200
-# define IMAGE_RATIO (16.0f/9.0f)
 
 typedef struct s_window
 {
