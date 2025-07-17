@@ -6,11 +6,23 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 19:59:09 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 14:39:46 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
+
+/*
+	The set_ray_opposite_normal function set the hit normal that way it
+	point against the ray.
+*/
+void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
+{
+	if (vec3_dot(ray->dir, normal) < 0)
+		hit->normal = normal;
+	else
+		hit->normal = vec3_multiply(normal, -1.0);
+}
 
 /*
 	The set_hit_sphere_point function will giv the object to
@@ -52,6 +64,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	double	h;
 	double	c;
 	double	discriminant;
+	t_vec3	hit_normal;
 
 	sphere_radius = (double)((sphere->diameter) / 2);
 	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
@@ -66,7 +79,38 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	if (set_hit_sphere_point(t_root1, t_root2, hit) == false)
 		return (false);
 	hit->hit_point = ray_at(ray, hit->t);
-	hit->normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
+	hit_normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
 				sphere->center), sphere_radius);
+	set_ray_opposite_normal(ray, hit, hit_normal);
+	return (true);
+}
+
+/*
+	First check if the ray parallel with the plane. If paralel there 
+	is no intersection. (during the check we need to use a small 
+	epsilon value not directly compare with 0).
+	rayn_planen_dot = ray_dir * plane_n
+	
+	After calculate the t value
+	ray_p_plane_p = plane->point - ray->orign;
+	t = (ray_p_plane_p * plane->unit_normal_vec) / rayn_planen_dot
+	Store as hit if the t value is in te t_min t_max intervallum
+*/
+bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
+{
+	double	rayn_planen_dot;
+	double	t;
+	t_vec3	ray_p_plane_p;
+
+	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
+	if (fabs(rayn_planen_dot) < EPSILON)
+		return (false);
+	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
+	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
+	if (t < hit->t_min || t > hit->t_max)
+		return (false);
+	hit->t = t;
+	hit->hit_point = ray_at(ray, hit->t);
+	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }
