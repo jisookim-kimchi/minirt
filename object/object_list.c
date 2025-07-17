@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 14:43:30 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:21:49 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 {
 	t_objs_list	*current;
 
+	if (!list)
+	{
+		ft_putendl_fd("The object list in add_member_to_obj_list is NULL", 2);
+		return ;
+	}
+	if (!new_member)
+	{
+		ft_putendl_fd("The new object member in "
+			"add_member_to_obj_list is NULL", 2);
+		return ;
+	}
 	if (!(*list))
 		*list = new_member;
 	else
@@ -28,6 +39,7 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 		current->next = new_member;
 	}
 }
+
 //jisoo's suggestion
 void	free_objs_list(t_objs_list **list)
 {

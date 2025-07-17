@@ -6,14 +6,14 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 20:06:48 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:25:54 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_tools.h"
 #include "../object/objects.h"
 
-void	print_vec3(const t_vec3 * vec3)
+void	print_vec3(const t_vec3 *vec3)
 {
 	if (!vec3)
 	{
@@ -43,6 +43,15 @@ void	print_sphere_infos(const t_sphere *sphere)
 		printf("fill type: SHELL\n");
 }
 
+void	print_plane_infos(const t_plane *plane)
+{
+	printf("\nThe plane:\npoint:\n");
+	print_vec3(&plane->point);
+	printf("unit_normal_vector:\n");
+	print_vec3(&plane->unit_normal_vec);
+	print_color_float(&plane->plane_color);
+}
+
 /*
 	The print_objs function created to check the object list object types.
 	Print out the terminal the object type name.
@@ -55,12 +64,15 @@ void	print_objs(t_objs_list *obj)
 	while (cur)
 	{
 		if (cur->obj_type == PLANE)
-			printf("current object is PLANE\n");
+		{
+			printf("\ncurrent object is PLANE");
+			print_plane_infos((t_plane *)(obj->data));
+		}
 		else if (cur->obj_type == CYLINDER)
 			printf("current object is CYLINDER\n");
 		else if (cur->obj_type == SPHERE)
 		{
-			printf("current object is SPHERE\n");
+			printf("\ncurrent object is SPHERE");
 			print_sphere_infos((t_sphere *)(obj->data));
 		}
 		cur = cur->next;

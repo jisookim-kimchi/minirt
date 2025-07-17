@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 15:22:15 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 16:11:14 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			center;
 	float			sphere_diameter;
 
+	list = NULL;
+	// ft_putendl_fd("In init_objs_list start", 2);
 	sphere_color.red = 1.0f;
 	sphere_color.green = 0.0f;
 	sphere_color.blue = 0.0f;
@@ -38,13 +40,15 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			unit_normal_vec;
 	t_color_float	plane_color;
 
-	color_float_set(&plane_color, 0.0f, 0.0f, 1.0f);
+	color_float_set(&plane_color, 0.0f, 1.0f, 1.0f);
 	plane_point = vec3(-30.0, 0.0, 100.0);
 	unit_normal_vec = vec3(0.0, 1.0, 0.0);
 	plane = create_plane(unit_normal_vec, plane_point, plane_color);
 
 	add_member_to_obj_list(&list, sphere);
 	add_member_to_obj_list(&list, plane);
+
+	// ft_putendl_fd("In init_objs_list end", 2);
 
 	return (list);
 }
