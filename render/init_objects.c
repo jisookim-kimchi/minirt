@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 20:17:14 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 15:22:15 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 */
 t_objs_list	*init_objs_list(void)
 {
+	//sphere
 	t_objs_list		*list;
+	t_objs_list		*sphere;
 	t_color_float	sphere_color;
 	t_vec3			center;
 	float			sphere_diameter;
@@ -28,6 +30,21 @@ t_objs_list	*init_objs_list(void)
 	sphere_color.blue = 0.0f;
 	sphere_diameter = 100.5f;
 	center = vec3(0.0, 3.5, 400.0);
-	list = create_sphere(center, sphere_diameter, sphere_color);
+	sphere = create_sphere(center, sphere_diameter, sphere_color);
+
+	//plane
+	t_objs_list		*plane;
+	t_vec3			plane_point;
+	t_vec3			unit_normal_vec;
+	t_color_float	plane_color;
+
+	color_float_set(&plane_color, 0.0f, 0.0f, 1.0f);
+	plane_point = vec3(-30.0, 0.0, 100.0);
+	unit_normal_vec = vec3(0.0, 1.0, 0.0);
+	plane = create_plane(unit_normal_vec, plane_point, plane_color);
+
+	add_member_to_obj_list(&list, sphere);
+	add_member_to_obj_list(&list, plane);
+
 	return (list);
 }
