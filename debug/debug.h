@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:36:33 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 16:16:39 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 19:48:33 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ void	print_sphere_infos(const t_sphere *sphere);
 void	print_plane_infos(const t_plane *plane);
 void	print_objs(t_objs_list *obj);
 void	print_hit_t(const t_hit *hit);
+void	pointer_address_message(void *ptr);
+void	object_adress(t_objs_list *obj);
 
 #endif
