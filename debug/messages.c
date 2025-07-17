@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 16:25:54 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 19:48:15 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,25 @@ void	print_hit_t(const t_hit *hit)
 {
 	printf("The hit t_min: %f\tt_max: %f\tt: %f values\n",
 		hit->t_min, hit->t_max, hit->t);
+}
+
+void	pointer_address_message(void *ptr)
+{
+	if (ptr == NULL)
+		printf("%sThe pointer: NULL%s\n", RED, DEFAULT);
+	else
+		printf("%sThe pointer address: %p%s\n", YELLOW, ptr, DEFAULT);
+}
+
+void	object_adress(t_objs_list *obj)
+{
+	if (obj == NULL)
+		printf("%sThe object: NULL%s\n", RED, DEFAULT);
+	else
+	{
+		printf(CYAN);
+		printf("Object address: %p\tobject data address:%p\n",
+			(void *)obj, obj->data);
+		printf(DEFAULT);
+	}
 }
