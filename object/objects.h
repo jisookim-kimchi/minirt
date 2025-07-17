@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/15 17:42:40 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/17 14:31:07 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ void			print_objs(t_objs_list *obj);
 t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit);
 
 //object_intersect.c
+void		set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal);
 bool		hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit);
+bool		hit_plane(t_plane *plane, t_ray *ray, t_hit *hit);
+
 
 //check_interval.c
 float		clamp_calculation(float input_value, float min, float max);

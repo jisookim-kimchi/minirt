@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 19:09:36 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 12:08:44 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int main(void)
 	mlx_key_hook(win.mlx, ft_key_hook, &win);
 	mlx_loop(win.mlx);
 	mlx_terminate(win.mlx);
+	free_objs_list(&win.objs);
 	return (0);
 }

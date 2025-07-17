@@ -6,11 +6,30 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:33:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/10 17:03:03 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 13:38:01 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
+
+/*
+	The plane_unit_normal_check function check if the plane normal vector is
+	3d normalized unit vector. If not it return false. 
+	
+	To check if the input vector is 3d normalized normal vector
+	it needs substract 1.0f form the input vector length absolute value
+	and compare with epsilon value what we still tolerate.
+*/
+static bool	plane_unit_normal_check(t_vec3 in_unit_normal_vec)
+{
+	if (fabs(vec3_length(in_unit_normal_vec) - 1.0f) > (float)EPSILON)
+	{
+		printf("%s\nThe plane input vector is not"
+			" unit vector!%s\n", RED, DEFAULT);
+		return (false);
+	}
+	return (true);
+}
 
 t_objs_list	*create_plane(t_vec3 in_unit_normal_vec, 
 	t_vec3 in_point, t_color_float in_plane_color)
@@ -18,6 +37,8 @@ t_objs_list	*create_plane(t_vec3 in_unit_normal_vec,
 	t_plane		*new_plane;
 	t_objs_list	*new_list_member;
 
+	if (plane_unit_normal_check(in_unit_normal_vec) == false)
+		return (NULL);
 	new_plane = (t_plane *)malloc(sizeof(t_plane));
 	if (!new_plane)
 	{

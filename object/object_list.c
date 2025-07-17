@@ -6,20 +6,12 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 20:27:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/17 14:43:30 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
 #include "../debug/debug.h"
-
-// void	change_member_in_list(t_objs_list **list, t_objs_list *old_member, t_objs_list *new_member)
-// {
-// 	t_objs_list	*temp;
-
-// 	temp = *list;
-	
-// }
 
 // add a node at tail.
 void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
@@ -69,8 +61,8 @@ void	free_objs_list(t_objs_list **list)
 
 bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {
-	// if (obj->obj_type == PLANE)
-	// 	return (hit_plane((t_plane *)obj->data, ray, hit));
+	if (obj->obj_type == PLANE)
+		return (hit_plane((t_plane *)obj->data, ray, hit));
 	if (obj->obj_type == SPHERE)
 		return (hit_sphere((t_sphere *)obj->data, ray, hit));
 	// if (obj->obj_type == CYLINDER)
