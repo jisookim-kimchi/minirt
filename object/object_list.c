@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 19:51:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 13:54:23 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,9 @@ t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		{
 			if (hit)
 			{
+				// printf("GREEN\n");
+				// printf("hit\n");
+				// printf("DEFAULT\n");
 				add_member_to_obj_list(&hittable_list, obj);
 			}
 		}

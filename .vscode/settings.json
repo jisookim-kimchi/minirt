@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"mathheader.h": "c",
-		"loadresource.h": "c"
+		"loadresource.h": "c",
+		"ios": "c",
+		"debug.h": "c"
 	}
 }

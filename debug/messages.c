@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 19:48:15 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 16:55:14 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,19 @@ void	print_objs(t_objs_list *obj)
 		if (cur->obj_type == PLANE)
 		{
 			printf("\ncurrent object is PLANE");
-			print_plane_infos((t_plane *)(obj->data));
+			print_plane_infos((t_plane *)(cur->data));
+			//t_plane *plane = (t_plane *)cur->data;
+			//printf("in print_objs plane : %p, %f\n",plane, plane->point.z);
 		}
-		else if (cur->obj_type == CYLINDER)
+		if (cur->obj_type == CYLINDER)
 			printf("current object is CYLINDER\n");
-		else if (cur->obj_type == SPHERE)
+		if (cur->obj_type == SPHERE)
 		{
-			printf("\ncurrent object is SPHERE");
-			print_sphere_infos((t_sphere *)(obj->data));
+			printf("\ncurrent object is SPHERE\n");
+			print_sphere_infos((t_sphere *)(cur->data));
+			//printf("in print_objs sphere : %p %f %f %f\n",sphere,sphere->center.x, sphere->center.y, sphere->center.z);
 		}
+		printf("cur addr : %p\n", cur);
 		cur = cur->next;
 	}
 }

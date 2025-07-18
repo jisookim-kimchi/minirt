@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 20:28:14 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 18:53:44 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,13 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))
 	{
-		result_color = color_transform_to_int(&record.hit_color);
+		result_color.result_color = 0xFFFFFFFF;
+		// result_color = color_transform_to_int(&record.hit_color);
 	}
 	else
 	{
-		result_color = color_transform_to_int(&win->ambient);
+		result_color.result_color = 0xFF000000;
+		// result_color = color_transform_to_int(&win->ambient);
 	}
 	return (result_color);
 }
