@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 16:54:34 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 20:32:57 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,30 @@ void	object_adress(t_objs_list *obj)
 			(void *)obj, obj->data);
 		printf(DEFAULT);
 	}
+}
+
+void	print_camera_infos(const t_camera *camera)
+{
+	printf("The camera informations:\n");
+	printf("The transform component:\n");
+	printf("position:\n");
+	print_vec3(&camera->transform_comp.pos);
+	printf("right:\n");
+	print_vec3(&camera->transform_comp.right);
+	printf("up:\n");
+	print_vec3(&camera->transform_comp.up);
+	printf("forward:\n");
+	print_vec3(&camera->transform_comp.forward);
+	printf("\nhorizontal:\n");
+	print_vec3(&camera->horizontal);
+	printf("vertical:\n");
+	print_vec3(&camera->vertical);
+	printf("delta_horizontal:\n");
+	print_vec3(&camera->delta_horizontal);
+	printf("delta_vertical:\n");
+	print_vec3(&camera->delta_vertical);
+	printf("left bottom:\n");
+	print_vec3(&camera->left_bottom);
+	printf("pixel00loc:\n");
+	print_vec3(&camera->pixel00loc);
 }
