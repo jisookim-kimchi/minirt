@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 12:08:44 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 16:44:27 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int main(void)
 	screen = make_screen(400, 300);
 	win.camera = init_camera(screen, transform_comp);
 	win.objs = init_objs_list();
-	print_objs(win.objs);
+	// print_objs(win.objs);
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	color_float_set(&win.ambient, 0.0f, 1.0f, 0.0f);
 	if (!win.mlx)

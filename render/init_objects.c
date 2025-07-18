@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 13:37:37 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 16:48:05 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,19 @@ t_objs_list	*init_objs_list(void)
 	unit_normal_vec = vec3(0.0, 0.0, -1.0);
 	plane = create_plane(unit_normal_vec, plane_point, plane_color);
 
-	printf(CYAN);
-	print_objs(plane);
+	// printf(CYAN);
+	// print_objs(plane);
+	// printf(DEFAULT);
+
+	printf(YELLOW);
+	print_objs(sphere);
 	printf(DEFAULT);
 
-	pointer_address_message(plane);
-	object_adress(plane);
+	// pointer_address_message(plane);
+	// object_adress(plane);
 
+	add_member_to_obj_list(&list, sphere);
 	add_member_to_obj_list(&list, plane);
-	// add_member_to_obj_list(&list, sphere);
 
 	printf(GREEN);
 	print_objs(list);

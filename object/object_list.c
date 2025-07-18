@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 19:51:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 16:58:08 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 		while (current->next)
 			current = current->next;
 		current->next = new_member;
-		object_adress(current->next);
 	}
 }
 
