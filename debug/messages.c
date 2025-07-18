@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 19:48:15 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 16:54:34 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void	print_objs(t_objs_list *obj)
 		if (cur->obj_type == PLANE)
 		{
 			printf("\ncurrent object is PLANE");
-			print_plane_infos((t_plane *)(obj->data));
+			print_plane_infos((t_plane *)(cur->data));
 		}
 		else if (cur->obj_type == CYLINDER)
 			printf("current object is CYLINDER\n");
 		else if (cur->obj_type == SPHERE)
 		{
 			printf("\ncurrent object is SPHERE");
-			print_sphere_infos((t_sphere *)(obj->data));
+			print_sphere_infos((t_sphere *)(cur->data));
 		}
 		cur = cur->next;
 	}
