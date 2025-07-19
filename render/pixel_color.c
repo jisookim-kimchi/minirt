@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 18:53:44 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:53:21 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
+	
+	// sleep(1);
+	// printf(CYAN);
+	// printf("u_horizontal. x : %f, y : %f\n", u_horizontal.x, u_horizontal.y);
+	// printf("v_vertical. x : %f, y : %f\n", v_vertical.x, v_vertical.y);
+	// printf(DEFAULT);
+	
 	// printf("The uv vector:\n");
 	// print_vec3(&uv);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
@@ -90,7 +97,7 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))
 	{
-		result_color.result_color = 0xFFFFFFFF;
+		result_color.result_color = 0xFF0000FF;
 		// result_color = color_transform_to_int(&record.hit_color);
 	}
 	else
