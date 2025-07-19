@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 16:57:12 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/19 19:21:58 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			unit_normal_vec;
 	t_color_float	plane_color;
 
-	color_float_set(&plane_color, 0.0f, 0.0f, 1.0f);
+	color_float_set(&plane_color, 1.0f, 1.0f, 0.0f);
 	plane_point = vec3(10.0, 10.0, -1000.0);
 	unit_normal_vec = vec3(0.0, 1.0, 0.0);
 	plane = create_plane(unit_normal_vec, plane_point, plane_color);
