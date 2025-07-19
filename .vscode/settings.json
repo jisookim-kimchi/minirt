@@ -3,6 +3,7 @@
 		"mathheader.h": "c",
 		"loadresource.h": "c",
 		"ios": "c",
-		"debug.h": "c"
+		"debug.h": "c",
+		"__locale": "c"
 	}
 }

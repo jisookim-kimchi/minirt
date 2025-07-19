@@ -43,7 +43,6 @@ int load_resource(t_engine* engine)
     {
         return 0;
     }
-
     return 1;
 }
 
