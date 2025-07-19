@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 19:16:04 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/19 19:44:10 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	}
 	else
 	{
-		result_color.result_color = 0xFF000000;
-		// result_color = color_transform_to_int(&win->ambient);
+		// result_color.result_color = 0xFF000000;
+		result_color = color_transform_to_int(&win->ambient);
 	}
 	return (result_color);
 }
