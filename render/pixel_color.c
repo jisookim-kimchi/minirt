@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 15:53:21 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/19 17:01:43 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 	col_32.blue = (uint32_t)(255.999
 			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
 	col_32.alpha = 255;
-	col_32.result_color = (col_32.red << 24) | (col_32.green << 16)
-		| (col_32.blue << 8) | (col_32.alpha);
+	col_32.result_color = (col_32.alpha << 24) | (col_32.blue << 16)
+    | (col_32.green << 8) | (col_32.red);
 	return (col_32);
 }
 
