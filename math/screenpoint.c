@@ -10,7 +10,7 @@ t_screenpoint make_screen(int in_x, int in_y)
 
     screen.x = in_x;
     screen.y = in_y;
-    screen.aspect_ratio = screen.x / screen.y;
+    screen.aspect_ratio = (float)screen.x / (float)screen.y;
 
     return (screen);
 }
