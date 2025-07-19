@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 15:54:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/19 19:46:23 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int main(void)
 	win.objs = init_objs_list();
 
 	// printf("camera x : %f, camera y : %f, cameara z: %f \n" ,win.camera.transform_comp.pos.x, win.camera.transform_comp.pos.y, win.camera.transform_comp.forward.z);
-	color_float_set(&win.ambient, 0.0f, 1.0f, 0.0f);
+	color_float_set(&win.ambient, 0.5f, 1.0f, 1.0f);
 	
 	win.mlx = mlx_init(screen.x, screen.y, "Practice", true);
 	if (!win.mlx)
