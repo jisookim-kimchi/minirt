@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 15:31:21 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:54:08 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	image_hook(void *param)
 	t_ray		ray_pixel_center;
 
 	win = (t_window *)param;
-	
-	// blue = 0x0000FFFF;
+
 	y = 0;
 	while (y < win->image->height)
 	{
@@ -81,7 +80,7 @@ int main(void)
 	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
 
-	printf("camera x : %f, camera y : %f, cameara z: %f \n" ,win.camera.transform_comp.pos.x, win.camera.transform_comp.pos.y, win.camera.transform_comp.forward.z);
+	// printf("camera x : %f, camera y : %f, cameara z: %f \n" ,win.camera.transform_comp.pos.x, win.camera.transform_comp.pos.y, win.camera.transform_comp.forward.z);
 	color_float_set(&win.ambient, 0.0f, 1.0f, 0.0f);
 	
 	win.mlx = mlx_init(screen.x, screen.y, "Practice", true);
