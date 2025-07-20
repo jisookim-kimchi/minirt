@@ -49,6 +49,7 @@ static void calculate_pixel00loc(t_camera *camera)
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
+    t_vec3 forward;
     camera.transform_comp = transform_comp;
     // camera.viewportsize = screen;
 
@@ -63,10 +64,9 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
 
     camera_orientation(&camera);
-	t_vec3 forward = (t_vec3){0,0,-1};
+	// t_vec3 forward = (t_vec3){0,0,-1};
+    forward = vec3_multiply(get_forward_vector(camera.transform_comp), -1.0);
 	
-
-
 	t_vec3 center = vec3_plus_vec3(camera_position, vec3_multiply(forward, focal_length));
 	t_vec3 half_horizontal = vec3_multiply(camera.horizontal, 0.5);
 	t_vec3 half_vertical = vec3_multiply(camera.vertical, 0.5);

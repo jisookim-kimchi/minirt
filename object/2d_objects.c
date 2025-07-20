@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2d_objects.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:33:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 16:47:37 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/20 19:40:07 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 	and compare with epsilon value what we still tolerate.
 */
 
-static bool	plane_unit_normal_check(t_vec3 in_unit_normal_vec)
+static bool	plane_unit_normal_check(t_vec3 *in_unit_normal_vec)
 {
-	if (fabs(vec3_length(in_unit_normal_vec) - 1.0f) > EPSILON)
+	*in_unit_normal_vec = vec3_normalized(*in_unit_normal_vec);
+	if (fabs(vec3_length(*in_unit_normal_vec) - 1.0f) > EPSILON)
 	{
 		printf("%s\nThe plane input vector is not"
 			" unit vector!%s\n", RED, DEFAULT);
@@ -38,7 +39,7 @@ t_objs_list	*create_plane(t_vec3 in_unit_normal_vec,
 	t_plane		*new_plane;
 	t_objs_list	*new_list_member;
 
-	if (plane_unit_normal_check(in_unit_normal_vec) == false)
+	if (plane_unit_normal_check(&in_unit_normal_vec) == false)
 		return (NULL);
 	new_plane = (t_plane *)malloc(sizeof(t_plane));
 	if (!new_plane)
