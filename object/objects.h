@@ -66,10 +66,11 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_vec3			axis;
-	float			diamater;
+	float			diameter;
 	float			height;
 	t_color_float	cylinder_color;
 	t_obj_fill		obj_fill;
+	t_vec3			center;
 }	t_cylinder;
 
 /*

@@ -43,7 +43,7 @@ t_objs_list	*init_objs_list(void)
 
 	color_float_set(&plane_color1, 1.0f, 1.0f, 0.0f);
 	plane_point1 = vec3(10.0, 10.0, -1000.0);
-	unit_normal_vec1 = vec3(0.0, 1.0, 0.0);
+	unit_normal_vec1 = vec3_normalized((t_vec3){0.0, 1.0, 0.0});
 	plane1 = create_plane(unit_normal_vec1, plane_point1, plane_color1);
 	// t_plane *test = (t_plane *)(plane->data);
 	// printf("test %f , %f, %f\n", test->plane_color.blue, test->plane_color.green, test->plane_color.red);
