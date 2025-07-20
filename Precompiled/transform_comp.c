@@ -9,7 +9,7 @@ t_transform_comp init_transform_comp(void)
 	t_transform_comp transform_comp;
     transform_comp.transform = malloc(sizeof(t_transform));
 
-	// //todo we should have value for position form parameters
+	// //todo we should have value for position from parameters
     transform_comp.transform->position = vec3(0, 0, 0);
     transform_comp.transform->rotation = init_quaternion();
     transform_comp.transform->scale = vec3(1, 1, 1);

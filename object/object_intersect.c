@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 14:39:46 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/19 19:11:55 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->hit_point = ray_at(ray, hit->t);
 	hit_normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
 				sphere->center), sphere_radius);
+	hit->hit_color = sphere->sphere_color;
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	return (true);
 }
@@ -105,12 +106,14 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
 	if (fabs(rayn_planen_dot) < EPSILON)
 		return (false);
+
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
 	if (t < hit->t_min || t > hit->t_max)
 		return (false);
 	hit->t = t;
 	hit->hit_point = ray_at(ray, hit->t);
+	hit->hit_color = plane->plane_color;
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }

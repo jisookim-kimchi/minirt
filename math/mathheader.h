@@ -8,7 +8,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-# define EPSILON 0.00001
+# define EPSILON 1e-6f
 
 //typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;

@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 20:31:54 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/20 19:19:26 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 }
 
 /*
-	The color layout: 0xRRGGBBAA
+	The color layout: 0xAARRGGBB
+	AA = Alpha (opacity)
 	RR = Red
 	GG = Green
 	BB = Blue
-	AA = Alpha (opacity)
 
 	The blue color made to check if the window can run. However it the 
 	final version it should be deleted.
 */
+
 void	image_hook(void *param)
 {
 	t_window	*win;
@@ -49,7 +50,7 @@ void	image_hook(void *param)
 	t_ray		ray_pixel_center;
 
 	win = (t_window *)param;
-	// blue = 0x0000FFFF;
+
 	y = 0;
 	while (y < win->image->height)
 	{
@@ -57,6 +58,7 @@ void	image_hook(void *param)
 		while (x < win->image->width)
 		{
 			get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
+			
 			pixel_center_col = pixel_center_color(&ray_pixel_center, win);
 			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
 			// mlx_put_pixel(win->image, x, y, blue);
@@ -73,24 +75,24 @@ int main(void)
 	t_transform_comp transform_comp;
 
 	transform_comp = init_transform_comp();
-	screen = make_screen(400, 300);
+	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
+	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
-	print_camera_infos(&win.camera);
-	// print_objs(win.objs);
+
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	color_float_set(&win.ambient, 0.0f, 1.0f, 0.0f);
 	if (!win.mlx)
 		error_window(&win);
 	win.image = mlx_new_image(win.mlx, \
-		(int32_t)IMAGE_WIDTH, (int32_t)(IMAGE_WIDTH / IMAGE_RATIO));
+		(int32_t)screen.x, (int32_t)(screen.y));
+	image_hook(&win);
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
 		error_window(&win);
-		
+	
 	// printf("The image width: %d\nThe image height: %d\n", win.image->width, win.image->height);
 	// printf("The value IMAGE_WIDTH/IMAGE_RATIO: %f\n", (IMAGE_WIDTH / IMAGE_RATIO));
 	// printf("The value IMAGE_RATIO: %f\n", IMAGE_RATIO);
-	
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 		error_window(&win);
