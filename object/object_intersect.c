@@ -117,3 +117,31 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }
+
+/*
+	a : ray direction vector length squared
+	r : half diameter
+
+	c_dir : cylinder axis vector
+	ray_dir : ray direction vector
+
+
+*/
+bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+	double	a;
+	double	r;
+	double	c;
+	double	half_b;
+
+	t_vec3	ray_dir;
+	t_vec3	delta_p;
+
+	ray_dir = ray->dir;
+	r = cylinder->diameter / 2;
+	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
+	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
+	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
+	c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;;
+}
+
