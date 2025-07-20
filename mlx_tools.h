@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 18:02:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/20 21:38:44 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 // # include "Precompiled/loadresource.h"
 # include "object/objects.h"
 # include "debug/debug.h"
+# include "lighting/lighting.h"
 
 typedef struct s_window
 {
 	t_camera		camera;
+	// t_color_float	ambient;
+	t_ambient		ambient;
+	t_light			light;
 	t_objs_list		*objs;
-	t_color_float	ambient;
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 }	t_window;
