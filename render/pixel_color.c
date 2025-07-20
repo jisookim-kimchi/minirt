@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/16 20:28:14 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/19 19:44:10 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
+	
+	// sleep(1);
+	// printf(CYAN);
+	// printf("u_horizontal. x : %f, y : %f\n", u_horizontal.x, u_horizontal.y);
+	// printf("v_vertical. x : %f, y : %f\n", v_vertical.x, v_vertical.y);
+	// printf(DEFAULT);
+	
 	// printf("The uv vector:\n");
 	// print_vec3(&uv);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
@@ -71,8 +78,8 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 	col_32.blue = (uint32_t)(255.999
 			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
 	col_32.alpha = 255;
-	col_32.result_color = (col_32.red << 24) | (col_32.green << 16)
-		| (col_32.blue << 8) | (col_32.alpha);
+	col_32.result_color = (col_32.alpha << 24) | (col_32.blue << 16)
+    | (col_32.green << 8) | (col_32.red);
 	return (col_32);
 }
 
@@ -90,10 +97,12 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))
 	{
+		// result_color.result_color = 0xFF0000FF;
 		result_color = color_transform_to_int(&record.hit_color);
 	}
 	else
 	{
+		// result_color.result_color = 0xFF000000;
 		result_color = color_transform_to_int(&win->ambient);
 	}
 	return (result_color);

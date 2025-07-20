@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 16:48:05 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/20 19:10:30 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,44 @@ t_objs_list	*init_objs_list(void)
 	sphere_color.green = 0.0f;
 	sphere_color.blue = 0.0f;
 	sphere_diameter = 100.5f;
-	center = vec3(0.0, 3.5, 400.0);
+	center = vec3(0.0, 0.0, -500.0);
 	sphere = create_sphere(center, sphere_diameter, sphere_color);
+	
+	//plane1
+	t_objs_list		*plane1;
+	t_vec3			plane_point1;
+	t_vec3			unit_normal_vec1;
+	t_color_float	plane_color1;
 
-	//plane
-	t_objs_list		*plane;
-	t_vec3			plane_point;
-	t_vec3			unit_normal_vec;
-	t_color_float	plane_color;
+	color_float_set(&plane_color1, 1.0f, 1.0f, 0.0f);
+	plane_point1 = vec3(10.0, 10.0, -1000.0);
+	unit_normal_vec1 = vec3(0.0, 1.0, 0.0);
+	plane1 = create_plane(unit_normal_vec1, plane_point1, plane_color1);
 
-	color_float_set(&plane_color, 1.0f, 1.0f, 1.0f);
-	plane_point = vec3(-30.0, 0.0, 100.0);
-	unit_normal_vec = vec3(0.0, 0.0, -1.0);
-	plane = create_plane(unit_normal_vec, plane_point, plane_color);
+	// t_plane *test = (t_plane *)(plane->data);
+	// printf("test %f , %f, %f\n", test->plane_color.blue, test->plane_color.green, test->plane_color.red
 
 	// printf(CYAN);
 	// print_objs(plane);
 	// printf(DEFAULT);
 
-	printf(YELLOW);
-	print_objs(sphere);
-	printf(DEFAULT);
-
 	// pointer_address_message(plane);
 	// object_adress(plane);
 
-	add_member_to_obj_list(&list, sphere);
-	add_member_to_obj_list(&list, plane);
+	//plane2
+	t_objs_list		*plane2;
+	t_vec3			plane_point2;
+	t_vec3			unit_normal_vec2;
+	t_color_float	plane_color2;
 
-	printf(GREEN);
-	print_objs(list);
-	printf(DEFAULT);
-	// ft_putendl_fd("In init_objs_list end", 2);
+	color_float_set(&plane_color2, 1.0f, 0.5f, 0.5f);
+	plane_point2 = vec3(-50.0, 10.0, -100.0);
+	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);
+	plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
+
+	add_member_to_obj_list(&list, plane1);
+	add_member_to_obj_list(&list, sphere);
+	add_member_to_obj_list(&list, plane2);
 
 	return (list);
 }

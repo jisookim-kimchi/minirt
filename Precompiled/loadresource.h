@@ -13,6 +13,7 @@
 # define MAX_SCENE_OBJECTS 100
 
 # define IMAGE_WIDTH 1200
+# define IMAGE_HEIGHT 800
 # define IMAGE_RATIO (16.0f/9.0f)
 
 //Bold colors
@@ -56,11 +57,14 @@ typedef struct s_transform_comp
     fov : field of view
     far_clip : Distance from the camera to the far clipping plane
     far_clip : Distance from the camera to the near clipping plane
+	//todo maybe we dont need t_screenpoint struct in the camera struct.
 */
 typedef struct s_camera
 {
     t_transform_comp    transform_comp;
-    t_screenpoint       viewportsize;
+    //t_screenpoint       viewportsize;
+	float				viewport_h;
+	float				viewport_w;
     float               fov;
     // float               far_clip;
     // float               near_clip;

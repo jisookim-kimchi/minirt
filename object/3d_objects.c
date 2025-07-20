@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_objects.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 16:04:01 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 15:52:33 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ t_objs_list	*create_sphere(t_vec3 in_center,
 		return (free(new_sphere), NULL);
 	}
 	new_sphere->center = in_center;
+	printf("sphere->center %f ,%f ,%f\n", new_sphere->center.x, new_sphere->center.y,new_sphere->center.z);
 	new_sphere->diameter = in_diameter;
 	new_sphere->sphere_color = in_sphere_color;
 	new_sphere->obj_fill = SOLID;
 	new_list_member->obj_type = SPHERE;
 	new_list_member->data = new_sphere;
 	new_list_member->next = NULL;
+	t_sphere temp = *(t_sphere *)new_list_member->data; 
+	printf("new_list_sphere->center %f ,%f ,%f\n", temp.center.x, temp.center.y, temp.center.z);
 	return (new_list_member);
 }
 

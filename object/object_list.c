@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 16:58:08 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/20 19:15:14 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		{
 			if (hit)
 			{
+				// printf("GREEN\n");
+				// printf("hit\n");
+				// printf("DEFAULT\n");
 				add_member_to_obj_list(&hittable_list, obj);
 			}
 		}

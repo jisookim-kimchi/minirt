@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2d_objects.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:33:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 13:38:01 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/18 16:47:37 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 	it needs substract 1.0f form the input vector length absolute value
 	and compare with epsilon value what we still tolerate.
 */
+
 static bool	plane_unit_normal_check(t_vec3 in_unit_normal_vec)
 {
-	if (fabs(vec3_length(in_unit_normal_vec) - 1.0f) > (float)EPSILON)
+	if (fabs(vec3_length(in_unit_normal_vec) - 1.0f) > EPSILON)
 	{
 		printf("%s\nThe plane input vector is not"
 			" unit vector!%s\n", RED, DEFAULT);

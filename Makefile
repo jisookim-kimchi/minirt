@@ -10,7 +10,7 @@ MLX_LIB = $(MLX_DIR)/build/libmlx42.a
 LIBMLX = ./MLX42
 LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
 HEADER = -I $(LIBMLX)/include /math /object /Precompiled 
 
