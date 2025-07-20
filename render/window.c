@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 19:19:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/20 21:43:12 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ void	image_hook(void *param)
 
 int main(void)
 {
-	t_window	win;
-	t_screenpoint screen;
-	t_transform_comp transform_comp;
+	t_window			win;
+	t_screenpoint		screen;
+	t_transform_comp	transform_comp;
+	t_color_float		ambient;
 
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
@@ -81,7 +82,8 @@ int main(void)
 	win.objs = init_objs_list();
 
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
-	color_float_set(&win.ambient, 0.0f, 1.0f, 0.0f);
+	color_float_set(&ambient, 0.0f, 1.0f, 0.0f);
+	win.ambient = init_ambient(1.7f, ambient);
 	if (!win.mlx)
 		error_window(&win);
 	win.image = mlx_new_image(win.mlx, \

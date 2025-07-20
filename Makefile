@@ -12,7 +12,7 @@ LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
-HEADER = -I $(LIBMLX)/include /math /object /Precompiled 
+HEADER = -I $(LIBMLX)/include /math /object /Precompiled /lighting
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
@@ -33,6 +33,7 @@ SRCS :=	render/window.c \
 		math/vector2.c \
 		math/vector3.c \
 		math/vector4.c \
+		lighting/light.c \
 		Precompiled/camera.c \
 		Precompiled/transform_comp.c \
 		debug/messages.c
