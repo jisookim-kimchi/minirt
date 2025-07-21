@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 19:40:35 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:26:24 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			unit_normal_vec1;
 	t_color_float	plane_color1;
 
-	color_float_set(&plane_color1, 1.0f, 1.0f, 0.0f);
-	plane_point1 = vec3(10.0, 10.0, -1000.0);
+	color_float_set(&plane_color1, 0.0f, 0.0f, 1.0f);
+	plane_point1 = vec3(0.0, -10.0, -100.0);
 	unit_normal_vec1 = vec3(0.0, 1.0, 0.0);
 	plane1 = create_plane(unit_normal_vec1, plane_point1, plane_color1);
 
@@ -63,8 +63,8 @@ t_objs_list	*init_objs_list(void)
 	t_color_float	plane_color2;
 
 	color_float_set(&plane_color2, 1.0f, 0.5f, 0.5f);
-	plane_point2 = vec3(-50.0, 10.0, -100.0);
-	unit_normal_vec2 = vec3(1.0, 1.0, 0.0);
+	plane_point2 = vec3(10.0, 0.0, -100.0);
+	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);
 	plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
 
 	add_member_to_obj_list(&list, plane1);

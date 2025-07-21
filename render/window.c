@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 21:43:12 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:45:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int main(void)
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
-	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
+	// win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
 
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);

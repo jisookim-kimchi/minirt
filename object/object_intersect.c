@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 19:11:55 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:31:22 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 /*
 	The set_ray_opposite_normal function set the hit normal that way it
-	point against the ray.
+	point against the ray. Important: it set the vector unit normal vector
 */
 void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
 {
 	if (vec3_dot(ray->dir, normal) < 0)
-		hit->normal = normal;
+		hit->normal = vec3_normalized(normal);
 	else
-		hit->normal = vec3_multiply(normal, -1.0);
+		hit->normal = vec3_normalized(vec3_multiply(normal, -1.0));
 }
 
 /*
