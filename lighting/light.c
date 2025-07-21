@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 21:32:21 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:45:59 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,19 @@ t_ambient	init_ambient(float in_ambient_ratio, t_color_float in_color)
 	amb.ambient_ratio = in_ambient_ratio;
 	amb.ambient_color = in_color;
 	return (amb);
+}
+
+/*
+	norm_light_dir = normalized(light position - hit_point)
+*/
+double	diffuse_term(t_hit *hit, t_light *light)
+{
+	double	diffuse_t;
+	t_vec3	norm_light_dir;
+
+	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
+				hit->hit_point));
+	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
+	//clamp_calculation() with double!!!!!
+	return (diffuse_t);
 }

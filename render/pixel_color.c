@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 21:46:49 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:49:37 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 	col_32.blue = (uint32_t)(255.999
 			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
 	col_32.alpha = 255;
-	col_32.result_color = (col_32.alpha << 24) | (col_32.blue << 16)
-    | (col_32.green << 8) | (col_32.red);
+	col_32.result_color = (col_32.red << 24) | (col_32.green << 16)
+    | (col_32.blue << 8) | (col_32.alpha);
 	return (col_32);
 }
 
