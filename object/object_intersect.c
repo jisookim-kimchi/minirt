@@ -125,7 +125,8 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	c_dir : cylinder axis vector
 	ray_dir : ray direction vector
 
-
+	1. get a t value for the intersection point
+	2. check if its in the cylinder height.
 */
 bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
