@@ -159,13 +159,22 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	//check if is in cylinder height
 	t_vec3 hit_point = ray_at(ray, t);
 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
-	double height_projections = vec3_dot(axis_to_hit, cylinder->axis);
-	if (height_projections < 0 || height_projections > cylinder->height)
+	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
+	if (height_projection < 0 || height_projection > cylinder->height)
 		return (false);
 	hit->t = t;
 	hit->hit_point = hit_point;
 	hit->hit_color = cylinder->cylinder_color;
-	set_ray_opposite_normal(ray, hit, );
+
+
+	//get normal 
+	t_point3 hitpoint_height;
+    t_vec3 normal;
+
+	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
+	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
+	hit->normal = vec3_normalized(normal);
+	set_ray_opposite_normal(ray, hit, hit->normal);
 	return (true);
 }
 
