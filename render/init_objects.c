@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 19:57:48 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:18:13 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_objs_list	*init_objs_list(void)
 	sphere_color.red = 1.0f;
 	sphere_color.green = 0.0f;
 	sphere_color.blue = 0.0f;
-	sphere_diameter = 100.5f;
-	center = vec3(0.0, 0.0, -500.0);
+	sphere_diameter = 100.0f;
+	center = vec3(0.0, 100.0, -500.0);
 	sphere = create_sphere(center, sphere_diameter, sphere_color);
 	
 	//plane1
@@ -41,14 +41,10 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			unit_normal_vec1;
 	t_color_float	plane_color1;
 
-	color_float_set(&plane_color1, 1.0f, 1.0f, 0.0f);
-	plane_point1 = vec3(10.0, 10.0, -1000.0);
-	unit_normal_vec1 = vec3_normalized((t_vec3){0.0, 1.0, 0.0});
+	color_float_set(&plane_color1, 0.0f, 0.0f, 1.0f); //blue
+	plane_point1 = vec3(0.0, -10.0, -1000.0);
+	unit_normal_vec1 = vec3_normalized((t_vec3){0.0, 1.0, 0.0}); //zx plane
 	plane1 = create_plane(unit_normal_vec1, plane_point1, plane_color1);
-	// t_plane *test = (t_plane *)(plane->data);
-	// printf("test %f , %f, %f\n", test->plane_color.blue, test->plane_color.green, test->plane_color.red);
-	// pointer_address_message(plane);
-	// object_adress(plane);
 
 	//plane2
 	t_objs_list		*plane2;
@@ -56,9 +52,9 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			unit_normal_vec2;
 	t_color_float	plane_color2;
 
-	color_float_set(&plane_color2, 1.0f, 0.5f, 0.5f);
-	plane_point2 = vec3(-50.0, 10.0, -100.0);
-	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);
+	color_float_set(&plane_color2, 0.0f, 1.0f, 0.0f); //green
+	plane_point2 = vec3(-10.0, 0.0, -700.0);
+	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);   //zy plane
 	plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
 
 	add_member_to_obj_list(&list, plane1);
