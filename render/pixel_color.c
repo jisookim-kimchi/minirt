@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/19 19:44:10 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:30:36 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	float value  (which should be in the range 0.0 and 1.0)
 	into uint_32 format which the renderer can use
 */
+
+// void mlx_draw_pixel(uint8_t* pixel, uint32_t color)
+// {
+// 	*(pixel++) = (uint8_t)(color >> 24);
+// 	*(pixel++) = (uint8_t)(color >> 16);
+// 	*(pixel++) = (uint8_t)(color >> 8);
+// 	*(pixel++) = (uint8_t)(color & 0xFF);
+// }
+
 t_color_32	color_transform_to_int(t_color_float *col_float)
 {
 	t_color_32	col_32;
@@ -78,8 +87,8 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 	col_32.blue = (uint32_t)(255.999
 			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
 	col_32.alpha = 255;
-	col_32.result_color = (col_32.alpha << 24) | (col_32.blue << 16)
-    | (col_32.green << 8) | (col_32.red);
+	col_32.result_color = (col_32.red << 24) | (col_32.green << 16)
+    | (col_32.blue << 8) | (col_32.alpha);
 	return (col_32);
 }
 
