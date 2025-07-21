@@ -127,6 +127,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 
 	1. get a t value for the intersection point
 	2. check if its in the cylinder height.
+	3. set the hit point, color and normal.
 */
 bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
@@ -161,5 +162,10 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	double height_projections = vec3_dot(axis_to_hit, cylinder->axis);
 	if (height_projections < 0 || height_projections > cylinder->height)
 		return (false);
+	hit->t = t;
+	hit->hit_point = hit_point;
+	hit->hit_color = cylinder->cylinder_color;
+	set_ray_opposite_normal(ray, hit, );
+	return (true);
 }
 
