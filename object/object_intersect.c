@@ -131,7 +131,6 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
 	double	a;
 	double	r;
-	double	c;
 	double	half_b;
 
 	t_vec3	ray_dir;
@@ -142,6 +141,24 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
 	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
 	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
-	c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;;
+	double c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;
+	double	check = half_b * half_b - a * c;
+	if(check < 0)
+		return (false);
+	double t = (-half_b - sqrt(check)) / a;
+	if (t <hit->t_min || t > hit->t_max)
+	{
+		t = (-half_b + sqrt(check)) / a;
+		if (t <hit->t_min || t > hit->t_max)
+			return (false);
+		return (false);
+	}
+
+	//check if is in cylinder height
+	t_vec3 hit_point = ray_at(ray, t);
+	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
+	double height_projections = vec3_dot(axis_to_hit, cylinder->axis);
+	if (height_projections < 0 || height_projections > cylinder->height)
+		return (false);
 }
 
