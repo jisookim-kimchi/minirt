@@ -134,7 +134,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	//5. TODO: Compute correct normal for cap intersections
 
 */
-bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
 	double	a;
 	double	r;
@@ -187,5 +187,53 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	return (true);
 }
 
+bool	hit_cylinder_cap(t_ray *ray, t_vec3 cap_center, t_cylinder *cylinder, t_hit *hit, t_vec3 cap_normal)
+{
+    const double r = cylinder->diameter / 2;
+    // const t_vec3 cap_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, cylinder->height));
 
+	//check if the ray is parallel to the cap plane
+	double check = vec3_dot(ray->dir, cylinder->axis);
+	if (fabs(check) < EPSILON)
+		return (false);
+
+	//calculate the t value for the intersection point on the cap
+	double t = vec3_dot(vec3_sub_vec3(cap_center, ray->orign), cap_normal) / check;
+	if (t < hit->t_min || t > hit->t_max)
+		return (false);
+	
+	t_point3 p = ray_at(ray, hit->t);
+	
+	//check if it is within the cylinder's cap radius
+	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
+		return (false);
+	
+	hit->t = t;
+	hit->hit_point = p;
+	hit->hit_color = cylinder->cylinder_color;
+	set_ray_opposite_normal(ray, hit, cap_normal);
+	return (true);	
+}
+
+bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+    int result;
+
+	if (!cylinder || !ray || !hit)
+		return (false);
+	
+    bool is_hit = false;
+	double half_height = cylinder->height / 2.f;
+	
+    t_vec3 up = vec3_normalized(cylinder->axis);
+
+    t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+    t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+    
+   is_hit = hit_cylinder_cap(cylinder, top_center, ray, hit, up) ||
+   			hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
+         	hit_cylinder_side(cylinder, ray, hit);
+	
+    return (is_hit);
+}
 
