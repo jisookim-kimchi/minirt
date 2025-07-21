@@ -128,6 +128,10 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	1. get a t value for the intersection point
 	2. check if its in the cylinder height.
 	3. set the hit point, color and normal.
+
+	//4. TODO: Handle intersection with cylinder caps (top & bottom)
+	//5. TODO: Compute correct normal for cap intersections
+
 */
 bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
@@ -165,7 +169,6 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	hit->t = t;
 	hit->hit_point = hit_point;
 	hit->hit_color = cylinder->cylinder_color;
-
 
 	//get normal 
 	t_point3 hitpoint_height;
