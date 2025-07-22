@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 21:38:44 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/22 20:03:00 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ typedef struct s_window
 	mlx_image_t		*image;
 }	t_window;
 
-void		get_ray_from_camera(t_camera *camera, t_ray *ray,
-				uint32_t x, uint32_t y);
-t_color_32	color_transform_to_int(t_color_float *col_float);
-t_color_32	pixel_center_color(t_ray *ray, t_window *win);
+void			get_ray_from_camera(t_camera *camera, t_ray *ray,
+					uint32_t x, uint32_t y);
+t_color_32		color_transform_to_int(t_color_float *col_float);
+t_color_32		pixel_center_color(t_ray *ray, t_window *win);
+t_color_float	calculate_hit_color(t_window *win, t_hit *hit);
 
 
 //The init_objects.c file consist helper function to allocate objects
