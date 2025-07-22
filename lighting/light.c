@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 13:19:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/22 17:02:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
-	double_clamp_calculation(diffuse_t, 0.0, INFINITY);
+	//clamping 0.0 ~ 1.0
+	double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }
 
@@ -78,19 +79,24 @@ double	diffuse_term(t_hit *hit, t_light *light)
 
 	In the function the specular_t value calculated 3 steps, not in one big line
 */
+
 double	specular_term(t_camera *camera, t_hit *hit,
 		t_light *light, double shininess)
 {
 	double	specular_t;
-	t_vec3	norm_light_dir;
-	t_vec3	norm_camera_dir;
+	t_vec3	v_dir;
+	t_vec3	n_dir;
 	t_vec3	reflect;
 
-	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
+	v_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.pos,
+		hit->hit_point));
+			
+	n_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
-	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.pos,
-				hit->hit_point));
+	
 	// R = reflect(-L, N);
+	
+
 	specular_t = vec3_dot(reflect, norm_camera_dir);
 	specular_t = double_clamp_calculation(specular_t, 0.0, INFINITY);
 	specular_t = pow(specular_t, shininess);
