@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 17:18:13 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:37:41 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,28 @@ t_objs_list	*init_objs_list(void)
 	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);   //zy plane
 	plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
 
-	add_member_to_obj_list(&list, plane1);
-	add_member_to_obj_list(&list, sphere);
-	add_member_to_obj_list(&list, plane2);
+	//cylinder
+	t_objs_list		*cylinder;
+	t_color_float	cylinder_color;
+	float			diameter = 20.f;
+	float			height = 20.f;
+	t_vec3			cylinder_axis = {0, 1, 0};
+	t_vec3 			cylinder_center = {0.0, 0.0, -500.0};
+
+	color_float_set(&cylinder_color, 1.0f, 0.0f, 0.0f); //RED
+	
+	cylinder = create_cylinder(cylinder_axis, cylinder_center, diameter, height, cylinder_color);
+
+	t_cylinder cy;
+	cy = *(t_cylinder *)cylinder->data;
+	
+	printf(CYAN"cylider center ,%f ,%f ,%f\n",cy.center.x, cy.center.y, cy.center.z);
+	printf("cylider diameter : %f, height : %f , axes ,%f ,%f ,%f\n"DEFAULT,cy.diameter, cy.height, cy.axis.x, cy.axis.y, cy.axis.z);
+	
+	//add_member_to_obj_list(&list, plane1);
+	add_member_to_obj_list(&list, cylinder);
+	//add_member_to_obj_list(&list, sphere);
+	//add_member_to_obj_list(&list, plane2);
 
 	return (list);
 }

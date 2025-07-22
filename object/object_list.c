@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 12:23:05 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:03:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		return (hit_plane((t_plane *)obj->data, ray, hit));
 	if (obj->obj_type == SPHERE)
 		return (hit_sphere((t_sphere *)obj->data, ray, hit));
-	// if (obj->obj_type == CYLINDER)
-	// 	return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
+	if (obj->obj_type == CYLINDER)
+	 	return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
 	return (false);
 }
 
