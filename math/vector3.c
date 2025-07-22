@@ -168,3 +168,23 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	vec3.z = vec3.z / len;
 	return vec3;
 }
+
+t_color3 color_float_to_col3(t_color_float input)
+{
+    t_color3    col3;
+
+    col3.x = (double)input.red;
+    col3.y = (double)input.green;
+    col3.z = (double)input.blue;
+    return (col3);
+}
+
+t_color_float color_col3_to_float(t_color3 input)
+{
+    t_color_float   col_float;
+
+    col_float.red = (float)input.x;
+    col_float.green = (float)input.y;
+    col_float.blue = (float)input.z;
+    return (col_float);
+}
