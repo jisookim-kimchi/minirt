@@ -16,10 +16,7 @@ HEADER = -I $(LIBMLX)/include /math /object /Precompiled /lighting
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRCS :=	render/window.c \
-		render/pixel_color.c \
-		render/init_objects.c \
-		object/2d_objects.c \
+SRCS :=	object/2d_objects.c \
 		object/3d_objects.c \
 		object/object_intersect.c \
 		object/object_list.c \
@@ -36,6 +33,9 @@ SRCS :=	render/window.c \
 		lighting/light.c \
 		Precompiled/camera.c \
 		Precompiled/transform_comp.c \
+		render/window.c \
+		render/pixel_color.c \
+		render/init_objects.c \
 		debug/messages.c
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))

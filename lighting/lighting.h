@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 19:01:10 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/22 20:02:39 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ t_vec3			light_reflect(t_vec3 light_dir, t_vec3 normal);
 double			diffuse_term(t_hit *hit, t_light *light);
 double			specular_term(t_camera *camera, t_hit *hit,
 					t_light *light, double shininess);
-t_color_float	calculate_hit_color(t_window *win, t_hit *hit);
 
 #endif
