@@ -148,9 +148,10 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
 	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
 	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
-	double c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;
+	double c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
+	//double c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;
 	double	check = half_b * half_b - a * c;
-	if(check < 0)
+	if(check < EPSILON)
 		return (false);
 	double t = (-half_b - sqrt(check)) / a;
 	if (t <hit->t_min || t > hit->t_max)
@@ -180,10 +181,6 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	hit->normal = vec3_normalized(normal);
 	set_ray_opposite_normal(ray, hit, hit->normal);
 
-	//handle top cap , bottom cap.
-	// t_point3	top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, cylinder->height / 2));
-	// t_point3	bottom_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, -(cylinder->height / 2)));
-	
 	return (true);
 }
 
