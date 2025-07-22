@@ -27,3 +27,16 @@ float	clamp_calculation(float input_value, float min, float max)
 		return (max);
 	return (input_value);
 }
+
+/*
+	The double_clamp_calculation fucntion does the same thing than float 
+	clamp calculation, but it use double varables
+*/
+double	double_clamp_calculation(double input_value, double min, double max)
+{
+	if (input_value <= min)
+		return (min);
+	if (input_value >= max)
+		return (max);
+	return (input_value);
+}
