@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 16:30:36 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/22 19:00:30 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
-	double_clamp_calculation(diffuse_t, 0.0, INFINITY);
+	double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }
 
@@ -109,7 +109,7 @@ double	specular_term(t_camera *camera, t_hit *hit,
 				hit->hit_point));
 	reflect = light_reflect(norm_light_dir, hit->normal);
 	specular_t = vec3_dot(reflect, norm_camera_dir);
-	specular_t = double_clamp_calculation(specular_t, 0.0, INFINITY);
+	specular_t = double_clamp_calculation(specular_t, 0.0, 1.0);
 	specular_t = pow(specular_t, shininess);
 	return (specular_t);
 }
@@ -123,11 +123,27 @@ double	specular_term(t_camera *camera, t_hit *hit,
 
 	where ambient = ambient_ratio * ambient_color * object_color;
 */
-t_color_float	hit_color(t_window *win, t_hit *hit)
+t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 {
 	t_phong_terms	phong;
+	t_color_float	result_float;
 
 	phong.diffuse_t = diffuse_term(hit, &win->light);
 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 32.0);
-	phong.result = phong.ambient_color + phong.diffuse_color + phong.specular_color;
+	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
+				color_float_to_col3(win->ambient.ambient_color),
+				color_float_to_col3(hit->hit_color)),
+			win->ambient.ambient_ratio);
+	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
+				color_float_to_col3(win->light.light_color),
+				color_float_to_col3(hit->hit_color)),
+			win->light.light_ratio * phong.diffuse_t);
+	phong.specular_color = vec3_multiply(
+			color_float_to_col3(win->light.light_color),
+			win->light.light_ratio * phong.specular_t);
+	phong.result = vec3_plus_vec3(phong.ambient_color,
+			vec3_plus_vec3(phong.diffuse_color,
+				phong.specular_color));
+	result_float = color_col3_to_float(phong.result);
+	return (result_float);
 }

@@ -12,7 +12,7 @@
 
 //typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
-// typedef struct s_vec3 t_color3;
+typedef struct s_vec3 t_color3;
 
 typedef struct s_color_float
 {
@@ -118,26 +118,28 @@ float deg2rad(float indegree);
 t_transform init_transform(void);
 
 
-t_vec3		vec3(double x, double y, double z);
-t_vec3		vec3_one();
-t_point3	point3(double x, double y, double z);
+t_vec3			vec3(double x, double y, double z);
+t_vec3			vec3_one();
+t_point3		point3(double x, double y, double z);
 t_color_float	color3(double x, double y, double z);
-void		vec3_set(t_vec3 *vec3, double x, double y, double z);
+void			vec3_set(t_vec3 *vec3, double x, double y, double z);
 // void		color_set(t_color_float *color3, double x, double y, double z);
-void		color_float_set(t_color_float *color3, float in_red, float in_green, float in_blue);
-void		point_set(t_point3 *point3, double x, double y, double z);
-double		vec3_length_squared(t_vec3 vec);
-double      vec3_length(t_vec3 vec);
-t_vec3		vec3_add(t_vec3 vec, double x, double y, double z);
-t_vec3		vec3_plus_vec3(t_vec3 vec1, t_vec3 vec2);
-t_vec3      vec3_sub(t_vec3 vec, double x, double y, double z);
-t_vec3      vec3_sub_vec3(t_vec3 vec1, t_vec3 vec2);
-t_vec3      vec3_multiply(t_vec3 vec, double t);
-t_vec3      vec3_multiply_vec3(t_vec3 vec1, t_vec3 vec2);
-t_vec3      vec3_divide(t_vec3 vec, double t);
-double		vec3_dot(t_vec3 vec1, t_vec3 vec2);
-t_vec3		vec3_cross(t_vec3 vec1, t_vec3 vec2);
-t_vec3		vec3_normalized(t_vec3 vec3);
+void			color_float_set(t_color_float *color3, float in_red, float in_green, float in_blue);
+t_color3 		color_float_to_col3(t_color_float input);
+t_color_float	color_col3_to_float(t_color3 input)
+void			point_set(t_point3 *point3, double x, double y, double z);
+double			vec3_length_squared(t_vec3 vec);
+double      	vec3_length(t_vec3 vec);
+t_vec3			vec3_add(t_vec3 vec, double x, double y, double z);
+t_vec3			vec3_plus_vec3(t_vec3 vec1, t_vec3 vec2);
+t_vec3      	vec3_sub(t_vec3 vec, double x, double y, double z);
+t_vec3      	vec3_sub_vec3(t_vec3 vec1, t_vec3 vec2);
+t_vec3      	vec3_multiply(t_vec3 vec, double t);
+t_vec3      	vec3_multiply_vec3(t_vec3 vec1, t_vec3 vec2);
+t_vec3    		vec3_divide(t_vec3 vec, double t);
+double			vec3_dot(t_vec3 vec1, t_vec3 vec2);
+t_vec3			vec3_cross(t_vec3 vec1, t_vec3 vec2);
+t_vec3			vec3_normalized(t_vec3 vec3);
 
 //vector4.c
 t_vec4 vec4(float x, float y, float z, float w);
