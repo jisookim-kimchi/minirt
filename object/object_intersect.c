@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 17:09:34 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:46:09 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	2. check if its in the cylinder height.
 	3. set the hit point, color and normal.
 
-	//4. TODO: Handle intersection with cylinder caps (top & bottom)
-	//5. TODO: Compute correct normal for cap intersections
+	4. Handle intersection with cylinder caps (top & bottom)
+	5. Compute correct normal for cap intersections
 
 */
 bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
@@ -153,21 +153,29 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	double	check = half_b * half_b - a * c;
 	if(check < EPSILON)
 		return (false);
+	
 	double t = (-half_b - sqrt(check)) / a;
-	if (t <hit->t_min || t > hit->t_max)
+	if (t < hit->t_min || t > hit->t_max)
 	{
 		t = (-half_b + sqrt(check)) / a;
 		if (t <hit->t_min || t > hit->t_max)
 			return (false);
-		return (false);
+		//return (false);
 	}
 
 	//check if is in cylinder height
 	t_vec3 hit_point = ray_at(ray, t);
 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
 	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
-	if (height_projection < 0 || height_projection > cylinder->height)
+	
+	//todo cehck height_projection < 0 is correct
+	// if (height_projection < 0 || height_projection > cylinder->height)
+	// 	return (false);
+	if (fabs(height_projection) > cylinder->height / 2)
+	{
 		return (false);
+	}
+
 	hit->t = t;
 	hit->hit_point = hit_point;
 	hit->hit_color = cylinder->cylinder_color;
@@ -180,11 +188,15 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
 	hit->normal = vec3_normalized(normal);
 	set_ray_opposite_normal(ray, hit, hit->normal);
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> refs/remotes/origin/test
 	return (true);
 }
 
-bool	hit_cylinder_cap(t_ray *ray, t_vec3 cap_center, t_cylinder *cylinder, t_hit *hit, t_vec3 cap_normal)
+bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal)
 {
     const double r = cylinder->diameter / 2;
     // const t_vec3 cap_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, cylinder->height));
@@ -214,8 +226,6 @@ bool	hit_cylinder_cap(t_ray *ray, t_vec3 cap_center, t_cylinder *cylinder, t_hit
 
 bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
-    int result;
-
 	if (!cylinder || !ray || !hit)
 		return (false);
 	
@@ -227,10 +237,9 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
     
-   is_hit = hit_cylinder_cap(cylinder, top_center, ray, hit, up) ||
-   			hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
-         	hit_cylinder_side(cylinder, ray, hit);
-	
+	is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
+				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
+         		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
     return (is_hit);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 12:21:02 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/22 18:22:42 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_objs_list	*create_sphere(t_vec3 in_center,
 	return (new_list_member);
 }
 
-t_objs_list	*create_cylinder(t_vec3 in_axis, 
+t_objs_list	*create_cylinder(t_vec3 in_axis, t_vec3 in_center,
 	float in_diameter, float in_height, t_color_float in_cylinder_color)
 {
 	t_cylinder		*new_cylinder;
@@ -64,6 +64,7 @@ t_objs_list	*create_cylinder(t_vec3 in_axis,
 	new_cylinder->axis = in_axis;
 	new_cylinder->diameter = in_diameter;
 	new_cylinder->height = in_height;
+	new_cylinder->center = in_center;
 	new_cylinder->cylinder_color = in_cylinder_color;
 	new_cylinder->obj_fill = SOLID;
 	new_list_member->obj_type = CYLINDER;
