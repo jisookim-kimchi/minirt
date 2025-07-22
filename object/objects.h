@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/17 14:31:07 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/22 12:14:46 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,7 @@ bool		hit_plane(t_plane *plane, t_ray *ray, t_hit *hit);
 
 //check_interval.c
 float		clamp_calculation(float input_value, float min, float max);
+double		double_clamp_calculation(double input_value,
+				double min, double max);
 bool		check_value_in_range(float input_value, float min, float max);
 #endif
