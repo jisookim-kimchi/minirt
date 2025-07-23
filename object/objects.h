@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 17:05:24 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:36:07 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,5 @@ bool		hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 //check_interval.c
 float		clamp_calculation(float input_value, float min, float max);
 bool		check_value_in_range(float input_value, float min, float max);
+double	double_clamp_calculation(double input_value, double min, double max);
 #endif

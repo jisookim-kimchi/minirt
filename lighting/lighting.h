@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 16:29:09 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 19:35:21 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ typedef struct s_phong_terms
 {
 	double			diffuse_t;
 	double			specular_t;
-	t_color_float	ambient_color;
-	t_color_float	diffuse_color;
-	t_color_float	specular_color;
-	t_color_float	result;
+	t_color3		ambient_color;
+	t_color3		diffuse_color;
+	t_color3		specular_color;
+	t_color3		result;
 }	t_phong_terms;
 
-t_light		init_light(t_vec3 in_pos, float in_bright_ratio,
-				t_color_float in_color);
-t_ambient	init_ambient(float in_ambient_ratio, t_color_float in_color);
-t_vec3		light_reflect(t_vec3 light_dir, t_vec3 normal);
-double		diffuse_term(t_hit *hit, t_light *light);
-double		specular_term(t_camera *camera, t_hit *hit,
-				t_light *light, double shininess);
+t_light			init_light(t_vec3 in_pos, float in_bright_ratio,
+					t_color_float in_color);
+t_ambient		init_ambient(float in_ambient_ratio, t_color_float in_color);
+t_vec3			light_reflect(t_vec3 light_dir, t_vec3 normal);
+double			diffuse_term(t_hit *hit, t_light *light);
+double			specular_term(t_camera *camera, t_hit *hit,
+					t_light *light, double shininess);
 
 #endif

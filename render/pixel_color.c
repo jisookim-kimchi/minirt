@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 13:30:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:33:39 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,40 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 }
 
 /*
+	The shininess object related behavior. Now it is fixed value, but
+	later can be added to the object material properties.
+
+	The result hit color
+	color = ambient + diff * light_color * object_color + spec * light_color;
+
+	where ambient = ambient_ratio * ambient_color * object_color;
+*/
+t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
+{
+	t_phong_terms	phong;
+	t_color_float	result_float;
+
+	phong.diffuse_t = diffuse_term(hit, &win->light);
+	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
+	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
+				color_float_to_col3(win->ambient.ambient_color),
+				color_float_to_col3(hit->hit_color)),
+			win->ambient.ambient_ratio);
+	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
+				color_float_to_col3(win->light.light_color),
+				color_float_to_col3(hit->hit_color)),
+			win->light.light_ratio * phong.diffuse_t);
+	phong.specular_color = vec3_multiply(
+			color_float_to_col3(win->light.light_color),
+			win->light.light_ratio * phong.specular_t);
+	phong.result = vec3_plus_vec3(phong.ambient_color,
+			vec3_plus_vec3(phong.diffuse_color,
+				phong.specular_color));
+	result_float = color_col3_to_float(phong.result);
+	return (result_float);
+}
+
+/*
 	The pixel_center_color function return the color 
 	value in uint32_t.
 	If the ray hit an object, than return the hit structure hit colore value.
@@ -100,19 +134,23 @@ t_color_32	color_transform_to_int(t_color_float *col_float)
 */
 t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 {
-	t_color_32	result_color;
-	t_hit		record;
+	t_color_32		result_color;
+	t_color_float	temp;
+	t_hit			record;
 
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))
 	{
 		// result_color.result_color = 0xFF0000FF;
-		result_color = color_transform_to_int(&record.hit_color);
+		temp = calculate_hit_color(win, &record);
+		result_color = color_transform_to_int(&temp);
 	}
 	else
 	{
 		// result_color.result_color = 0xFF000000;
-		result_color = color_transform_to_int(&win->ambient);
+		temp = color_float_multiply(win->ambient.ambient_color,
+				win->ambient.ambient_ratio);
+		result_color = color_transform_to_int(&temp);
 	}
 	return (result_color);
 }
