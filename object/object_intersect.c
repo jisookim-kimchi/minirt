@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 18:46:09 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:28:32 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,39 +188,46 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
 	hit->normal = vec3_normalized(normal);
 	set_ray_opposite_normal(ray, hit, hit->normal);
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> refs/remotes/origin/test
 	return (true);
 }
 
 bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal)
 {
-    const double r = cylinder->diameter / 2;
+	// printf("%sIn hit_cylinder_cap function%s\n", GREEN, DEFAULT);
+	const double r = cylinder->diameter / 2;
     // const t_vec3 cap_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, cylinder->height));
 
 	//check if the ray is parallel to the cap plane
-	double check = vec3_dot(ray->dir, cylinder->axis);
+	double check = vec3_dot(ray->dir, cap_normal);
 	if (fabs(check) < EPSILON)
+	{
+		// printf("%sEPSILON check%s\n", MAGENTA, DEFAULT);
 		return (false);
+	}
 
 	//calculate the t value for the intersection point on the cap
 	double t = vec3_dot(vec3_sub_vec3(cap_center, ray->orign), cap_normal) / check;
 	if (t < hit->t_min || t > hit->t_max)
+	{
+		// printf("%st_min: %f\tt_max: %f\tt: %f%s\n", MAGENTA, hit->t_min, hit->t_max, hit->t, DEFAULT);
+		// printf("%st interval check check%s\n", MAGENTA, DEFAULT);
 		return (false);
+	}
 	
-	t_point3 p = ray_at(ray, hit->t);
+	t_point3 p = ray_at(ray, t);
 	
 	//check if it is within the cylinder's cap radius
 	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
+	{
+		// printf("%sr circle check%s\n", MAGENTA, DEFAULT);
 		return (false);
+	}
 	
 	hit->t = t;
 	hit->hit_point = p;
 	hit->hit_color = cylinder->cylinder_color;
 	set_ray_opposite_normal(ray, hit, cap_normal);
+	// printf("%scylinder cap: true%s\n", YELLOW, DEFAULT);
 	return (true);	
 }
 

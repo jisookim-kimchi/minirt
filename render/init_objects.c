@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 18:37:41 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:05:18 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ t_objs_list	*init_objs_list(void)
 	//cylinder
 	t_objs_list		*cylinder;
 	t_color_float	cylinder_color;
-	float			diameter = 20.f;
-	float			height = 20.f;
-	t_vec3			cylinder_axis = {0, 1, 0};
-	t_vec3 			cylinder_center = {0.0, 0.0, -500.0};
+	float			diameter = 70.f;
+	float			height = 200.f;
+	t_vec3			cylinder_axis = {1, 1, -1};
+	t_vec3 			cylinder_center = {-30.0, 0.0, -500.0};
 
 	color_float_set(&cylinder_color, 1.0f, 0.0f, 0.0f); //RED
 	
