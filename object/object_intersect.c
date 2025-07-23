@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 18:31:22 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 17:38:43 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 /*
 	The set_ray_opposite_normal function set the hit normal that way it
-	point against the ray. Important: it set the vector unit normal vector
+	point against the ray.
 */
 void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
 {
 	if (vec3_dot(ray->dir, normal) < 0)
-		hit->normal = vec3_normalized(normal);
+		hit->normal = normal;
 	else
-		hit->normal = vec3_normalized(vec3_multiply(normal, -1.0));
+		hit->normal = vec3_multiply(normal, -1.0);
 }
 
 /*
@@ -106,6 +106,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
 	if (fabs(rayn_planen_dot) < EPSILON)
 		return (false);
+	//printf("rayn_planen_dot %f\n", rayn_planen_dot);
 
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
@@ -117,3 +118,136 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }
+
+/*
+	a : ray direction vector length squared
+	r : half diameter
+
+	c_dir : cylinder axis vector
+	ray_dir : ray direction vector
+
+	1. get a t value for the intersection point
+	2. check if its in the cylinder height.
+	3. set the hit point, color and normal.
+
+	4. Handle intersection with cylinder caps (top & bottom)
+	5. Compute correct normal for cap intersections
+
+	cylinder->axis must be normalized!
+*/
+bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+	double	a;
+	double	r;
+	double	half_b;
+
+	t_vec3	ray_dir;
+	t_vec3	delta_p;
+
+	ray_dir = ray->dir;
+	r = cylinder->diameter / 2;
+	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
+	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
+	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
+	double c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
+	//double c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;
+	double	check = half_b * half_b - a * c;
+	if(check < EPSILON)
+		return (false);
+	
+	double t = (-half_b - sqrt(check)) / a;
+	if (t < hit->t_min || t > hit->t_max)
+	{
+		t = (-half_b + sqrt(check)) / a;
+		if (t <hit->t_min || t > hit->t_max)
+			return (false);
+		//return (false);
+	}
+
+	//check if is in cylinder height
+	t_vec3 hit_point = ray_at(ray, t);
+	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
+	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
+	
+	//todo cehck height_projection < 0 is correct
+	// if (height_projection < 0 || height_projection > cylinder->height)
+	// 	return (false);
+	if (fabs(height_projection) > cylinder->height / 2)
+	{
+		return (false);
+	}
+
+	hit->t = t;
+	hit->hit_point = hit_point;
+	hit->hit_color = cylinder->cylinder_color;
+
+	//get normal 
+	t_point3 hitpoint_height;
+    t_vec3 normal;
+
+	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
+	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
+	hit->normal = vec3_normalized(normal);
+	set_ray_opposite_normal(ray, hit, hit->normal);
+	return (true);
+}
+
+bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal)
+{
+	// printf("%sIn hit_cylinder_cap function%s\n", GREEN, DEFAULT);
+	const double r = cylinder->diameter / 2;
+    // const t_vec3 cap_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, cylinder->height));
+
+	//check if the ray is parallel to the cap plane
+	double check = vec3_dot(ray->dir, cap_normal);
+	if (fabs(check) < EPSILON)
+	{
+		// printf("%sEPSILON check%s\n", MAGENTA, DEFAULT);
+		return (false);
+	}
+
+	//calculate the t value for the intersection point on the cap
+	double t = vec3_dot(vec3_sub_vec3(cap_center, ray->orign), cap_normal) / check;
+	if (t < hit->t_min || t > hit->t_max)
+	{
+		// printf("%st_min: %f\tt_max: %f\tt: %f%s\n", MAGENTA, hit->t_min, hit->t_max, hit->t, DEFAULT);
+		// printf("%st interval check check%s\n", MAGENTA, DEFAULT);
+		return (false);
+	}
+	
+	t_point3 p = ray_at(ray, t);
+	
+	//check if it is within the cylinder's cap radius
+	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
+	{
+		// printf("%sr circle check%s\n", MAGENTA, DEFAULT);
+		return (false);
+	}
+	
+	hit->t = t;
+	hit->hit_point = p;
+	hit->hit_color = cylinder->cylinder_color;
+	set_ray_opposite_normal(ray, hit, cap_normal);
+	// printf("%scylinder cap: true%s\n", YELLOW, DEFAULT);
+	return (true);	
+}
+
+bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+	if (!cylinder || !ray || !hit)
+		return (false);
+	
+    bool is_hit = false;
+	double half_height = cylinder->height / 2.f;
+	
+    t_vec3 up = vec3_normalized(cylinder->axis);
+    t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+    t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+
+	is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
+				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
+         		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+	
+    return (is_hit);
+}
+

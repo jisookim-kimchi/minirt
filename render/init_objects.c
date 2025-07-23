@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 17:26:24 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 18:04:47 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_objs_list	*init_objs_list(void)
 	sphere_color.red = 1.0f;
 	sphere_color.green = 0.0f;
 	sphere_color.blue = 0.0f;
-	sphere_diameter = 100.5f;
-	center = vec3(0.0, 0.0, -500.0);
+	sphere_diameter = 100.0f;
+	center = vec3(0.0, 100.0, -500.0);
 	sphere = create_sphere(center, sphere_diameter, sphere_color);
 	
 	//plane1
@@ -67,7 +67,20 @@ t_objs_list	*init_objs_list(void)
 	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);
 	plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
 
+	//cylinder
+	t_objs_list		*cylinder;
+	t_color_float	cylinder_color;
+	float			diameter = 50.0f;
+	float			height = 100.0f;
+	t_vec3			cylinder_axis = {1, 1, -1};
+	t_vec3 			cylinder_center = {-100.0, 20.0, -500.0};
+
+	color_float_set(&cylinder_color, 1.0f, 0.0f, 0.0f); //RED
+	
+	cylinder = create_cylinder(cylinder_axis, cylinder_center, diameter, height, cylinder_color);
+
 	add_member_to_obj_list(&list, plane1);
+	add_member_to_obj_list(&list, cylinder);
 	add_member_to_obj_list(&list, sphere);
 	add_member_to_obj_list(&list, plane2);
 

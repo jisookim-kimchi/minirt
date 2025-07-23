@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 19:15:14 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/22 18:03:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 		while (current->next)
 			current = current->next;
 		current->next = new_member;
+		object_adress(current->next);
 	}
 }
 
@@ -77,8 +78,8 @@ bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		return (hit_plane((t_plane *)obj->data, ray, hit));
 	if (obj->obj_type == SPHERE)
 		return (hit_sphere((t_sphere *)obj->data, ray, hit));
-	// if (obj->obj_type == CYLINDER)
-	// 	return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
+	if (obj->obj_type == CYLINDER)
+	 	return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
 	return (false);
 }
 
