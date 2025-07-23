@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 18:07:35 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 20:21:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 	camera->transform_comp->pos. It is depend on the structure scope
 */
 
-void	get_ray_from_camera(t_camera *camera, t_ray *ray,
+void	 get_ray_from_camera(t_camera *camera, t_ray *ray,
 	uint32_t x, uint32_t y)
 {
 	t_vec3	pixel_center;

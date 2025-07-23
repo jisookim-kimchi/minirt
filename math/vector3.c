@@ -179,6 +179,16 @@ t_color_float color_float_multiply(t_color_float color, double t)
     return (result);
 }
 
+t_color_float color_float_divide(t_color_float color, double t)
+{
+    t_color_float   result;
+    
+    result.red = color.red / t;
+    result.green = color.green / t;
+    result.blue = color.blue / t;
+    return (result);
+}
+
 t_color3 color_float_to_col3(t_color_float input)
 {
     t_color3    col3;
