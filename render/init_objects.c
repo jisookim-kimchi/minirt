@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 18:04:47 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 18:32:02 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ t_objs_list	*init_objs_list(void)
 	t_vec3			cylinder_axis = {1, 1, -1};
 	t_vec3 			cylinder_center = {-100.0, 20.0, -500.0};
 
-	color_float_set(&cylinder_color, 1.0f, 0.0f, 0.0f); //RED
-	
+	color_float_set(&cylinder_color, 1.0f, 0.0f, 0.0f);
+
 	cylinder = create_cylinder(cylinder_axis, cylinder_center, diameter, height, cylinder_color);
 
 	add_member_to_obj_list(&list, plane1);
