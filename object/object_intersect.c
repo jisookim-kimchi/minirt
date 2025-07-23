@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 17:26:02 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:01:31 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,9 +169,6 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
 	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
 	
-	//todo cehck height_projection < 0 is correct
-	// if (height_projection < 0 || height_projection > cylinder->height)
-	// 	return (false);
 	if (fabs(height_projection) > cylinder->height / 2)
 	{
 		return (false);
@@ -225,7 +222,7 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 	}
 	
 	hit->t = t;
-	hit->hit_point = hit_point;
+	hit->hit_point = p;
 	hit->hit_color = cylinder->cylinder_color;
 	set_ray_opposite_normal(ray, hit, cap_normal);
 	// printf("%scylinder cap: true%s\n", YELLOW, DEFAULT);
