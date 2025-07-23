@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_objects.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 18:22:42 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:24:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_objs_list	*create_cylinder(t_vec3 in_axis, t_vec3 in_center,
 		perror("Failed to allocate memory for new object");
 		return (free(new_cylinder), NULL);
 	}
-	new_cylinder->axis = in_axis;
+	new_cylinder->axis = vec3_normalized(in_axis);
 	new_cylinder->diameter = in_diameter;
 	new_cylinder->height = in_height;
 	new_cylinder->center = in_center;
