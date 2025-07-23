@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 12:14:46 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 17:40:56 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,11 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_vec3			axis;
-	float			diamater;
+	float			diameter;
 	float			height;
 	t_color_float	cylinder_color;
 	t_obj_fill		obj_fill;
+	t_vec3			center;
 }	t_cylinder;
 
 /*
@@ -94,7 +95,7 @@ t_objs_list	*create_plane(t_vec3 in_unit_normal_vec,
 //3d_objects.c
 t_objs_list	*create_sphere(t_vec3 in_center,
 				float in_diameter, t_color_float in_sphere_color);
-t_objs_list	*create_cylinder(t_vec3 in_axis, 
+t_objs_list	*create_cylinder(t_vec3 in_axis, t_vec3 center,
 				float in_diameter, float in_height,
 				t_color_float in_cylinder_color);
 
@@ -112,10 +113,12 @@ void		set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal);
 bool		hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit);
 bool		hit_plane(t_plane *plane, t_ray *ray, t_hit *hit);
 
+bool      	hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit);
+bool		hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal);
+bool		hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 
 //check_interval.c
 float		clamp_calculation(float input_value, float min, float max);
-double		double_clamp_calculation(double input_value,
-				double min, double max);
 bool		check_value_in_range(float input_value, float min, float max);
+double	double_clamp_calculation(double input_value, double min, double max);
 #endif

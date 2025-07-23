@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 20:02:13 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/23 18:07:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	t_color_float	result_float;
 
 	phong.diffuse_t = diffuse_term(hit, &win->light);
-	phong.specular_t = specular_term(&win->camera, hit, &win->light, 32.0);
+	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
 				color_float_to_col3(win->ambient.ambient_color),
 				color_float_to_col3(hit->hit_color)),

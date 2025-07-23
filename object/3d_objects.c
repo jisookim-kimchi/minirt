@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_objects.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 15:52:33 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:24:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_objs_list	*create_sphere(t_vec3 in_center,
 	return (new_list_member);
 }
 
-t_objs_list	*create_cylinder(t_vec3 in_axis, 
+t_objs_list	*create_cylinder(t_vec3 in_axis, t_vec3 in_center,
 	float in_diameter, float in_height, t_color_float in_cylinder_color)
 {
 	t_cylinder		*new_cylinder;
@@ -61,9 +61,10 @@ t_objs_list	*create_cylinder(t_vec3 in_axis,
 		perror("Failed to allocate memory for new object");
 		return (free(new_cylinder), NULL);
 	}
-	new_cylinder->axis = in_axis;
-	new_cylinder->diamater = in_diameter;
+	new_cylinder->axis = vec3_normalized(in_axis);
+	new_cylinder->diameter = in_diameter;
 	new_cylinder->height = in_height;
+	new_cylinder->center = in_center;
 	new_cylinder->cylinder_color = in_cylinder_color;
 	new_cylinder->obj_fill = SOLID;
 	new_list_member->obj_type = CYLINDER;
