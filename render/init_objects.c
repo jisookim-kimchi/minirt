@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 17:23:52 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:26:10 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_objs_list	*init_objs_list(void)
 	t_color_float	cylinder_color;
 	float			diameter = 70.f;
 	float			height = 200.f;
-	t_vec3			cylinder_axis = vec3_normalized((t_vec3){1, 1, -1});
+	t_vec3			cylinder_axis = {1, 1, -1};
 	t_vec3 			cylinder_center = {-30.0, 0.0, -500.0};
 
 	color_float_set(&cylinder_color, 1.0f, 0.0f, 0.0f); //RED
