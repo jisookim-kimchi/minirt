@@ -49,6 +49,7 @@ static void calculate_pixel00loc(t_camera *camera)
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
+    //t_vec3 forward;
     camera.transform_comp = transform_comp;
     // camera.viewportsize = screen;
 

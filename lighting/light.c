@@ -6,12 +6,11 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 17:57:04 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:35:33 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lighting.h"
-#include "../mlx_tools.h"
 
 t_light	init_light(t_vec3 in_pos, float in_bright_ratio,
 	t_color_float in_color)
@@ -81,7 +80,7 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
-	double_clamp_calculation(diffuse_t, 0.0, INFINITY);
+	double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }
 
@@ -109,26 +108,8 @@ double	specular_term(t_camera *camera, t_hit *hit,
 				hit->hit_point));
 	reflect = light_reflect(norm_light_dir, hit->normal);
 	specular_t = vec3_dot(reflect, norm_camera_dir);
-	specular_t = double_clamp_calculation(specular_t, 0.0, INFINITY);
+	specular_t = double_clamp_calculation(specular_t, 0.0, 1.0);
 	specular_t = pow(specular_t, shininess);
 	return (specular_t);
 }
 
-/*
-	The shininess object related behavior. Now it is fixed value, but
-	later can be added to the object material properties.
-
-	The result hit color
-	color = ambient + diff * light_color * object_color + spec * light_color;
-
-	where ambient = ambient_ratio * ambient_color * object_color;
-*/
-
-// t_color_float	hit_color(t_window *win, t_hit *hit)
-// {
-// 	t_phong_terms	phong;
-
-// 	phong.diffuse_t = diffuse_term(hit, &win->light);
-// 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 32.0);
-// 	phong.result = phong.ambient_color + phong.diffuse_color + phong.specular_color;
-// }

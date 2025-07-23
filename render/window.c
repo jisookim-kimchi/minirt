@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 14:55:11 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/21 13:45:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 }
 
 /*
-	The color layout: 0xRRGGBBAA
+	The color layout: 0xAARRGGBB
+	AA = Alpha (opacity)
 	RR = Red
 	GG = Green
 	BB = Blue
-	AA = Alpha (opacity)
 
 	The blue color made to check if the window can run. However it the 
 	final version it should be deleted.
@@ -70,19 +70,20 @@ void	image_hook(void *param)
 
 int main(void)
 {
-	t_window	win;
-	t_screenpoint screen;
-	t_transform_comp transform_comp;
+	t_window			win;
+	t_screenpoint		screen;
+	t_transform_comp	transform_comp;
+	t_color_float		ambient;
 
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
+	// win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
 
-	printf("camera x : %f, camera y : %f, cameara z: %f \n" ,win.camera.transform_comp.forward.x, win.camera.transform_comp.forward.y, win.camera.transform_comp.forward.z);
-	color_float_set(&win.ambient, 0.0f, 0.0f, 0.0f);
-	
-	win.mlx = mlx_init(screen.x, screen.y, "Practice", true);
+	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
+	color_float_set(&ambient, 0.0f, 1.0f, 0.0f);
+	win.ambient = init_ambient(1.7f, ambient);
 	if (!win.mlx)
 		error_window(&win);
 	win.image = mlx_new_image(win.mlx, \
