@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/24 12:00:52 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:37:36 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ typedef struct s_light
 	float			light_ratio;
 	t_color_float	light_color;
 }	t_light;
+
+typedef struct s_point_light
+{
+	t_light			light;
+	float			intensity;
+	float			radius;
+	float			angle;
+	float			distance;
+}	t_point_light;
 
 typedef struct s_ambient
 {
