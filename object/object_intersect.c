@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 19:35:58 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:10:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
 	a = vec3_length_squared(ray->dir);
 	h = vec3_dot(ray->dir, oc);
-	c = vec3_length_squared(oc) - sphere_radius * sphere_radius;
+	c = vec3_length_squared(oc) -	 sphere_radius * sphere_radius;
 	discriminant = h * h - a * c;
 	if (discriminant < 0)
 		return (false);

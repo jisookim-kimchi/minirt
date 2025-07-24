@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 19:35:21 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:00:52 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,6 @@ double			diffuse_term(t_hit *hit, t_light *light);
 double			specular_term(t_camera *camera, t_hit *hit,
 					t_light *light, double shininess);
 
+//shadow.c
+bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit);
 #endif

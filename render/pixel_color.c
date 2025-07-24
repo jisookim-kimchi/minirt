@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 19:33:39 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:12:02 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,13 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	if (hit_world(ray, &record, win->objs))
 	{
 		// result_color.result_color = 0xFF0000FF;
-		temp = calculate_hit_color(win, &record);
-		result_color = color_transform_to_int(&temp);
+		if (is_shadow(win->objs, &win->light, &record) == true)
+			result_color = color_transform_to_int(&record.hit_color);
+		else
+		{
+			temp = calculate_hit_color(win, &record);
+			result_color = color_transform_to_int(&temp);
+		}
 	}
 	else
 	{
