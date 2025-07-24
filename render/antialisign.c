@@ -6,11 +6,11 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 21:01:23 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/24 17:11:59 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "antialisign.h"
+#include "../mlx_tools.h"
 
 
 /*
@@ -53,12 +53,54 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	}
 	return (result_color);
 }
+
+	The ray function can be used to get the ray from camera
+	origin to the pixel point. After the pixel_center_color 
+	function can be called if the return value changed to color_float.
+	In this case in the image_hook function should be transform back to
+	color_32 format.
 */
 
+t_color_float	pixel_sample_color(t_ray *ray, t_window *win)
+{
+	t_color_float	temp;
+	t_hit			record;
 
-t_color_float	n_samples_in_pixel(int samples)
+	set_ray_interval(&record, 0.001f, INFINITY);
+	if (hit_world(ray, &record, win->objs))
+	{
+		temp = calculate_hit_color(win, &record);
+	}
+	else
+	{
+		temp = color_float_multiply(win->ambient.ambient_color,
+				win->ambient.ambient_ratio);
+	}
+	return (temp);
+}
+
+t_ray	get_pixel_ray(int i, int j, uint32_t x, uint32_t y, t_camera *camera, int samples)
+{
+	t_ray	pixel_ray;
+	t_vec3	u_horizontal;
+	t_vec3	v_vertical;
+	t_vec3	uv;
+
+	u_horizontal = vec3_multiply(camera->delta_horizontal,
+			(double)x + ((double)i + 0.5) / samples);
+	v_vertical = vec3_multiply(camera->delta_vertical,
+			(double)y + ((double)j + 0.5) / samples);
+	uv = vec3_plus_vec3(u_horizontal, v_vertical);
+	pixel_ray = ray(camera->transform_comp.pos, uv);
+	return (pixel_ray);
+}
+
+t_color_float	n_samples_in_pixel(int samples, t_window *win,
+	uint32_t x, uint32_t y)
 {
 	t_color_float	result;
+	t_color_float	sample;
+	t_ray			pixel_ray;
 	int				i;
 	int				j;
 
@@ -68,7 +110,9 @@ t_color_float	n_samples_in_pixel(int samples)
 		j = 0;
 		while (j < samples)
 		{
-			
+			pixel_ray = get_pixel_ray(i, j, x, y, &win->camera, samples);
+			sample = pixel_sample_color(&pixel_ray, win);
+			result = color_float_add(result, sample);
 			j++;
 		}
 		i++;

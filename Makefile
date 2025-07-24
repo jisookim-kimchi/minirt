@@ -35,6 +35,7 @@ SRCS :=	object/2d_objects.c \
 		Precompiled/transform_comp.c \
 		render/window.c \
 		render/pixel_color.c \
+		render/antialisign.c \
 		render/init_objects.c \
 		debug/messages.c
 
