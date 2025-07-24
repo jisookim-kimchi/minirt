@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/21 13:45:35 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/24 12:25:26 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int main(void)
 	t_screenpoint		screen;
 	t_transform_comp	transform_comp;
 	t_color_float		ambient;
+	t_color_float		light;
 
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
@@ -82,8 +83,12 @@ int main(void)
 	win.objs = init_objs_list();
 
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
+	
 	color_float_set(&ambient, 0.0f, 1.0f, 0.0f);
-	win.ambient = init_ambient(1.7f, ambient);
+	win.ambient = init_ambient(0.7f, ambient);
+	color_float_set(&light, 1.0f, 1.0f, 1.0f);
+	//win.light = init_light(vec3(-200.0, 500.0, -100), 0.9f, light);
+	win.light = init_light(vec3(100.0, 0.0, 500), 0.9f, light);
 	if (!win.mlx)
 		error_window(&win);
 	win.image = mlx_new_image(win.mlx, \

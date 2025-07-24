@@ -167,11 +167,11 @@ float	vec4_max_component(t_vec4 v);
 t_point3    ray_at(t_ray *ray, double t);
 t_ray       ray(t_point3 orig, t_vec3 dir);
 
-extern const t_vec4 VEC4_ZERO;
-extern const t_vec4 VEC4_ONE;
-extern const t_vec4 VEC4_UNIT_X;
-extern const t_vec4 VEC4_UNIT_Y;
-extern const t_vec4 VEC4_UNIT_Z;
-extern const t_vec4 VEC4_UNIT_W;
+// extern const t_vec4 VEC4_ZERO;
+// extern const t_vec4 VEC4_ONE;
+// extern const t_vec4 VEC4_UNIT_X;
+// extern const t_vec4 VEC4_UNIT_Y;
+// extern const t_vec4 VEC4_UNIT_Z;
+// extern const t_vec4 VEC4_UNIT_W;
 
 #endif
