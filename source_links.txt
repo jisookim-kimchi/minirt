@@ -19,6 +19,8 @@ Lightings
 Ambient, Diffues, Specular, phong shader
 Link : https://learnopengl.com/Lighting/Basic-Lighting
 
+Point lighting
+https://lisyarus.github.io/blog/posts/point-light-attenuation.html
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 Videos:
@@ -31,4 +33,6 @@ Ray tracing general
 Short description: This series has 3 part. It describes how the rays works. In the 2 part it explains the shadows.
 The 3 part shows how the refraction works.
 Link: https://www.youtube.com/watch?v=H5TB2l7zq6s
+
+
 
