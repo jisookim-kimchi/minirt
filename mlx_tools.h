@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/25 11:55:36 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/25 13:22:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_window
 	// t_color_float	ambient;
 	t_ambient		ambient;
 	t_light			light;
+	bool			antialisign_on;
 	t_objs_list		*objs;
 	mlx_t			*mlx;
 	mlx_image_t		*image;
@@ -42,7 +43,8 @@ t_ray			get_pixel_ray(int i, int j, uint32_t x, uint32_t y,
 					t_camera *camera, int samples);
 t_color_float	n_samples_in_pixel(int samples, t_window *win,
 					uint32_t x, uint32_t y);
-
+t_color_32		switch_antialisgn(t_window *win,
+					uint32_t x, uint32_t y);
 
 
 //The init_objects.c file consist helper function to allocate objects

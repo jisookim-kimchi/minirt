@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/25 12:12:59 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/25 14:39:36 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,41 @@ void	error_window(t_window *win)
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_window	*win;
+	double		delta_move;
 
 	win = (t_window *)param;
+	delta_move = 10.0;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(win->mlx);
+	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
+		win->antialisign_on = true;
+	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
+		win->antialisign_on = false;
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+	{
+		add_transform_comp_position(&win->camera.transform_comp, vec3(0, delta_move, 0));
+		print_camera_infos(&win->camera);
+	}
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+	{
+		add_transform_comp_position(&win->camera.transform_comp, vec3(0, -delta_move, 0));
+		print_camera_infos(&win->camera);
+	}
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+	{
+		add_transform_comp_position(&win->camera.transform_comp, vec3(delta_move, 0, 0));
+		print_camera_infos(&win->camera);
+	}
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+	{
+		add_transform_comp_position(&win->camera.transform_comp, vec3(-delta_move, 0, 0));
+		print_camera_infos(&win->camera);
+	}
+	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
+	{
+		set_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, 0));
+		print_camera_infos(&win->camera);
+	}
 }
 
 /*
@@ -45,27 +76,17 @@ void	image_hook(void *param)
 	t_window	*win;
 	uint32_t	x;
 	uint32_t	y;
-	// uint32_t	blue;
-	t_color_float temp;
 	t_color_32	pixel_center_col;
-	// t_ray		ray_pixel_center;
-	int			samples;
 
 	win = (t_window *)param;
-	samples = 5;
 	y = 0;
 	while (y < win->image->height)
 	{
 		x = 0;
 		while (x < win->image->width)
 		{
-			// get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-			// pixel_center_col = pixel_center_color(&ray_pixel_center, win);
-			
-			temp = n_samples_in_pixel(samples, win, x, y);
-			pixel_center_col = color_transform_to_int(&temp);
+			pixel_center_col = switch_antialisgn(win, x, y);
 			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
-			// mlx_put_pixel(win->image, x, y, blue);
 			x++;
 		}
 		y++;
@@ -92,6 +113,7 @@ int main(void)
 	win.ambient = init_ambient(0.7f, ambient);
 	color_float_set(&light, 1.0f, 1.0f, 1.0f);
 	win.light = init_light(vec3(-20.0, 50.0, -100), 0.9f, light);
+	win.antialisign_on = false;
 	
 	if (!win.mlx)
 		error_window(&win);

@@ -13,6 +13,7 @@ t_transform_comp init_transform_comp(void)
     transform_comp.transform->position = vec3(0, 0, 0);
     transform_comp.transform->rotation = init_quaternion();
     transform_comp.transform->scale = vec3(1, 1, 1);
+    transform_comp.pos = vec3(0, 0, 0);
 	transform_comp.forward = vec3(0, 0, 1);
 	transform_comp.up = vec3(0, 1, 0);
 	transform_comp.right = vec3(1, 0, 0);
@@ -23,12 +24,20 @@ t_transform_comp init_transform_comp(void)
 
 void set_transform_comp_position(t_transform_comp *comp, t_vec3 pos)
 {
-    comp->transform->position = pos;
+    // comp->transform->position = pos;
+    comp->pos = pos;
 }
 
 void add_transform_comp_position(t_transform_comp *comp, t_vec3 delta)
 {
-    comp->transform->position = vec3_plus_vec3(comp->transform->position, delta);
+    // comp->transform->position = vec3_plus_vec3(comp->transform->position, delta);
+    comp->pos = vec3_plus_vec3(comp->pos, delta);
+    // printf("%sThe new transform comp position:\n"
+    //     "x: %f, y: %f, z: %f%s\n", CYAN, comp->transform->position.x,
+    //     comp->transform->position.y, comp->transform->position.z, DEFAULT);
+    printf("%sThe new transform comp position:\n"
+        "x: %f, y: %f, z: %f%s\n", CYAN, comp->pos.x,
+        comp->pos.y, comp->pos.z, DEFAULT);
 }
 
 t_transform *get_world_transform(t_transform_comp *transform_comp)
