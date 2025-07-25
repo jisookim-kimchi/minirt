@@ -34,14 +34,15 @@ typedef struct s_light
 	t_color_float	light_color;
 }	t_light;
 
-typedef struct s_point_light
+typedef struct s_spot_light
 {
 	t_light			light;
+	t_vec3			direction;
 	float			intensity;
 	float			radius;
 	float			angle;
 	float			distance;
-}	t_point_light;
+}	t_spot_light;
 
 typedef struct s_ambient
 {
