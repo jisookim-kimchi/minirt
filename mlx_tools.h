@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 20:03:00 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/25 11:55:36 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ void			get_ray_from_camera(t_camera *camera, t_ray *ray,
 t_color_32		color_transform_to_int(t_color_float *col_float);
 t_color_32		pixel_center_color(t_ray *ray, t_window *win);
 t_color_float	calculate_hit_color(t_window *win, t_hit *hit);
+
+//antialisign.c
+t_color_float	pixel_sample_color(t_ray *ray, t_window *win);
+t_ray			get_pixel_ray(int i, int j, uint32_t x, uint32_t y, 
+					t_camera *camera, int samples);
+t_color_float	n_samples_in_pixel(int samples, t_window *win,
+					uint32_t x, uint32_t y);
+
 
 
 //The init_objects.c file consist helper function to allocate objects

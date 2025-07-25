@@ -72,16 +72,16 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 	t_vec3 half_vertical = vec3_multiply(camera.vertical, 0.5);
 	camera.left_bottom = vec3_sub_vec3(center, half_horizontal);
 	camera.left_bottom = vec3_sub_vec3(camera.left_bottom, half_vertical);
-	printf(CYAN);
-	printf("camera focal_len %f\n", focal_length);
-	printf("screen.x : %d , screen.y : %d\n",screen.x, screen.y);
-	printf("viewportsize.y : %f , viewportsize.x : %f, screen ratio : %f\n", camera.viewport_h, camera.viewport_w , screen.aspect_ratio);
-	printf("camera horizontal vector x : %f, y :%f, z :%f\n", camera.horizontal.x,camera.horizontal.y, camera.horizontal.z);
-	printf("camera vertical vector x : %f, y :%f, z :%f\n", camera.vertical.x,camera.vertical.y, camera.vertical.z);
-	printf("camera.left_bottom.x : %f , y: %f , z :%f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
-	printf("camera->delta_horizontal.x : %f, y : %f, z : %f\n", camera.delta_horizontal.x, camera.delta_horizontal.y, camera.delta_horizontal.z);
-	printf("camera->delta_vertical.x : %f, y : %f, z : %f\n", camera.delta_vertical.x, camera.delta_vertical.y, camera.delta_vertical.z);
-	printf(DEFAULT);
+	// printf(CYAN);
+	// printf("camera focal_len %f\n", focal_length);
+	// printf("screen.x : %d , screen.y : %d\n",screen.x, screen.y);
+	// printf("viewportsize.y : %f , viewportsize.x : %f, screen ratio : %f\n", camera.viewport_h, camera.viewport_w , screen.aspect_ratio);
+	// printf("camera horizontal vector x : %f, y :%f, z :%f\n", camera.horizontal.x,camera.horizontal.y, camera.horizontal.z);
+	// printf("camera vertical vector x : %f, y :%f, z :%f\n", camera.vertical.x,camera.vertical.y, camera.vertical.z);
+	// printf("camera.left_bottom.x : %f , y: %f , z :%f\n", camera.left_bottom.x, camera.left_bottom.y, camera.left_bottom.z);
+	// printf("camera->delta_horizontal.x : %f, y : %f, z : %f\n", camera.delta_horizontal.x, camera.delta_horizontal.y, camera.delta_horizontal.z);
+	// printf("camera->delta_vertical.x : %f, y : %f, z : %f\n", camera.delta_vertical.x, camera.delta_vertical.y, camera.delta_vertical.z);
+	// printf(DEFAULT);
     calculate_pixel00loc(&camera);
     return (camera);
 }
