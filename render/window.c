@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/26 19:20:05 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/26 21:39:43 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
 	{
 		set_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, 0));
+		print_camera_infos(&win->camera);
+	}
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+	{
+		add_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, delta_move));
+		print_camera_infos(&win->camera);
+	}
+	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
+	{
+		add_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, -1.0 * delta_move));
 		print_camera_infos(&win->camera);
 	}
 }
