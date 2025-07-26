@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/26 18:57:38 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/26 19:48:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	print_color_float(const t_color_float *float_color)
 void	print_color_compare(const t_color_float *float_color1,
 	const t_color_float *float_color2)
 {
-	printf("%sThe first color values:\n", BLUE);
+	printf("%sThe first color values:", BLUE);
 	print_color_float(float_color1);
-	printf("%sThe second color values:\n", CYAN);
+	printf("%sThe second color values:", CYAN);
 	print_color_float(float_color2);
 	printf("%s", DEFAULT);
 }

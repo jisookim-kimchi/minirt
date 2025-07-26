@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/26 18:56:16 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/26 20:13:55 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win,
 	uint32_t x, uint32_t y)
 {
 	t_color_float	result;
+	static int		counter = 0;
 	t_color_float	sample;
 	t_ray			pixel_ray;
 	int				i;
 	int				j;
 
 	i = 0;
+	color_float_set(&result, 0.0f, 0.0f, 0.0f);
 	while (i < samples)
 	{
 		j = 0;
@@ -120,7 +122,10 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win,
 		}
 		i++;
 	}
-	result = color_float_divide(result, (double)samples);
+	result = color_float_divide(result, (double)(samples *samples));
+	if (counter == 100)
+		print_color_compare(&sample, &result);
+	counter++;
 	return (result);
 }
 
