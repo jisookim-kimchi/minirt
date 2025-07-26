@@ -13,6 +13,7 @@ int	count_array_elem(char **tokens)
 	return (i);
 }
 
+//todo handle floating number.
 float	ft_atof(char *str)
 {
 	float	num;
@@ -34,6 +35,11 @@ float	ft_atof(char *str)
 		str++;
 	}
 	
+	if (*str == '.')
+	{
+		str++;
+	}
+
 }
 
 int	check_ambient(char *line, t_ambient ambient)
