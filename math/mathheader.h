@@ -2,11 +2,11 @@
 # define MATHHEADER_H
 
 # include <math.h>
-# include "../MLX42/include/MLX42/MLX42.h"
 # include <assert.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include "../MLX42/include/MLX42/MLX42.h"
 
 # define EPSILON 1e-6f
 

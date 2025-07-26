@@ -2,6 +2,7 @@ NAME = miniRT
 
 #lib directory includes the libft files. The obj folder will consists the .o files
 LIBFT_DIR = libft
+GNL_DIR = gnl
 OBJ_DIR = obj
 
 #Download and build MLX42
@@ -12,9 +13,10 @@ LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
-HEADER = -I $(LIBMLX)/include /math /object /Precompiled /lighting
+HEADER = -I $(LIBMLX) -I./math -I./object -I./Precompiled -I./lighting
 
 LIBFT = $(LIBFT_DIR)/libft.a
+GNL = $(GNL_DIR)/libgnl.a
 
 SRCS :=	object/2d_objects.c \
 		object/3d_objects.c \
@@ -34,27 +36,30 @@ SRCS :=	object/2d_objects.c \
 		lighting/shadow.c \
 		Precompiled/camera.c \
 		Precompiled/transform_comp.c \
+		Precompiled/check_file.c \
 		render/window.c \
 		render/pixel_color.c \
 		render/init_objects.c \
-		debug/messages.c
+		debug/messages.c \
+		
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-
 all: libmlx $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(LIBSM) -o $(NAME) $(OBJS) $(LIBFT)
+$(NAME): $(LIBFT) $(GNL) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(GNL) $(LIBFT) $(LIBSM)
 	@echo "$(NAME) built succesfully.\n"
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) --silent
 
+$(GNL):
+	@$(MAKE) -C $(GNL_DIR) --silent
+
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
+	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
 
 #Build the MLX42
 libmlx:
@@ -80,10 +85,12 @@ cleanmlx:
 clean:
 	@rm -rf $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(GNL_DIR) clean
 
 fclean: clean cleanmlx
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(GNL_DIR) fclean
 
 re: fclean all
 

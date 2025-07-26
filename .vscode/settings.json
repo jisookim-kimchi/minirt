@@ -4,6 +4,11 @@
 		"loadresource.h": "c",
 		"ios": "c",
 		"debug.h": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"libft.h": "c",
+		"stdbool.h": "c",
+		"assert.h": "c",
+		"__config": "c",
+		"locale": "c"
 	}
 }
