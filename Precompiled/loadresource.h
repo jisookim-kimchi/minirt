@@ -1,11 +1,12 @@
 #ifndef LOADRESOURCE_H
 # define LOADRESOURCE_H
 
-# include "../math/mathheader.h"
+//todo add get_next_line
 # include "../libft/libft.h"
+# include "../math/mathheader.h"
+# include <fcntl.h>
 # include <assert.h>
 # include <stdio.h>
-# include <stdlib.h>
 # include <stdbool.h>
 
 # define MAX_MESHES 100
@@ -100,6 +101,11 @@ typedef struct s_engine
     //mlx_t         *mlx;
 }   t_engine;
 
+typedef struct s_parser
+{
+	char *id;
+}	t_parser;
+
 //camera.c
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp);
 
@@ -109,4 +115,7 @@ t_vec3 get_right_vector(t_transform_comp transform_comp);
 t_vec3 get_up_vector(t_transform_comp transform_comp);
 t_vec3 get_forward_vector(t_transform_comp transform_comp);
 t_transform_comp init_transform_comp(void);
+
+//parsing
+bool	is_valid_file(char *path);
 #endif

@@ -62,23 +62,37 @@ bool	is_in_spot_cone(const t_spot_light *spot, t_vec3 point)
 	return (true);
 }
 
+/*
+	get intersity
+*/
 float	spot_light_intensity_at(const t_spot_light *spot, t_vec3 point, t_vec3 normal)
 {
+	float	intensity;
+	double	angle_cosine;
+	double	point_cosine;
+	double	distance_to_light;
+	t_vec3	normalized_direction;
+	t_vec3	light_to_point;
+
 	if (!spot || !is_in_spot_cone(spot, point))
 		return (0.0f);
 	
-	t_vec3 light_to_point = vec3_sub_vec3(point, spot->light.light_position);
-	double distance_to_light = vec3_length(light_to_point);
+	light_to_point = vec3_sub_vec3(point, spot->light.light_position);
+	distance_to_light = vec3_length(light_to_point);
 	if (distance_to_light > spot->distance)
 		return (0.0f);
 
-	t_vec3 normalized_direction = vec3_normalized(spot->direction);
-	double angle_cosine = cos(deg2rad(spot->angle) / 2);
-	double point_cosine = vec3_dot(vec3_normalized(light_to_point), normalized_direction);
+	normalized_direction = vec3_normalized(spot->direction);
+	angle_cosine = cos(deg2rad(spot->angle) / 2);
+	point_cosine = vec3_dot(vec3_normalized(light_to_point), normalized_direction);
 
 	if (point_cosine < angle_cosine)
 		return (0.0f);
 
-	float intensity = spot->intensity * spot->light.light_ratio;
+	intensity = spot->intensity * spot->light.light_ratio;
 	return (intensity);
 }
+
+/*
+	todo : calculate fall off 
+*/
