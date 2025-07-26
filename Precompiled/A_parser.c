@@ -60,7 +60,14 @@ int	check_ambient(char *line, t_ambient ambient)
 	}
 	//change to float
 	ratio = ft_atof(tokens[1]);
-
+	{
+		//free tokens
+		return (-1);
+	}
 	//parse color
 	color = paras_color(tokens[2]);
+
+	ambient.ambient_color = color;
+	ambient.ambient_ratio = ratio;
+	return (1);
 }
