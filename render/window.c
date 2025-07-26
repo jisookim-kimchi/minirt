@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/25 14:39:36 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/26 19:20:05 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	double		delta_move;
 
 	win = (t_window *)param;
-	delta_move = 10.0;
+	delta_move = 0.05;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(win->mlx);
 	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
@@ -35,22 +35,22 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		win->antialisign_on = false;
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(0, delta_move, 0));
+		add_transform_comp_position(&win->camera.transform_comp, vec3(0, -1.0 * delta_move, 0));
 		print_camera_infos(&win->camera);
 	}
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(0, -delta_move, 0));
+		add_transform_comp_position(&win->camera.transform_comp, vec3(0, delta_move, 0));
 		print_camera_infos(&win->camera);
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
 	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(delta_move, 0, 0));
+		add_transform_comp_position(&win->camera.transform_comp, vec3(-1.0 *delta_move, 0, 0));
 		print_camera_infos(&win->camera);
 	}
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(-delta_move, 0, 0));
+		add_transform_comp_position(&win->camera.transform_comp, vec3(delta_move, 0, 0));
 		print_camera_infos(&win->camera);
 	}
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)

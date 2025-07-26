@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 19:14:55 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/26 18:57:38 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ void	print_color_float(const t_color_float *float_color)
 	printf("\nThe float color values:\n"
 		"red: %f\tgreen: %f\tblue: %f\n",
 		float_color->red, float_color->green, float_color->blue);
+}
+
+void	print_color_compare(const t_color_float *float_color1,
+	const t_color_float *float_color2)
+{
+	printf("%sThe first color values:\n", BLUE);
+	print_color_float(float_color1);
+	printf("%sThe second color values:\n", CYAN);
+	print_color_float(float_color2);
+	printf("%s", DEFAULT);
 }
 
 void	print_sphere_infos(const t_sphere *sphere)
@@ -135,3 +145,5 @@ void	print_camera_infos(const t_camera *camera)
 	printf("pixel00loc:\n");
 	print_vec3(&camera->pixel00loc);
 }
+
+

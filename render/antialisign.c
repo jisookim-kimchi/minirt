@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/25 13:22:12 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/26 18:56:16 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_ray	get_pixel_ray(int i, int j, uint32_t x, uint32_t y, t_camera *camera, int 
 	t_vec3	u_horizontal;
 	t_vec3	v_vertical;
 	t_vec3	uv;
+	t_vec3	ray_dir;
 
 	u_horizontal = vec3_multiply(camera->delta_horizontal,
 			(double)x + ((double)i + 0.5) / samples);
@@ -92,6 +93,7 @@ t_ray	get_pixel_ray(int i, int j, uint32_t x, uint32_t y, t_camera *camera, int 
 			(double)y + ((double)j + 0.5) / samples);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	uv = vec3_plus_vec3(camera->left_bottom, uv);
+	ray_dir = vec3_sub_vec3(uv, camera->left_bottom);
 	pixel_ray = ray(camera->transform_comp.pos, uv);
 	return (pixel_ray);
 }
