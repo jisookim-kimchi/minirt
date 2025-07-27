@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/26 14:56:03 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/27 11:07:37 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	todo change name
 	check each line and validate weather its requiered params
 */
-int	validate_params(char *line)
+int	parsing_start(char *line)
 {
 	if (ft_strncmp(line, "A", 1) == 0)
 		printf("Ambient\n");
