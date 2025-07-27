@@ -130,7 +130,7 @@ float	ft_atof(char *str)
 			div *= 10.0;
 			str++;
 		}
-		result += frac / div;
+		frac += frac / div;
 	}
-	return result * sign;
+	return frac * sign;
 }
