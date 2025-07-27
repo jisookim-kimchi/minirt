@@ -44,6 +44,7 @@ typedef struct s_texture
     int initialized;
 } t_texture;
 
+//todo maybe we dont need t_vec3 pos the transform pointer has it already
 typedef struct s_transform_comp
 {
     t_vec3 right;
