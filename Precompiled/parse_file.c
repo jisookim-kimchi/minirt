@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/26 14:18:34 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/27 11:08:36 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	open_file(char *path)
 	return (-1);
 }
 
-/*
-	read_file
+/*  //todo
+	read_file in progress
 */
 int	read_file(int fd)
 {
@@ -60,7 +60,7 @@ int	read_file(int fd)
 		*line = get_next_line(fd);
 		if (!line)
 			break;
-		result = parsing(line);
+		result = parsing_start(line);
 		if (result < 0)
 		{
 			break;
