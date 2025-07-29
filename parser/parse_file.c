@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:41:33 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:52:21 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	open_file(char *path)
 		perror("FILE OPEN FAILED");
 		exit(1);
 	}
-	return (-1);
+	return (fd);
 }
 
 /*  //todo
@@ -56,14 +56,15 @@ int	read_file(int fd, t_window *window)
 
 	line = NULL;
 	result = 0;
+
 	while (1)
 	{
-		printf("1\n");
 		line = get_next_line(fd);
 		printf("line : %s\n", line);
 		if (!line)
 			break;
-		printf("2\n");
+		if (*line == '\n')
+			continue;
 		result = parsing_start(line, window);
 		printf("result %d\n", result);
 		if (result < 0)
@@ -74,8 +75,8 @@ int	read_file(int fd, t_window *window)
 			break;
 		}
 		free(line);
-		printf("3\n");
 	}
+	// fclose(fp);
 	return (result);
 }
 

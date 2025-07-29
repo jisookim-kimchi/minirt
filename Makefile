@@ -12,7 +12,7 @@ LIBMLX = ./MLX42
 LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
+CFLAGS = -Wall -Werror -Wextra -Wunreachable-code -fsanitize=address -g
 HEADER = -I $(LIBMLX) -I./math -I./object -I./Precompiled -I./lighting -I./parser
 
 LIBFT = $(LIBFT_DIR)/libft.a
