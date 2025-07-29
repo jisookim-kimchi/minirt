@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 16:35:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:26:20 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *ft_strtok(char *str, const char c)
 	if (!input || !*input)
 		return (NULL);
 	start = input;
-	while(input[i] && input[i] != c)
+	while(input[i] && input[i] != c && input[i] != '\n')
 		i++;
 	if (input[i])
 	{
@@ -68,54 +68,80 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 		printf("error parse_color\n");
 		return (-1);
 	}
+	
 	temp = ft_strtok(token, ',');
 	if (!temp)
 		return (-1);
 	if (is_digit(temp) == -1)
 		return (-1);
-		
 	*red = ft_atof(temp);
 	if (!check_value_in_range(*red, 0.0, 255.0))
 		return (-1);
 	*red /= 255.f;
-	temp = ft_strtok(NULL, ',');
-	if (!temp)
-		return (-1);
-	*green = ft_atof(temp);
-	if (!check_value_in_range(*green, 0.0, 255.0))
-		return (-1);
-	*green /= 255.f;
 	
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
+	if (is_digit(temp) == -1)
+	 	return (-1);
+	*green = ft_atof(temp);
+	if (!check_value_in_range(*green, 0.0, 255.0))
+		return (-1);
+	*green /= 255.f;
+	printf("green : %f\n", *green);
+	
+	temp = ft_strtok(NULL, ',');
+	printf("temp : %c\n", *temp);
+	if (!temp)
+	{
+		printf("1 blue temp : %s\n", temp);
+		return (-1);
+	}
+	if (is_digit(temp) == -1)
+	{
+		printf("2 blue temp : %s\n", temp);
+		return (-1);
+	}
 	*blue = ft_atof(temp);
 	if (!check_value_in_range(*blue, 0.0, 255.0))
+	{
+		printf("3 blue temp : %s\n", temp);
 		return (-1);
+	}
 	*blue /= 255.f;
+	printf("blue : %f\n", *blue);
 	return (1);
 }
 
 int	parse_vec3(char *token, double *x, double *y, double *z)
 {
 	char			*temp;
-	
-	if (is_digit(token) == -1)
-		return (-1);
+
 	temp = ft_strtok(token, ',');
+
 	if (!temp)
 		return (-1);
+	if (is_digit(temp) == -1 && temp[0] != '-')
+	{
+		printf("faile is_digit\n");
+		return (-1);
+	}
 	*x = ft_atof(temp);
-
+	
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
+		return (-1);
+	if (is_digit(temp) == -1 && temp[0] != '-')
 		return (-1);
 	*y = ft_atof(temp);
-
 	temp = ft_strtok(NULL, ',');
+
 	if (!temp)
 		return (-1);
+	if (is_digit(temp) == -1 && temp[0] != '-')
+		return (-1);
 	*z = ft_atof(temp);
+	
 	return (1);
 }
 int	is_digit(const char *token)
@@ -126,9 +152,16 @@ int	is_digit(const char *token)
 	while(token[i])
 	{
 		if (ft_isdigit(token[i]))
+		{
+			printf("TOKEN %c\n", token[i]);
+			// if (token[i + 1])
 			i++;
+		}
 		else
+		{
+			printf("TOKEN %c\n", token[i]);
 			return (-1);
+		}
 	}
 	return (1);
 }
