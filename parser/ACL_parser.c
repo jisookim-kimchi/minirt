@@ -91,6 +91,6 @@ int	parse_light(char *line, t_light *light)
 	light->light_ratio = ft_atof(tokens[2]);
 	if (!check_value_in_range(light->light_ratio, 0.0, 1.0))
 		return (-1);
-	parse_color(tokens[2], &light->light_color.red, &light->light_color.green, &light->light_color.blue);
+	parse_color(tokens[3], &light->light_color.red, &light->light_color.green, &light->light_color.blue);
 	return (1);
 }
