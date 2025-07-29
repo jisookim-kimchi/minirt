@@ -66,6 +66,7 @@ typedef struct s_camera
 	float				viewport_h;
 	float				viewport_w;
     float               fov;
+    float               focal_length;
     // float               far_clip;
     // float               near_clip;
     t_vec3              horizontal;
