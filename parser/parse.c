@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:25:31 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:37:18 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@ int	parsing_start(char *line, t_window *window)
 	if (ft_strncmp(line, "A", 1) == 0)
 	{
 		if (parse_ambient(line, &window->ambient) == -1)
+		{
+			printf("123\n");
 			return (-1);
+		}
+		else
+		{
+			printf("ambient color : %f, %f, %f\n", window->ambient.ambient_color.red, window->ambient.ambient_color.green, window->ambient.ambient_color.blue);
+			printf("ambient ratio : %f\n", window->ambient.ambient_ratio);
+		}
 	}
 	else if (ft_strncmp(line, "C", 1) == 0)
 	{

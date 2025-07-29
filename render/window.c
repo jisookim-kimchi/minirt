@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/29 15:27:59 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:39:20 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ int main(void)
 	if (!is_valid_file(path))
 		return (-1);
 	int fd = open_file(path);
+	
 	int check_read = read_file(fd, &win);
+	printf("check_read %d\n", check_read);
 	if (check_read == -1)
 	{
 		printf("failed parsing\n");
