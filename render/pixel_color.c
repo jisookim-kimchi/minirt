@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/24 12:12:02 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:57:01 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	// print_vec3(&camera->delta_horizontal);
 	// printf("The camera delta vertical:\n");
 	// print_vec3(&camera->delta_vertical);
-	ray->orign = camera->transform_comp.pos;
+	ray->orign = camera->transform_comp.transform->position;
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);

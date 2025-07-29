@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/20 19:14:55 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/29 14:58:46 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	print_camera_infos(const t_camera *camera)
 	printf("The camera informations:\n");
 	printf("The transform component:\n");
 	printf("position:\n");
-	print_vec3(&camera->transform_comp.pos);
+	print_vec3(&camera->transform_comp.transform->position);
 	printf("right:\n");
 	print_vec3(&camera->transform_comp.right);
 	printf("up:\n");

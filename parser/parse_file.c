@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_file.c                                       :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/27 11:08:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:23:15 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "loadresource.h"
+#include "parser.h"
 
 /*
 	check the file extension.
@@ -49,20 +49,24 @@ int	open_file(char *path)
 /*  //todo
 	read_file in progress
 */
-int	read_file(int fd)
+int	read_file(int fd, t_window *window)
 {
-	ssize_t	read_size;
 	char	*line;
 	int		result;
 
+	line = NULL;
+	result = 0;
 	while (1)
 	{
-		*line = get_next_line(fd);
+		line = get_next_line(fd);
 		if (!line)
 			break;
-		result = parsing_start(line);
+		result = parsing_start(line, window);
 		if (result < 0)
 		{
+			//garbage collector.
+			//perror();
+			//exit(1);
 			break;
 		}
 		free(line);
@@ -70,13 +74,13 @@ int	read_file(int fd)
 	return (result);
 }
 
-int main(void)
-{
-	char *path = "../";
-	if (!is_valid_file(path));
-		return (-1);
-	int fd = open_file(path);
-	int check_read = read_file(fd);
+// int main(void)
+// {
+// 	char *path = "../";
+// 	if (!is_valid_file(path))
+// 		return (-1);
+// 	int fd = open_file(path);
+// 	int check_read = read_file(fd);
 	
-	return (0);
-}
+// 	return (0);
+// }
