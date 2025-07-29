@@ -6,11 +6,11 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 13:04:43 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:21:03 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "loadresource.h"
+#include "parser.h"
 
 /*
 	255,255,255
@@ -32,7 +32,7 @@ char *ft_strtok(char *str, const char c)
 	if (input[i])
 	{
 		input[i] = '\0';
-		input = input[i + 1];
+		input = &input[i + 1];
 	}
 	else
 		input = NULL;
@@ -44,7 +44,7 @@ int	count_array_elem(char **tokens)
 	int	i;
 
 	i = 0;
-	while([i])
+	while(tokens[i])
 	{
 		i++;
 	}
@@ -71,21 +71,29 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 	if (!temp)
 		return (-1);
 	*red = ft_atof(temp);
-
+	if (!check_value_in_range(*red, 0.0, 255.0))
+		return (-1);
+	*red /= 255.f;
+	
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
 	*green = ft_atof(temp);
-
+	if (!check_value_in_range(*green, 0.0, 255.0))
+		return (-1);
+	*green /= 255.f;
+	
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
 	*blue = ft_atof(temp);
+	if (!check_value_in_range(*blue, 0.0, 255.0))
+		return (-1);
+	*blue /= 255.f;
 	return (1);
 }
 
-
-int	parse_vec3(char *token, float *x, float *y, float *z)
+int	parse_vec3(char *token, double *x, double *y, double *z)
 {
 	char			*temp;
 	
@@ -99,7 +107,7 @@ int	parse_vec3(char *token, float *x, float *y, float *z)
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
-	*YELLOW = ft_atof(temp);
+	*y = ft_atof(temp);
 
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
@@ -111,6 +119,7 @@ int	is_digit(const char *token)
 {
 	int	i;
 
+	i = 0;
 	while(token[i])
 	{
 		if (ft_isdigit(token[i]))

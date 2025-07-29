@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 19:35:33 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:53:20 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ double	specular_term(t_camera *camera, t_hit *hit,
 
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(hit->hit_point,
 				light->light_position));
-	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.pos,
+	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.transform->position,
 				hit->hit_point));
 	reflect = light_reflect(norm_light_dir, hit->normal);
 	specular_t = vec3_dot(reflect, norm_camera_dir);

@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loadresource.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
+/*   Updated: 2025/07/29 15:18:24 by jisokim2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LOADRESOURCE_H
 # define LOADRESOURCE_H
 
 //todo add get_next_line
-# include "../libft/libft.h"
+//# include "../libft/libft.h"
+# include "../gnl/get_next_line.h"
 # include "../math/mathheader.h"
 # include <fcntl.h>
 # include <assert.h>
@@ -117,6 +130,4 @@ t_vec3 get_up_vector(t_transform_comp transform_comp);
 t_vec3 get_forward_vector(t_transform_comp transform_comp);
 t_transform_comp init_transform_comp(void);
 
-//parsing
-bool	is_valid_file(char *path);
 #endif

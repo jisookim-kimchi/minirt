@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/27 11:07:37 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:25:31 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "loadresource.h"
-
+#include "parser.h"
 /*
 	todo change name
 	check each line and validate weather its requiered params
 */
-int	parsing_start(char *line)
+int	parsing_start(char *line, t_window *window)
 {
 	if (ft_strncmp(line, "A", 1) == 0)
-		printf("Ambient\n");
+	{
+		if (parse_ambient(line, &window->ambient) == -1)
+			return (-1);
+	}
 	else if (ft_strncmp(line, "C", 1) == 0)
-		printf("Camera\n");
+	{
+		if (parse_camera(line, &window->camera) == -1)
+			return (-1);
+	}
 	else if (ft_strncmp(line, "L", 1) == 0)
-		printf("Light\n");
+	{
+		if (parse_light(line, &window->light) == -1)
+			return (-1);
+	}
 	else if (ft_strncmp(line, "sp", 2) == 0)
 		printf("Sphere\n");
 	else if (ft_strncmp(line, "pl", 2) == 0)
@@ -32,6 +40,7 @@ int	parsing_start(char *line)
 		printf("Cylinder\n");
 	else
 		return (-1);
+	return (1);
 }
 
 /*

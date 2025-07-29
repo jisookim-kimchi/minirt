@@ -13,7 +13,7 @@ LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code
-HEADER = -I $(LIBMLX) -I./math -I./object -I./Precompiled -I./lighting
+HEADER = -I $(LIBMLX) -I./math -I./object -I./Precompiled -I./lighting -I./parser
 
 LIBFT = $(LIBFT_DIR)/libft.a
 GNL = $(GNL_DIR)/libgnl.a
@@ -36,11 +36,14 @@ SRCS :=	object/2d_objects.c \
 		lighting/shadow.c \
 		Precompiled/camera.c \
 		Precompiled/transform_comp.c \
-		Precompiled/check_file.c \
 		render/window.c \
 		render/pixel_color.c \
 		render/init_objects.c \
 		debug/messages.c \
+		parser/ACL_parser.c \
+		parser/parse_file.c \
+		parser/parse_utils.c \
+		parser/parse.c
 		
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
