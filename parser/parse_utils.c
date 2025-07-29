@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:21:03 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:35:08 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,21 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 {
 	char			*temp;
 	
-	if (ft_strchr(token, '.') || is_digit(token) == -1)
+	if (ft_strchr(token, '.'))
 	{
+		printf("error parse_color\n");
 		return (-1);
 	}
 	temp = ft_strtok(token, ',');
 	if (!temp)
 		return (-1);
+	if (is_digit(temp) == -1)
+		return (-1);
+		
 	*red = ft_atof(temp);
 	if (!check_value_in_range(*red, 0.0, 255.0))
 		return (-1);
 	*red /= 255.f;
-	
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
@@ -152,7 +155,7 @@ float	ft_atof(char *str)
 		sign = -1;
 		str++;
 	}
-	while (*str >= '0' || *str <= '9')
+	while (*str >= '0' && *str <= '9')
 	{
 		num = num * 10 + (*str - '0');
 		str++;
@@ -162,11 +165,11 @@ float	ft_atof(char *str)
 		str++;
 		while (*str >= '0' && *str <= '9')
 		{
-			frac = frac * 10 + (*str - '0');
+			float temp = (*str - '0');
 			div *= 10.0;
+			frac += temp / div;
 			str++;
 		}
-		frac += frac / div;
 	}
-	return frac * sign;
+	return ((frac + num) * sign);
 }

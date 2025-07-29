@@ -9,6 +9,7 @@
 		"stdbool.h": "c",
 		"assert.h": "c",
 		"__config": "c",
-		"locale": "c"
+		"locale": "c",
+		"bitset": "c"
 	}
 }
