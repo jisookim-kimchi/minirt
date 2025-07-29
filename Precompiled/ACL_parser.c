@@ -23,13 +23,18 @@ int	parse_ambient(char *line, t_ambient *ambient)
 		//free tokens
 		return (-1);
 	}
+	if (ratio < 0.0 || ratio > 1.0)
+	{
+		//free tokens
+		return (-1);
+	}
 	//parse color
 	paras_color(tokens[2], ambient->ambient_color.red, ambient->ambient_color.green, ambient->ambient_color.blue);
 	ambient->ambient_ratio = ratio;
 	return (1);
 }
 
-//todo 
+
 int	parse_camera(char *line, t_camera *camera)
 {
 	char			**tokens;
@@ -47,26 +52,41 @@ int	parse_camera(char *line, t_camera *camera)
 		//free tokens?
 		return (-1);
 	}
-	parse_vec3(tokens[1], &pos.x, &pos.y, &pos.z);
-	parse_vec3(tokens[2], &orientation.x, &orientation.y, &orientation.z);
-	if ((orientation.x > 1 || orientation.x < -1) || (orientation.y > 1 || orientation.y < -1) || (orientation.z > 1 || orientation.z < -1))
-	{
-		//free tokens?
-		return (-1);
-	}
+	parse_vec3(tokens[1], &camera->transform_comp.transform->position.x, &camera->transform_comp.transform->position.y, &camera->transform_comp.transform->position.z);
+	parse_vec3(tokens[2], &camera->transform_comp.forward.x, &camera->transform_comp.forward.y, &camera->transform_comp.forward.z);
+	if ((camera->transform_comp.forward.x > 1 || camera->transform_comp.forward.x < -1) || (camera->transform_comp.forward.y > 1 || camera->transform_comp.forward.y < -1) || (camera->transform_comp.forward.z > 1 || camera->transform_comp.forward.z < -1))
 	{
 		//free tokens?
 		return (-1);
 	}
 	fov = ft_atof(tokens[3]);
-	if (fov <= 0 || fov > 180)
+	if (fov < 0 || fov > 180)
+	{
+		//free tokens? garbagecollector?
+		return (-1);
+	}
+	camera->transform_comp.forward = vec3_normalized(camera->transform_comp.forward);
+	if (fabs(vec3_dot(camera->transform_comp.forward, t_vec3(0,1,0)) > 0.999f))
+		camera->transform.right = vec3_cross(camera->transform_comp.forward ,(t_vec3){0, 0, 1});
+	else
+		camera->transform_comp.right = vec3_cross(camera->transform_comp.forward ,(t_vec3){0, 1, 0});
+	camera->transform_comp.up = vec3_cross(camera->transform_comp.right, camera->transform_comp.forward);
+	camera->fov = fov;
+	return (1);
+}
+
+int	parse_light(char *line, t_light *light)
+{
+	t_vec3	pos;
+	
+	tokens = ft_split(line, ' ');
+	if (!tokens)
+		return (-1);
+	if (count_array_elem(tokens) != 4)
 	{
 		//free tokens?
 		return (-1);
 	}
-	camera->transform_comp.transform->position = pos;
-	// how to pass orientation?
-	//camera->transform_comp.forward = orientation;
-	camera->fov = fov;
-	return (1);
+	parse_vec3(tokens[1], &light->light_position.x, &light->light_position.y, &light->light_position.z);
+	
 }
