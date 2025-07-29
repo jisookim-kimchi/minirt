@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:18:24 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:42:26 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LOADRESOURCE_H
 
 //todo add get_next_line
-//# include "../libft/libft.h"
+# include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
 # include "../math/mathheader.h"
 # include <fcntl.h>

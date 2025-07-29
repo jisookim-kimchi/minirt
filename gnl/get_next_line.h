@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 19:10:50 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:18:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:44:06 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # endif
 
 char	*get_next_line(int fd);
-//size_t	ft_strlen(const char *str);
-//char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen_gnl(const char *str);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 size_t	get_buffer_len(char *buff);
 int		had_read_error(char *line, int error);
 
