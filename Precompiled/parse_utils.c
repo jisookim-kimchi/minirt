@@ -6,12 +6,15 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/27 11:29:55 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 13:04:43 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "loadresource.h"
 
+/*
+	255,255,255
+*/
 char *ft_strtok(char *str, const char c)
 {
 	static char *input;
@@ -52,33 +55,42 @@ int	count_array_elem(char **tokens)
 	integer or float?
 	because we getting integer value from file...
 	need to discuss about it.
+
+	// 255,255,255
 */
 
-int	parse_color(char *token, int *red, int *green, int *blue)
+int	parse_color(char *token, float *red, float *green, float *blue)
 {
 	char			*temp;
 	
+	if (ft_strchr(token, '.') || is_digit(token) == -1)
+	{
+		return (-1);
+	}
 	temp = ft_strtok(token, ',');
 	if (!temp)
 		return (-1);
-	*red = ft_atoi(temp);
+	*red = ft_atof(temp);
 
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
-	*green = ft_atoi(temp);
+	*green = ft_atof(temp);
 
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
-	*blue = ft_atoi(temp);
+	*blue = ft_atof(temp);
 	return (1);
 }
+
 
 int	parse_vec3(char *token, float *x, float *y, float *z)
 {
 	char			*temp;
 	
+	if (is_digit(token) == -1)
+		return (-1);
 	temp = ft_strtok(token, ',');
 	if (!temp)
 		return (-1);
@@ -95,7 +107,23 @@ int	parse_vec3(char *token, float *x, float *y, float *z)
 	*z = ft_atof(temp);
 	return (1);
 }
+int	is_digit(const char *token)
+{
+	int	i;
 
+	while(token[i])
+	{
+		if (ft_isdigit(token[i]))
+			i++;
+		else
+			return (-1);
+	}
+	return (1);
+}
+/*
+	float	ft_atof(char *str, bool *flag_float) 
+	//todo to check if we need that declare 
+*/
 float	ft_atof(char *str)
 {
 	double		num;
@@ -120,7 +148,6 @@ float	ft_atof(char *str)
 		num = num * 10 + (*str - '0');
 		str++;
 	}
-
 	if (*str == '.')
 	{
 		str++;
