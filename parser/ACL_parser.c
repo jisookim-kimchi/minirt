@@ -34,14 +34,12 @@ int	parse_camera(char *line, t_camera *camera)
 {
 	char			**tokens;
 	float			fov;
-
 	tokens = ft_split(line, ' ');
 	if (!tokens)
 	{
 		printf("camera1\n");
 		return (-1);
 	}
-
 	//check param num for ambinet it must be 3.
 	if (count_array_elem(tokens) != 4)
 	{
@@ -50,6 +48,8 @@ int	parse_camera(char *line, t_camera *camera)
 		return (-1);
 	}
 	parse_vec3(tokens[1], &camera->transform_comp.transform->position.x, &camera->transform_comp.transform->position.y, &camera->transform_comp.transform->position.z);
+	printf("token1 done \n");
+	// printf("camera position[%p]: %f, %f, %f\n", &camera->transform_comp.transform->position, camera->transform_comp.transform->position.x, camera->transform_comp.transform->position.y, camera->transform_comp.transform->position.z);
 	parse_vec3(tokens[2], &camera->transform_comp.forward.x, &camera->transform_comp.forward.y, &camera->transform_comp.forward.z);
 	if ((camera->transform_comp.forward.x > 1 || camera->transform_comp.forward.x < -1) || (camera->transform_comp.forward.y > 1 || camera->transform_comp.forward.y < -1) || (camera->transform_comp.forward.z > 1 || camera->transform_comp.forward.z < -1))
 	{

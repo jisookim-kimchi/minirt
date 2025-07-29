@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 16:53:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:02:51 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	parsing_start(char *line, t_window *window)
 		}
 		else
 		{
-			printf("camera position : %f, %f, %f\n", window->camera.transform_comp.transform->position.x, window->camera.transform_comp.transform->position.y, window->camera.transform_comp.transform->position.z);
+			printf("camera position[%p]: %f, %f, %f\n", &window->camera.transform_comp.transform->position, window->camera.transform_comp.transform->position.x, window->camera.transform_comp.transform->position.y, window->camera.transform_comp.transform->position.z);
 		}
 	}
 	else if (ft_strncmp(line, "L", 1) == 0)
