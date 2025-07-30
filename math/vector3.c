@@ -156,9 +156,7 @@ t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
 t_vec3	vec3_normalized(t_vec3 vec3)
 {
 	double len;
-	
 	len = vec3_length(vec3);
-	printf("len: %f\n", len);
 	if (len < EPSILON)
 	{
 		printf("vec3_normalized: length is 0, cannot normalize %f\n", len);

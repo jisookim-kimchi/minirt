@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 12:32:25 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:18:54 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit_normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
 				sphere->center), sphere_radius);
 	hit->hit_color = sphere->sphere_color;
+	hit->object.obj_type = SPHERE;
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	return (true);
 }
@@ -106,7 +107,6 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
 	if (fabs(rayn_planen_dot) < EPSILON)
 		return (false);
-	//printf("rayn_planen_dot %f\n", rayn_planen_dot);
 
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
@@ -115,6 +115,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->t = t;
 	hit->hit_point = ray_at(ray, hit->t);
 	hit->hit_color = plane->plane_color;
+	hit->object.obj_type = PLANE;
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }
@@ -180,14 +181,12 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	hit->t = t;
 	hit->hit_point = hit_point;
 	hit->hit_color = cylinder->cylinder_color;
-
 	//get normal 
 	t_point3 hitpoint_height;
     t_vec3 normal;
 
 	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
-	printf(CYAN"hit->normal\n"DEFAULT);
 	hit->normal = vec3_normalized(normal);
 	set_ray_opposite_normal(ray, hit, hit->normal);
 	return (true);
@@ -248,7 +247,8 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
 				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
          		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
-	
+	if (is_hit)				
+		hit->object.obj_type = CYLINDER;
     return (is_hit);
 }
 

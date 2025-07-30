@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 19:36:07 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:13:09 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_cylinder
 /*
 	Maybe it is good to store the color, front face, and the object
 	bool			front_face;
-	t_objs_list		object;
+	
 */
 typedef struct s_hit
 {
@@ -85,6 +85,7 @@ typedef struct s_hit
 	float			t_max;
 	t_vec3			hit_point;
 	t_vec3			normal;
+	t_objs_list		object;
 	t_color_float	hit_color;
 }	t_hit;
 

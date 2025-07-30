@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/24 15:37:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:38:49 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_light
 	t_vec3			light_position;
 	float			light_ratio;
 	t_color_float	light_color;
+	bool			is_light;
 }	t_light;
 
 typedef struct s_spot_light
