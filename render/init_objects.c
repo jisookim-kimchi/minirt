@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/23 19:46:59 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:09:57 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_objs_list	*init_objs_list(void)
 	color_float_set(&plane_color1, 0.0f, 0.0f, 1.0f); //blue
 	plane_point1 = vec3(0.0, -10.0, -1000.0);
 	unit_normal_vec1 = vec3_normalized((t_vec3){0.0, 1.0, 0.0}); //zx plane
+	printf("9\n");
 	plane1 = create_plane(unit_normal_vec1, plane_point1, plane_color1);
 
 	//plane2

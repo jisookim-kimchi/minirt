@@ -65,6 +65,7 @@ int	parse_camera(char *line, t_camera *camera)
 		return (-1);
 	}
 	camera->transform_comp.forward = vec3_normalized(camera->transform_comp.forward);
+	printf("8\n");
 	if (fabs(vec3_dot(camera->transform_comp.forward, vec3(0.0, 1.0, 0.0))) > 0.999f)
 		camera->transform_comp.right = vec3_cross(camera->transform_comp.forward ,(t_vec3){0, 0, 1});
 	else

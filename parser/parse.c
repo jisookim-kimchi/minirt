@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 17:02:51 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:59:02 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	parsing_start(char *line, t_window *window)
 	{
 		printf("light parsing_start\n");
 		if (parse_light(line, &window->light) == -1)
+		{
 			return (-1);
+		}
 		else
 		{
 			printf("light color : %f, %f, %f\n", window->light.light_color.red, window->light.light_color.green, window->light.light_color.blue);
@@ -61,8 +63,8 @@ int	parsing_start(char *line, t_window *window)
 		printf("Plane\n");
 	else if (ft_strncmp(line, "cy", 2) == 0)
 		printf("Cylinder\n");
-	else
-		return (-1);
+	// else
+	// 	return (-1);
 	return (1);
 }
 
