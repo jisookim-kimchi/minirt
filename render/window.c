@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 12:25:43 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:36:55 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ void	image_hook(void *param)
 int main(void)
 {
 	t_window			win;
+
+	//Light init.
+	// win.light.light_color.red = INFINITY;
+	
 	t_screenpoint		screen;
 	t_transform_comp	transform_comp;
 	// t_color_float		ambient;
@@ -106,13 +110,16 @@ int main(void)
 	image_hook(&win);
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
 		error_window(&win);
- 
+	
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 		error_window(&win);
 	mlx_key_hook(win.mlx, ft_key_hook, &win);
 	mlx_loop(win.mlx);
+
 	mlx_terminate(win.mlx);
+
+	
 	free_objs_list(&win.objs);
 	return (0);
 }

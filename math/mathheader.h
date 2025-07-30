@@ -8,7 +8,7 @@
 # include <stdbool.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define EPSILON 1e-6f
+# define EPSILON 1e-4
 
 //typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
@@ -165,7 +165,7 @@ float	vec4_max_component(t_vec4 v);
 
 //trace.c
 t_point3    ray_at(t_ray *ray, double t);
-t_ray       ray(t_point3 orig, t_vec3 dir);
+t_ray       create_ray(t_point3 orig, t_vec3 dir);
 
 // extern const t_vec4 VEC4_ZERO;
 // extern const t_vec4 VEC4_ONE;

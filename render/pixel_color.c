@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 12:19:16 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:57:51 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,13 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	
-	// sleep(1);
-	// printf(CYAN);
-	// printf("u_horizontal. x : %f, y : %f\n", u_horizontal.x, u_horizontal.y);
-	// printf("v_vertical. x : %f, y : %f\n", v_vertical.x, v_vertical.y);
-	// printf(DEFAULT);
-	
 	// printf("The uv vector:\n");
 	// print_vec3(&uv);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	printf("The pixel center\n");
-	print_vec3(&pixel_center);
-	printf("The ray origin\n");
-	print_vec3(&(ray->orign));
-	printf("11\n");
-	ray->dir = (vec3_sub_vec3(pixel_center, ray->orign));
-	printf(CYAN"pixel_center - ray->origin : %f, %f, %f\n"DEFAULT,ray->dir.x, ray->dir.y, ray->dir.z);
-	ray->dir = vec3_normalized(ray->dir);
+	//print_vec3(&pixel_center);
+	//print_vec3(&(ray->orign));
 	
-	//ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
-	printf("10\n");
+	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
 }
 
 /*
@@ -149,7 +136,10 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	{
 		// result_color.result_color = 0xFF0000FF;
 		if (is_shadow(win->objs, &win->light, &record) == true)
+		{
 			result_color = color_transform_to_int(&record.hit_color);
+			// printf(CYAN" hit object_type : %d\n"DEFAULT,record.object.obj_type);
+		}
 		else
 		{
 			temp = calculate_hit_color(win, &record);
