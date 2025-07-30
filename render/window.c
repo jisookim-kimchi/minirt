@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 14:36:55 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:11:54 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int main(void)
 	// color_float_set(&light, 1.0f, 1.0f, 1.0f);
 	// win.light = init_light(vec3(100.0, 0.0, 500), 0.9f, light);
 
-	char *path = "/Users/jisokim2/MySubjects/minirt/file/.rt";
+	char *path = "file/.rt";
 	if (!is_valid_file(path))
 		return (-1);
 	int fd = open_file(path);
@@ -110,7 +110,7 @@ int main(void)
 	image_hook(&win);
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
 		error_window(&win);
-	
+
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 		error_window(&win);
