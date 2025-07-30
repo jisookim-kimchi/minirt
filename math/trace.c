@@ -5,6 +5,7 @@ t_ray       ray(t_point3 orig, t_vec3 dir)
     t_ray ray;
 
     ray.orign = orig;
+	printf("ray.dir\n");
     ray.dir = vec3_normalized(dir);
     return (ray);
 }

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/29 14:57:01 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:19:16 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,17 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	// printf("The uv vector:\n");
 	// print_vec3(&uv);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	// printf("The pixel center\n");
-	// print_vec3(&pixel_center);
-	// printf("The ray origin\n");
-	// print_vec3(&(ray->orign));
-	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
+	printf("The pixel center\n");
+	print_vec3(&pixel_center);
+	printf("The ray origin\n");
+	print_vec3(&(ray->orign));
+	printf("11\n");
+	ray->dir = (vec3_sub_vec3(pixel_center, ray->orign));
+	printf(CYAN"pixel_center - ray->origin : %f, %f, %f\n"DEFAULT,ray->dir.x, ray->dir.y, ray->dir.z);
+	ray->dir = vec3_normalized(ray->dir);
+	
+	//ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
+	printf("10\n");
 }
 
 /*

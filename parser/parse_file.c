@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 16:52:21 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:00:45 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ int	read_file(int fd, t_window *window)
 		line = get_next_line(fd);
 		printf("line : %s\n", line);
 		if (!line)
+		{
+			printf("break\n");
 			break;
+		}
 		if (*line == '\n')
 			continue;
 		result = parsing_start(line, window);
@@ -76,7 +79,6 @@ int	read_file(int fd, t_window *window)
 		}
 		free(line);
 	}
-	// fclose(fp);
 	return (result);
 }
 
@@ -86,7 +88,7 @@ int	read_file(int fd, t_window *window)
 // 	if (!is_valid_file(path))
 // 		return (-1);
 // 	int fd = open_file(path);
-// 	int check_read = read_file(fd);
+// 	int  = read_file(fd);
 	
 // 	return (0);
 // }

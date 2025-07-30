@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/29 17:03:38 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:25:43 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	image_hook(void *param)
 		while (x < win->image->width)
 		{
 			get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-			
 			pixel_center_col = pixel_center_color(&ray_pixel_center, win);
 			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
 			// mlx_put_pixel(win->image, x, y, blue);
@@ -72,13 +71,13 @@ int main(void)
 	t_window			win;
 	t_screenpoint		screen;
 	t_transform_comp	transform_comp;
-	//t_color_float		ambient;
-	//t_color_float		light;
+	// t_color_float		ambient;
+	// t_color_float		light;
 
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
-	// win.camera.transform_comp.forward = (t_vec3){0,0,-1};
+	 win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
 
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
@@ -107,7 +106,7 @@ int main(void)
 	image_hook(&win);
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
 		error_window(&win);
-
+ 
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 		error_window(&win);

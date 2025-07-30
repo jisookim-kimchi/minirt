@@ -158,10 +158,11 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	double len;
 	
 	len = vec3_length(vec3);
-	if (len == 0.0)
+	printf("len: %f\n", len);
+	if (len < EPSILON)
 	{
 		printf("vec3_normalized: length is 0, cannot normalize %f\n", len);
-		exit(0);
+		exit(1);
 	}
 	vec3.x = vec3.x / len;
 	vec3.y = vec3.y / len;

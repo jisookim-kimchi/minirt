@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/24 10:10:58 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:32:25 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 
 	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
+	printf(CYAN"hit->normal\n"DEFAULT);
 	hit->normal = vec3_normalized(normal);
 	set_ray_opposite_normal(ray, hit, hit->normal);
 	return (true);
