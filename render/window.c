@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/26 21:39:43 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/30 13:55:27 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	image_hook(void *param)
 		}
 		y++;
 	}
+	if (win->antialisign_on == true)
+		mlx_put_string(win->mlx, "Antialiasign", 5, 5);
 }
 
 int main(void)
@@ -114,7 +116,7 @@ int main(void)
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
-	// win.camera.transform_comp.forward = (t_vec3){0,0,-1};
+	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
 
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);

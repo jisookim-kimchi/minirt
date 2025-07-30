@@ -49,12 +49,18 @@ void add_transform_comp_position(t_transform_comp *comp, t_vec3 delta)
 void    rotation_transform_comp(t_camera *camera, double x, double y)
 {
     t_vec3  center;
+    t_vec3  world_up;
+    double  forward_dot;
     
+    world_up = vec3(0.0, 1.0, 0.0);
     center = vec3_plus_vec3(camera->transform_comp.pos,
         vec3_multiply(camera->transform_comp.forward, camera->focal_length));
     camera->transform_comp.forward = vec3_normalized(vec3_plus_vec3(center, vec3(x, y, 0)));
-	camera->transform_comp.up = vec3(0, 1, 0);
-	camera->transform_comp.right = vec3(1, 0, 0);
+    forward_dot = vec3_dot(camera->transform_comp.forward, world_up);
+    if (fabs(forward_dot) > 0.99)
+        world_up = vec3(0.0, 0.0, 1.0);
+    camera->transform_comp.right = vec3_normalized(vec3_cross(camera->transform_comp.forward, world_up));
+	camera->transform_comp.up = vec3_normalized(vec3_cross(camera->transform_comp.right, camera->transform_comp.forward));
 }
 
 t_transform *get_world_transform(t_transform_comp *transform_comp)

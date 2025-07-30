@@ -112,4 +112,5 @@ t_vec3              get_forward_vector(t_transform_comp transform_comp);
 t_transform_comp    init_transform_comp(void);
 void                add_transform_comp_position(t_transform_comp *comp, t_vec3 delta);
 void                set_transform_comp_position(t_transform_comp *comp, t_vec3 pos);
+void                rotation_transform_comp(t_camera *camera, double x, double y);
 #endif

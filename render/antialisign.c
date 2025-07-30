@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/26 20:13:55 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/07/29 18:49:29 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win,
 	uint32_t x, uint32_t y)
 {
 	t_color_float	result;
-	static int		counter = 0;
+	// static int		counter = 0;
 	t_color_float	sample;
 	t_ray			pixel_ray;
 	int				i;
@@ -123,45 +123,12 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win,
 		i++;
 	}
 	result = color_float_divide(result, (double)(samples *samples));
-	if (counter == 100)
-		print_color_compare(&sample, &result);
-	counter++;
+	// if (counter == 100)
+	// 	print_color_compare(&sample, &result);
+	// counter++;
 	return (result);
 }
 
-/*
-void	image_hook(void *param)
-{
-	t_window	*win;
-	uint32_t	x;
-	uint32_t	y;
-	// uint32_t	blue;
-	t_color_float temp;
-	t_color_32	pixel_center_col;
-	// t_ray		ray_pixel_center;
-	int			samples;
-
-	win = (t_window *)param;
-	samples = 5;
-	y = 0;
-	while (y < win->image->height)
-	{
-		x = 0;
-		while (x < win->image->width)
-		{
-			// get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-			// pixel_center_col = pixel_center_color(&ray_pixel_center, win);
-			
-			temp = n_samples_in_pixel(samples, win, x, y);
-			pixel_center_col = color_transform_to_int(&temp);
-			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
-			// mlx_put_pixel(win->image, x, y, blue);
-			x++;
-		}
-		y++;
-	}
-}
-*/
 
 t_color_32	switch_antialisgn(t_window *win,
 	uint32_t x, uint32_t y)
@@ -175,6 +142,8 @@ t_color_32	switch_antialisgn(t_window *win,
 	ray_pixel_center = ray(vec3(0, 0, 0), vec3(1, 1, 1));
 	if (win->antialisign_on == true)
 	{
+		//check where should put
+		// mlx_put_string(win->mlx, "Antialisign", 100, 100);
 		temp = n_samples_in_pixel(samples, win, x, y);
 		pixel_center_col = color_transform_to_int(&temp);
 	}
