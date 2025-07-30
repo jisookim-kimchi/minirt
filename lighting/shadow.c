@@ -20,11 +20,12 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 
 	t_ray shadow_ray = create_ray(shadow_origin, shadow_dir);
 
-	// if (vec3_dot(vec3_sub_vec3(shadow_origin, hit->hit_point), hit->normal) <= -0.8)
-	// 	printf("error\n");
+	if (vec3_dot(vec3_sub_vec3(shadow_origin, hit->hit_point), hit->normal) <= -0.8)
+		printf("error\n");
 
 	t_hit temp_hit;
-	temp_hit.t_max = shadow_len;
+	temp_hit.t_max = shadow_len * 0.8f;
+	// temp_hit.t_min = 0;
 	temp_hit.t_min = EPSILON;
 
 	//if its hit;
