@@ -23,6 +23,7 @@ bool	is_valid_file(char *path)
 	if (!path || ft_strlen(path) <= 3)
 		return (false);
 	check = ft_strlen(path) - 3;
+
 	if (ft_strncmp(path + check, ".rt", 3) == 0)
 	{
 		return (true);
