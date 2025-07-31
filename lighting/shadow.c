@@ -16,7 +16,7 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 
 	//if hit doubled then we need to adjust EPSILON value
 	//if the hit point is on the surface then we need to add a small offset
-	t_vec3 shadow_offset = vec3_multiply(hit->normal, EPSILON);
+	t_vec3 shadow_offset = vec3_multiply(hit->normal, EPSILON * 50.f);
 	//vec3 shadow_offset = vec3_multiply((shadow_dir), EPSILON * 50.f); //vector it has direction.
 	shadow_origin = vec3_plus_vec3(hit->hit_point, shadow_offset);
 
