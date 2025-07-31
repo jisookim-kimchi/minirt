@@ -96,3 +96,4 @@ float	spot_light_intensity_at(const t_spot_light *spot, t_vec3 point, t_vec3 nor
 /*
 	todo : calculate fall off 
 */
+
