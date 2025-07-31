@@ -46,13 +46,13 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	char	*temp_r;
 	size_t	len_s1;
 	size_t	len_s2;
-	size_t	i;
-	size_t	j;
+	// size_t	i;
+	// size_t	j;
 
 	len_s1 = ft_strlen_gnl(s1);
 	len_s2 = ft_strlen_gnl(s2);
-	i = 0;
-	j = 0;
+	// i = 0;
+	// j = 0;
 	temp_r = malloc(((len_s1 + len_s2) + 1) * sizeof(char));
 	if (!temp_r)
 		return (NULL);
