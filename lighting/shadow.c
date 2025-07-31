@@ -32,7 +32,7 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 	temp_hit.object = hit->object;
 
 	//if its hit;
-	if (hit_world(&shadow_ray, &temp_hit, object) && temp_hit.object.obj_type != hit->object.obj_type)
+	if (hit_world(&shadow_ray, &temp_hit, object) && temp_hit.object.data != hit->object.data)
 	{
 		t_color_float color = (t_color_float){0,0,0};
 		hit->hit_color = color;
