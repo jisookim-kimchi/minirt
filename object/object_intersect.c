@@ -82,7 +82,8 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit_normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
 				sphere->center), sphere_radius);
 	hit->hit_color = sphere->sphere_color;
-	hit->object.obj_type = SPHERE;
+	//hit->object.obj_type = SPHERE;
+	hit->object.data = sphere;
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	return (true);
 }
@@ -115,7 +116,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->t = t;
 	hit->hit_point = ray_at(ray, hit->t);
 	hit->hit_color = plane->plane_color;
-	hit->object.obj_type = PLANE;
+	hit->object.data = plane;
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }
@@ -248,7 +249,7 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
          		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
 	if (is_hit)				
-		hit->object.obj_type = CYLINDER;
+		hit->object.data = cylinder;
     return (is_hit);
 }
 
