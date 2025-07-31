@@ -101,7 +101,8 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	loop_objects = objects;
 	while (loop_objects)
 	{
-		if (ray_intersect(loop_objects, ray, &temp))
+		//if ( ray_intersect(loop_objects, ray, &temp))
+		if (loop_objects != record->object.data && ray_intersect(loop_objects, ray, &temp))
 		{
 			found_hit = true;
 			temp.t_max = temp.t;
