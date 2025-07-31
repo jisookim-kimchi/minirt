@@ -48,15 +48,15 @@ t_objs_list	*init_objs_list(void)
 	plane1 = create_plane(unit_normal_vec1, plane_point1, plane_color1);
 
 	//plane2
-	t_objs_list		*plane2;
-	t_vec3			plane_point2;
-	t_vec3			unit_normal_vec2;
-	t_color_float	plane_color2;
+	// t_objs_list		*plane2;
+	// t_vec3			plane_point2;
+	// t_vec3			unit_normal_vec2;
+	// t_color_float	plane_color2;
 
-	color_float_set(&plane_color2, 0.0f, 1.f, 0.0f);
-	plane_point2 = vec3(10.0, 0.0, -100.0);
-	unit_normal_vec2 = vec3(1.0, 0.0, 0.0);
-	plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
+	// color_float_set(&plane_color2, 0.0f, 1.f, 0.0f);
+	// plane_point2 = vec3(10.0, 0.0, -100.0);
+	// unit_normal_vec2 = vec3(1.0, 0.0, 0.0);
+	// plane2 = create_plane(unit_normal_vec2, plane_point2, plane_color2);
 
 	//cylinder
 	t_objs_list		*cylinder;
