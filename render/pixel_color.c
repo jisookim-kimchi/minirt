@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 17:55:43 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 17:56:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 		}
 		else
 		{
-			// 1. check if is the light same side with camera.
+			// todo 1. check if is the light same side with camera.
 			
 			temp = calculate_hit_color(win, &record);
 			result_color = color_transform_to_int(&temp);
