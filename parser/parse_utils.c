@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/30 11:56:41 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 11:49:44 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,28 +88,22 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 	if (!check_value_in_range(*green, 0.0, 255.0))
 		return (-1);
 	*green /= 255.f;
-	printf("green : %f\n", *green);
 	
 	temp = ft_strtok(NULL, ',');
-	printf("temp : %c\n", *temp);
 	if (!temp)
 	{
-		printf("1 blue temp : %s\n", temp);
 		return (-1);
 	}
 	if (is_digit(temp) == -1)
 	{
-		printf("2 blue temp : %s\n", temp);
 		return (-1);
 	}
 	*blue = ft_atof(temp);
 	if (!check_value_in_range(*blue, 0.0, 255.0))
 	{
-		printf("3 blue temp : %s\n", temp);
 		return (-1);
 	}
 	*blue /= 255.f;
-	printf("blue : %f\n", *blue);
 	return (1);
 }
 
@@ -156,12 +150,10 @@ int	is_digit(const char *token)
 	{
 		if (ft_isdigit(token[i]))
 		{
-			//printf("TOKEN : %c\n", token[i]);
 			i++;
 		}
 		else
 		{
-			//printf("TOKEN : %c\n", token[i]);
 			return (-1);
 		}
 	}

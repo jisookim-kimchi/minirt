@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 16:24:51 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:04:11 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 		while (current->next)
 			current = current->next;
 		current->next = new_member;
-		object_adress(current->next);
 	}
 }
 
@@ -101,7 +100,8 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	loop_objects = objects;
 	while (loop_objects)
 	{
-		if (loop_objects != record->object.data && ray_intersect(loop_objects, ray, &temp))
+		// if (ray_intersect(loop_objects, ray, &temp))
+		if ((loop_objects->data != record->object.data ) && ray_intersect(loop_objects, ray, &temp))
 		{
 			found_hit = true;
 			temp.t_max = temp.t;

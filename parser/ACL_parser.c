@@ -24,7 +24,7 @@ int	parse_ambient(char *line, t_ambient *ambient)
 	}
 	//parse color
 	parse_color(tokens[2], &ambient->ambient_color.red, &ambient->ambient_color.green, &ambient->ambient_color.blue);
-	printf("ambient_color %p\n", &ambient->ambient_color);
+	//printf("ambient_color %p\n", &ambient->ambient_color);
 	ambient->ambient_ratio = ratio;
 	return (1);
 }
@@ -37,30 +37,30 @@ int	parse_camera(char *line, t_camera *camera)
 	tokens = ft_split(line, ' ');
 	if (!tokens)
 	{
-		printf("camera1\n");
+		//printf("camera1\n");
 		return (-1);
 	}
 	//check param num for ambinet it must be 3.
 	if (count_array_elem(tokens) != 4)
 	{
-		printf("camera 1\n");
+		//printf("camera 1\n");
 		//free tokens?
 		return (-1);
 	}
 	parse_vec3(tokens[1], &camera->transform_comp.transform->position.x, &camera->transform_comp.transform->position.y, &camera->transform_comp.transform->position.z);
-	printf("token1 done \n");
+	// printf("token1 done \n");
 	// printf("camera position[%p]: %f, %f, %f\n", &camera->transform_comp.transform->position, camera->transform_comp.transform->position.x, camera->transform_comp.transform->position.y, camera->transform_comp.transform->position.z);
 	parse_vec3(tokens[2], &camera->transform_comp.forward.x, &camera->transform_comp.forward.y, &camera->transform_comp.forward.z);
 	if ((camera->transform_comp.forward.x > 1 || camera->transform_comp.forward.x < -1) || (camera->transform_comp.forward.y > 1 || camera->transform_comp.forward.y < -1) || (camera->transform_comp.forward.z > 1 || camera->transform_comp.forward.z < -1))
 	{
-		printf("camera 2\n");
+		//printf("camera 2\n");
 		//free tokens?
 		return (-1);
 	}
 	fov = ft_atof(tokens[3]);
 	if (fov < 0 || fov > 180)
 	{
-		printf("camera 3\n");
+		//printf("camera 3\n");
 		//free tokens? garbagecollector?
 		return (-1);
 	}

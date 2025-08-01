@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 15:57:51 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:18:01 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,15 +135,27 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	if (hit_world(ray, &record, win->objs))
 	{
 		// result_color.result_color = 0xFF0000FF;
-		if (is_shadow(win->objs, &win->light, &record) == true)
+		// if (is_shadow(win->objs, &win->light, &record) == true)
+		// {
+		// 	result_color = color_transform_to_int(&record.hit_color);
+		// 	// printf(CYAN" hit object_type : %d\n"DEFAULT,record.object.obj_type);
+		// }
+		// else
+		// {
+		// 	temp = calculate_hit_color(win, &record);
+		// 	result_color = color_transform_to_int(&temp);
+		// }
+		
+		temp = calculate_hit_color(win, &record);
+		if (record.object.obj_type == SPHERE)
 		{
-			result_color = color_transform_to_int(&record.hit_color);
-			// printf(CYAN" hit object_type : %d\n"DEFAULT,record.object.obj_type);
+			printf(CYAN"sphere color %f, %f, %f\n"DEFAULT, temp.red, temp.green, temp.blue);
 		}
-		else
+		
+		result_color = color_transform_to_int(&temp);
+		if (record.object.obj_type == SPHERE)
 		{
-			temp = calculate_hit_color(win, &record);
-			result_color = color_transform_to_int(&temp);
+			printf(CYAN"sphere result color %d, %d, %d\n"DEFAULT, result_color.red, result_color.green, result_color.blue);
 		}
 	}
 	else
