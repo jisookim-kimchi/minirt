@@ -71,8 +71,8 @@ t_objs_list	*init_objs_list(void)
 	cylinder = create_cylinder(cylinder_axis, cylinder_center, diameter, height, cylinder_color);
 
 	add_member_to_obj_list(&list, plane1);
-	// add_member_to_obj_list(&list, cylinder);
-	// add_member_to_obj_list(&list, sphere);
+	add_member_to_obj_list(&list, cylinder);
+	add_member_to_obj_list(&list, sphere);
 	// add_member_to_obj_list(&list, plane2);
 
 	return (list);

@@ -47,8 +47,9 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 		// if (temp_hit.object.obj_type == CYLINDER)
 		// 	printf("CYLINDER\n");
 
-		t_color_float color = (t_color_float){0,0,0};
-		hit->hit_color = color;
+		//todo no meaning.
+		// t_color_float color = (t_color_float){0,0,0};
+		// temp_hit.hit_color = color;
 		return (true);
 	}
 
