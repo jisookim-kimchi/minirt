@@ -152,8 +152,10 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 		//result_color.result_color = 0xFF0000FF;
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
-			result_color = color_transform_to_int(&record.hit_color);
+			//result_color = color_transform_to_int(&record.hit_color);
 			// printf(CYAN" hit object_type : %d\n"DEFAULT,record.object.obj_type);
+			temp = color_float_multiply(win->ambient.ambient_color, win->ambient.ambient_ratio);
+    		result_color = color_transform_to_int(&temp);
 		}
 		else
 		{
