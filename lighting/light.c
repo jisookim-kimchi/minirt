@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 12:54:19 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:29:50 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
-	double_clamp_calculation(diffuse_t, 0.0, 1.0);
+	diffuse_t = double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }
 

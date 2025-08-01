@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 11:51:35 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:22:52 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int main(void)
 
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
-		error_window(&win);
+	 	error_window(&win);
 	mlx_key_hook(win.mlx, ft_key_hook, &win);
 	mlx_loop(win.mlx);
 

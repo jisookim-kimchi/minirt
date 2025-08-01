@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 13:16:40 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:16:09 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->hit_point = ray_at(ray, hit->t);
 	hit->hit_color = plane->plane_color;
 	hit->object.data = plane;
+	hit->object.obj_type = PLANE;
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	return (true);
 }
@@ -248,8 +249,11 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
 				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
          		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
-	if (is_hit)				
+	if (is_hit)
+	{
 		hit->object.data = cylinder;
+		hit->object.obj_type = CYLINDER;
+	}
     return (is_hit);
 }
 
