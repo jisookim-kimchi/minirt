@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 18:11:54 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/01 11:51:35 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,18 @@ int main(void)
 	// color_float_set(&light, 1.0f, 1.0f, 1.0f);
 	// win.light = init_light(vec3(100.0, 0.0, 500), 0.9f, light);
 
+	/* parsing start */
 	char *path = "file/.rt";
 	if (!is_valid_file(path))
 		return (-1);
 	int fd = open_file(path);
-	
 	int check_read = read_file(fd, &win);
-	printf("check_read %d\n", check_read);
 	if (check_read == -1)
 	{
 		printf("failed parsing\n");
 	}
-
+	/* parsing end */
+	
 	if (!win.mlx)
 		error_window(&win);
 	win.image = mlx_new_image(win.mlx, \

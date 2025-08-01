@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 15:18:54 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:16:40 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit_normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
 				sphere->center), sphere_radius);
 	hit->hit_color = sphere->sphere_color;
-	//hit->object.obj_type = SPHERE;
+	hit->object.obj_type = SPHERE;
 	hit->object.data = sphere;
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	return (true);
