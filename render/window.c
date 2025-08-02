@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/02 14:03:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:17:23 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,21 @@ int main(void)
 	win.camera = init_camera(screen, transform_comp);
 	 win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
+	// t_objs_list *temp = win.objs;
+	// while(temp)
+	// {
+	// 	if (temp->obj_type == PLANE)
+	// 		printf("PLANE\n");
+	// 	else if (temp->obj_type == SPHERE)
+	// 		printf("SPHERE\n");
+	// 	else if (temp->obj_type == CYLINDER)
+	// 		printf("CYLINDER\n");
+	// 	else
+	// 		printf("UNKNOWN OBJECT TYPE\n");
+	// 	temp = temp->next;
+	// }
 
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
-	
-	// color_float_set(&ambient, 0.0f, 1.0f, 0.0f);
-	// win.ambient = init_ambient(0.7f, ambient);
-	// color_float_set(&light, 1.0f, 1.0f, 1.0f);
-	// win.light = init_light(vec3(100.0, 0.0, 500), 0.9f, light);
 
 	/* parsing start */
 	char *path = "file/.rt";
@@ -122,7 +130,6 @@ int main(void)
 
 	
 	free_objs_list(&win.objs);
+	exit (0);
 	return (0);
 }
-
-//*********************************************parsing*************************************************
