@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/02 13:20:04 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/02 13:53:30 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 			// printf(CYAN" hit object_type : %d\n"DEFAULT,record.object.obj_type);
 			// temp = color_float_multiply(win->ambient.ambient_color, win->ambient.ambient_ratio);
     		// result_color = color_transform_to_int(&temp);
-			t_color_float shadow_color = color_float_multiply(record.hit_color, 0.2f); // 어둡게 처리
+			t_color_float shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
 			result_color = color_transform_to_int(&shadow_color);
 		}
 		else

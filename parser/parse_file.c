@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/01 11:46:33 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/02 14:07:07 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,18 @@ int	read_file(int fd, t_window *window)
 	while (1)
 	{
 		line = get_next_line(fd);
-		//printf("line : %s\n", line);
 		if (!line)
-		{
-			//printf("break\n");
 			break;
-		}
 		if (*line == '\n')
 			continue;
 		result = parsing_start(line, window);
-		//printf("result %d\n", result);
 		if (result < 0)
 		{
 			//garbage collector.
 			//perror();
 			//exit(1);
-			break;
+			free(line);
+			return (-1);
 		}
 		free(line);
 	}
