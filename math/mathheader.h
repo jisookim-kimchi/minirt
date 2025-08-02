@@ -8,7 +8,7 @@
 # include <stdbool.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define EPSILON 1e-4
+# define EPSILON 1e-5
 
 //typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
