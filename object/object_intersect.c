@@ -18,7 +18,7 @@
 */
 void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
 {
-	if (vec3_dot(ray->dir, normal) <= EPSILON)
+	if (vec3_dot(ray->dir, normal) < 0)
 	{
 		hit->normal = normal;
 	}
@@ -86,6 +86,9 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->hit_color = sphere->sphere_color;
 	hit->object.obj_type = SPHERE;
 	hit->object.data = sphere;
+	// Backface Culling
+	if (vec3_dot(ray->dir, hit_normal) > 0)
+    	return false; 
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	return (true);
 }
@@ -110,6 +113,10 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
 	if (fabs(rayn_planen_dot) < EPSILON)
 		return (false);
+
+	// Backface culling
+	if (rayn_planen_dot > 0)
+    	return (false);
 
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
@@ -171,7 +178,7 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	double	check = half_b * half_b - a * c;
 	if(check < EPSILON)
 		return (false);
-	
+
 	double t = (-half_b - sqrt(check)) / a;
 	if (t < hit->t_min || t > hit->t_max)
 	{
@@ -204,6 +211,10 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
 	hit->normal = vec3_normalized(normal);
+	
+	// Backface Culling
+	if (vec3_dot(ray->dir, hit->normal) > 0)
+    	return false;
 	set_ray_opposite_normal(ray, hit, hit->normal);
 	return (true);
 }
@@ -239,7 +250,11 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 		// printf("%sr circle check%s\n", MAGENTA, DEFAULT);
 		return (false);
 	}
-	
+
+	// Backface Culling
+	if (vec3_dot(ray->dir, hit->normal) > 0)
+    	return false;
+
 	hit->t = t;
 	hit->hit_point = p;
 	hit->hit_color = cylinder->cylinder_color;
