@@ -152,6 +152,17 @@ t_vec3	vec3_cross(t_vec3 vec1, t_vec3 vec2)
     return (new);
 }
 
+t_vec3 vec3_negate(t_vec3 v)
+{
+    t_vec3 (negated);
+
+    negated.x = -v.x;
+    negated.y = -v.y;
+    negated.z = -v.z;
+
+    return (negated);
+}
+
 //get unit vector
 t_vec3	vec3_normalized(t_vec3 vec3)
 {

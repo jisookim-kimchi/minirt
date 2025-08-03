@@ -8,7 +8,7 @@
 # include <stdbool.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define EPSILON 1e-4
+# define EPSILON 1e-5
 
 //typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
@@ -141,6 +141,7 @@ t_vec3    		vec3_divide(t_vec3 vec, double t);
 double			vec3_dot(t_vec3 vec1, t_vec3 vec2);
 t_vec3			vec3_cross(t_vec3 vec1, t_vec3 vec2);
 t_vec3			vec3_normalized(t_vec3 vec3);
+t_vec3 			vec3_negate(t_vec3 v);
 
 //vector4.c
 t_vec4 vec4(float x, float y, float z, float w);

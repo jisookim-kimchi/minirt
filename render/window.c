@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 16:22:52 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/03 17:17:51 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,16 @@ void	image_hook(void *param)
 		while (x < win->image->width)
 		{
 			get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-			pixel_center_col = pixel_center_color(&ray_pixel_center, win);
+			pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
 			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
-			// mlx_put_pixel(win->image, x, y, blue);
+			//printf("pixel_center_col.result_color %d\n", pixel_center_col.result_color);
+			// ft_memset(&win->image->pixels[y * win->image->width + x], pixel_center_col.result_color, sizeof(uint32_t));
+			//printf("pixel_center_col %d, %d, %d\n", pixel_center_col.red, pixel_center_col.green, pixel_center_col.blue);
 			x++;
 		}
 		y++;
 	}
+	
 }
 
 int main(void)
@@ -83,13 +86,19 @@ int main(void)
 	win.camera = init_camera(screen, transform_comp);
 	 win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = init_objs_list();
-
-	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
-	
-	// color_float_set(&ambient, 0.0f, 1.0f, 0.0f);
-	// win.ambient = init_ambient(0.7f, ambient);
-	// color_float_set(&light, 1.0f, 1.0f, 1.0f);
-	// win.light = init_light(vec3(100.0, 0.0, 500), 0.9f, light);
+	// t_objs_list *temp = win.objs;
+	// while(temp)
+	// {
+	// 	if (temp->obj_type == PLANE)
+	// 		printf("PLANE\n");
+	// 	else if (temp->obj_type == SPHERE)
+	// 		printf("SPHERE\n");
+	// 	else if (temp->obj_type == CYLINDER)
+	// 		printf("CYLINDER\n");
+	// 	else
+	// 		printf("UNKNOWN OBJECT TYPE\n");
+	// 	temp = temp->next;
+	// }
 
 	/* parsing start */
 	char *path = "file/.rt";
@@ -97,31 +106,38 @@ int main(void)
 		return (-1);
 	int fd = open_file(path);
 	int check_read = read_file(fd, &win);
-	if (check_read == -1)
+	printf("check_read = %d\n", check_read);
+	if (check_read < 0)
 	{
 		printf("failed parsing\n");
 	}
 	/* parsing end */
 	
+	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)
 		error_window(&win);
 	win.image = mlx_new_image(win.mlx, \
 		(int32_t)screen.x, (int32_t)(screen.y));
-	image_hook(&win);
-	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
-		error_window(&win);
-
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
-	 	error_window(&win);
-	mlx_key_hook(win.mlx, ft_key_hook, &win);
+	
+	/* image rendering start */
+	image_hook(&win);
+	
+	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
+	{
+		printf("error\n");
+		error_window(&win);
+	}
+
+	// if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
+	//  	error_window(&win);
+	// mlx_key_hook(win.mlx, ft_key_hook, &win);
 	mlx_loop(win.mlx);
 
 	mlx_terminate(win.mlx);
 
 	
 	free_objs_list(&win.objs);
+	exit (0);
 	return (0);
 }
-
-//*********************************************parsing*************************************************

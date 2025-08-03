@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 14:29:50 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/03 18:10:32 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,21 @@ t_vec3	light_reflect(t_vec3 light_dir, t_vec3 normal)
 */
 double	diffuse_term(t_hit *hit, t_light *light)
 {
+	if (!hit || !light)
+	{
+		printf("Error: Null pointer in diffuse_term\n");
+		return (0.0);
+	}
 	double	diffuse_t;
 	t_vec3	norm_light_dir;
 
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
+	//if the light direction is not same side with the hit normal then return 0;
+	if (vec3_dot(hit->normal, norm_light_dir) <= 0.0)
+		return (0.0);
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
+	//printf("diffuse_t : %f\n", diffuse_t);
 	diffuse_t = double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }
@@ -91,9 +100,10 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	norm_light_dir = normalized(hit_point - light position)
 	norm_camera_dir = normalized(camera position - hit_point)
 	specular_t = pow(max(dot(relflect, norm_camera_dir), 0.0), shininess)
-
+	
 	In the function the specular_t value calculated 3 steps, not in one big line
 */
+
 double	specular_term(t_camera *camera, t_hit *hit,
 		t_light *light, double shininess)
 {
@@ -106,6 +116,9 @@ double	specular_term(t_camera *camera, t_hit *hit,
 				light->light_position));
 	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.transform->position,
 				hit->hit_point));
+	//if the light direction is not same side with the hit normal then return 0;
+	if (vec3_dot(hit->normal, vec3_negate(norm_light_dir)) <= 0.0)
+		return (0.0);
 	reflect = light_reflect(norm_light_dir, hit->normal);
 	specular_t = vec3_dot(reflect, norm_camera_dir);
 	specular_t = double_clamp_calculation(specular_t, 0.0, 1.0);

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 16:16:09 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/03 18:31:08 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 */
 void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
 {
-	if (vec3_dot(ray->dir, normal) < 0)
+	if (vec3_dot(ray->dir, normal) <= EPSILON)
+	{
 		hit->normal = normal;
+	}
 	else
 		hit->normal = vec3_multiply(normal, -1.0);
 }
@@ -118,7 +120,19 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->hit_color = plane->plane_color;
 	hit->object.data = plane;
 	hit->object.obj_type = PLANE;
+	
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
+	// printf("hit_plane->normal %f, %f, %f\n", 
+	// 	hit->normal.x, hit->normal.y, hit->normal.z);
+	
+	// todo check why hit->normal.y is negative value
+	if (hit->normal.y < 0)
+	{
+		printf("ray->dir %f, %f, %f\n", 
+			ray->dir.x, ray->dir.y, ray->dir.z);
+		exit(1);
+	}
+		
 	return (true);
 }
 
