@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/02 13:51:19 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/03 18:10:32 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ t_vec3	light_reflect(t_vec3 light_dir, t_vec3 normal)
 */
 double	diffuse_term(t_hit *hit, t_light *light)
 {
+	if (!hit || !light)
+	{
+		printf("Error: Null pointer in diffuse_term\n");
+		return (0.0);
+	}
 	double	diffuse_t;
 	t_vec3	norm_light_dir;
 
@@ -83,6 +88,7 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	if (vec3_dot(hit->normal, norm_light_dir) <= 0.0)
 		return (0.0);
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
+	//printf("diffuse_t : %f\n", diffuse_t);
 	diffuse_t = double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }

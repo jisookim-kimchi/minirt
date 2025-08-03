@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/02 13:53:30 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/03 18:21:03 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,24 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 // 	*(pixel++) = (uint8_t)(color & 0xFF);
 // }
 
-t_color_32	color_transform_to_int(t_color_float *col_float)
+void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 {
-	t_color_32	col_32;
-
-	col_32.red = (uint32_t)(255.999
+	//t_color_32	col_32;
+	if (!col_float || !col_32)
+	{
+		printf("Error: Null pointer in color_transform_to_int\n");
+		return;
+	}
+	col_32->red = (uint32_t)(255.999
 			* clamp_calculation(col_float->red, 0.0f, 1.0f));
-	col_32.green = (uint32_t)(255.999
+	col_32->green = (uint32_t)(255.999
 			* clamp_calculation(col_float->green, 0.0f, 1.0f));
-	col_32.blue = (uint32_t)(255.999
+	col_32->blue = (uint32_t)(255.999
 			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
-	col_32.alpha = 255;
-	col_32.result_color = (col_32.red << 24) | (col_32.green << 16)
-    | (col_32.blue << 8) | (col_32.alpha);
-	return (col_32);
+	col_32->alpha = 255;
+	col_32->result_color = (col_32->red << 24) | (col_32->green << 16)
+    | (col_32->blue << 8) | (col_32->alpha);
+	//return (col_32);
 }
 
 /*
@@ -101,11 +105,10 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 
 	
 	phong.diffuse_t = diffuse_term(hit, &win->light);
-	// if (hit->object.obj_type == PLANE)
-	// 	printf("phong.diffuse_t %f\n", phong.diffuse_t);
+	//usleep(2);
+	// printf("phong.diffuse_t %f\n", phong.diffuse_t);
 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
-	// if (hit->object.obj_type == PLANE)
-	// 	printf("phong.specular_t %f\n", phong.specular_t);
+	//printf("phong.specular_t %f\n", phong.specular_t);
 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
 				color_float_to_col3(win->ambient.ambient_color),
 				color_float_to_col3(hit->hit_color)),
@@ -129,7 +132,11 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
 				phong.specular_color));
+				
+	//printf("phong.result %f, %f, %f\n", phong.result.x, phong.result.y, phong.result.z);
+	
 	result_float = color_col3_to_float(phong.result);
+	
 	return (result_float);
 }
 
@@ -139,9 +146,8 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	If the ray hit an object, than return the hit structure hit colore value.
 	Otherwise it return the background color
 */
-t_color_32	pixel_center_color(t_ray *ray, t_window *win)
+void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 {
-	t_color_32		result_color;
 	t_color_float	temp;
 	t_hit			record;
 
@@ -149,42 +155,25 @@ t_color_32	pixel_center_color(t_ray *ray, t_window *win)
 	
 	if (hit_world(ray, &record, win->objs))
 	{
-		//result_color.result_color = 0xFF0000FF;
+		printf(CYAN"hit\n"DEFAULT);
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
-			//result_color = color_transform_to_int(&record.hit_color);
-			// printf(CYAN" hit object_type : %d\n"DEFAULT,record.object.obj_type);
-			// temp = color_float_multiply(win->ambient.ambient_color, win->ambient.ambient_ratio);
-    		// result_color = color_transform_to_int(&temp);
+			//result_color->result_color = 0xFF0000FF;
 			t_color_float shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
-			result_color = color_transform_to_int(&shadow_color);
+			color_transform_to_int(&shadow_color, result_color);
 		}
 		else
 		{
-			// todo 1. check if is the light same side with camera.
-			
 			temp = calculate_hit_color(win, &record);
-			result_color = color_transform_to_int(&temp);
+			color_transform_to_int(&temp, result_color);
 		}
-		
-		// temp = calculate_hit_color(win, &record);
-		// result_color = color_transform_to_int(&temp);
-		// if (record.object.obj_type == SPHERE)
-		// {
-		// 	printf(CYAN"sphere color %f, %f, %f\n"DEFAULT, temp.red, temp.green, temp.blue);
-		// }
-		// if (record.object.obj_type == SPHERE)
-		// {
-		// 	printf(CYAN"sphere result color %d, %d, %d\n"DEFAULT, result_color.red, result_color.green, result_color.blue);
-		// }
 	}
 	else
 	{
 		// result_color.result_color = 0xFF000000;
 		temp = color_float_multiply(win->ambient.ambient_color,
 				win->ambient.ambient_ratio);
-		result_color = color_transform_to_int(&temp);
+		color_transform_to_int(&temp, result_color);
 	}
-	return (result_color);
 }
 
