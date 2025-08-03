@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_tools.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/22 20:03:00 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:49:07 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_window
 
 void			get_ray_from_camera(t_camera *camera, t_ray *ray,
 					uint32_t x, uint32_t y);
-t_color_32		color_transform_to_int(t_color_float *col_float);
-t_color_32		pixel_center_color(t_ray *ray, t_window *win);
+void		color_transform_to_int(t_color_float *col_float, t_color_32 *col_32);
+void		pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color);
 t_color_float	calculate_hit_color(t_window *win, t_hit *hit);
 
 

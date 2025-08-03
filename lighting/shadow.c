@@ -33,7 +33,7 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 	t_hit temp_hit;
 	temp_hit.t_max = shadow_len;
 	// temp_hit.t_min = 0;
-	temp_hit.t_min = 0; //to avoid self hit.
+	temp_hit.t_min = EPSILON; //to avoid self hit.
 	temp_hit.object = hit->object;
 	temp_hit.object.data = hit->object.data;
 	temp_hit.object.obj_type = hit->object.obj_type;
