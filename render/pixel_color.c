@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/03 18:21:03 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:07:52 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,21 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	t_color_float	temp;
 	t_hit			record;
 
+	if (!ray || !win || !win->objs || !result_color)
+	{
+		printf("Error : NULL PTR in pixel_center_color\n");
+		exit(1);
+	}
 	set_ray_interval(&record, 0.001f, INFINITY);
+
+	// if (record.object.data == win->objs->data)
+	// {
+	// 	printf("The ray origin is the same as the object origin\n");
+	// 	record.object.data = NULL;
+	// }
 	
 	if (hit_world(ray, &record, win->objs))
 	{
-		printf(CYAN"hit\n"DEFAULT);
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
 			//result_color->result_color = 0xFF0000FF;
@@ -170,7 +180,7 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	}
 	else
 	{
-		// result_color.result_color = 0xFF000000;
+		//result_color.result_color = 0xFF000000;
 		temp = color_float_multiply(win->ambient.ambient_color,
 				win->ambient.ambient_ratio);
 		color_transform_to_int(&temp, result_color);

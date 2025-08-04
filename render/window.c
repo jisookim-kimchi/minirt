@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/03 17:17:51 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:13:47 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	image_hook(void *param)
 		}
 		y++;
 	}
-	
 }
 
 int main(void)
@@ -115,23 +114,24 @@ int main(void)
 	
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)
+	{
+		printf("error mlx_init\n");
 		error_window(&win);
+	}
 	win.image = mlx_new_image(win.mlx, \
 		(int32_t)screen.x, (int32_t)(screen.y));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	
 	/* image rendering start */
 	image_hook(&win);
-	
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
 	{
-		printf("error\n");
+		printf("error mlx_image or mlx_image_to_window\n");
 		error_window(&win);
 	}
 
-	// if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
-	//  	error_window(&win);
-	// mlx_key_hook(win.mlx, ft_key_hook, &win);
+	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
+	 	error_window(&win);
+	mlx_key_hook(win.mlx, ft_key_hook, &win);
 	mlx_loop(win.mlx);
 
 	mlx_terminate(win.mlx);
