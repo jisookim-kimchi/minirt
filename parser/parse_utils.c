@@ -107,6 +107,7 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 	return (1);
 }
 
+// we can get also float value...
 int	parse_vec3(char *token, double *x, double *y, double *z)
 {
 	char			*temp;
