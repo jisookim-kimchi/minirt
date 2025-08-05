@@ -16,7 +16,8 @@ int parse_plane(char *line, t_plane *plane)
     }
     parse_vec3(tokens[1], &plane->point.x, &plane->point.y, &plane->point.z);
     parse_vec3(tokens[2], &plane->unit_normal_vec.x, &plane->unit_normal_vec.y, &plane->unit_normal_vec.z);
-    vec3_normalize(&plane->unit_normal_vec);
+    //normalize or if inputvalue isn't normalized? then false?
+    vec3_normalized(&plane->unit_normal_vec);
     parse_color(tokens[3], &plane->plane_color.red, &plane->plane_color.green, &plane->plane_color.blue);
     return (1);
 }
