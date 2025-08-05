@@ -41,6 +41,7 @@ SRCS :=	object/2d_objects.c \
 		render/init_objects.c \
 		debug/messages.c \
 		parser/ACL_parser.c \
+		parser/OBJ_parser.c \
 		parser/parse_file.c \
 		parser/parse_utils.c \
 		parser/parse.c

@@ -21,48 +21,77 @@ int	parsing_start(char *line, t_window *window)
 	{
 		if (parse_ambient(line, &window->ambient) == -1)
 		{
+			//return ? or free all and exit(1);
 			return (-1);
-		}
-		else
-		{
-			// printf("ambient color : %f, %f, %f\n", window->ambient.ambient_color.red, window->ambient.ambient_color.green, window->ambient.ambient_color.blue);
-			// printf("ambient_color %p\n", &window->ambient.ambient_color);
-			// printf("ambient ratio : %f\n", window->ambient.ambient_ratio);
 		}
 	}
 	else if (ft_strncmp(line, "C", 1) == 0)
 	{
-		//printf("camera parsing start\n");
 		if (parse_camera(line, &window->camera) == -1)
 		{
-			//printf("camera issue\n");
+			//return ? or free all and exit(1);
 			return (-1);
-		}
-		else
-		{
-			//printf("camera position[%p]: %f, %f, %f\n", &window->camera.transform_comp.transform->position, window->camera.transform_comp.transform->position.x, window->camera.transform_comp.transform->position.y, window->camera.transform_comp.transform->position.z);
 		}
 	}
 	else if (ft_strncmp(line, "L", 1) == 0)
 	{
-		//printf("light parsing_start\n");
 		if (parse_light(line, &window->light) == -1)
 		{
+			//return ? or free all and exit(1);
 			return (-1);
-		}
-		else
-		{
-			// printf("light color : %f, %f, %f\n", window->light.light_color.red, window->light.light_color.green, window->light.light_color.blue);
-			// printf("light position : %f, %f, %f\n", window->light.light_position.x, window->light.light_position.y, window->light.light_position.z);
-			// printf("light ratio : %f\n", window->light.light_ratio);
 		}
 	}
 	else if (ft_strncmp(line, "sp", 2) == 0)
-		printf("Sphere\n");
+	{
+		t_sphere *sphere = malloc(sizeof(t_sphere));
+
+		if (!sphere || parse_sphere(line, sphere) == -1)
+		{
+			//return ? or free all and exit(1);
+			return (-1);
+		}
+		// if (parse_sphere(line, &window->objs->sphere) == -1)
+		// {
+		// 	//return ? or free all and exit(1);
+		// 	return (-1);
+		// }
+		add_member_to_obj_list(&window->objs, SPHERE, &window->objs->sphere);
+	}
 	else if (ft_strncmp(line, "pl", 2) == 0)
-		printf("Plane\n");
+	{
+		t_plane *plane = malloc(sizeof(t_plane));
+		if (!plane || parse_plane(line, plane) == -1)
+		{
+			//return ? or free all and exit(1);
+			return (-1);
+		}
+		// if (parse_plane(line, &window->objs->plane) == -1)
+		// {
+		// 	//return ? or free all and exit(1);
+		// 	return (-1);
+		// }
+		add_member_to_obj_list(&window->objs, PLANE, &window->objs->plane);
+	}
 	else if (ft_strncmp(line, "cy", 2) == 0)
-		printf("Cylinder\n");
+	{
+		t_cylinder *cylinder = malloc(sizeof(t_cylinder));
+		if (!cylinder || parse_cylinder(line, cylinder) == -1)
+		{
+			//return ? or free all and exit(1);
+			return (-1);
+		}
+		// if (parse_cylinder(line, &window->objs->cylinder) == -1)
+		// {
+		// 	//return ? or free all and exit(1);
+		// 	return (-1);
+		// }
+		add_member_to_obj_list(&window->objs, CYLINDER, &window->objs->cylinder);
+	}
+	else
+	{
+		printf("Unknown element: %s\n", line);
+		return (-1);
+	}
 	// else
 	// 	return (-1);
 	return (1);

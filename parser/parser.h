@@ -28,6 +28,11 @@ int		parse_ambient(char *line, t_ambient *ambient);
 int		parse_camera(char *line, t_camera *camera);
 int		parse_light(char *line, t_light *light);
 
+//OBJ_parser.c
+int		parse_plane(char *line, t_plane *plane);
+int		parse_sphere(char *line, t_sphere *sphere);
+int		parse_cylinder(char *line, t_cylinder *cylinder);
+
 //parse_utils.c
 int		count_array_elem(char **tokens);
 char 	*ft_strtok(char *str, const char c);

@@ -59,9 +59,6 @@ void	image_hook(void *param)
 			get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
 			pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
 			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
-			//printf("pixel_center_col.result_color %d\n", pixel_center_col.result_color);
-			// ft_memset(&win->image->pixels[y * win->image->width + x], pixel_center_col.result_color, sizeof(uint32_t));
-			//printf("pixel_center_col %d, %d, %d\n", pixel_center_col.red, pixel_center_col.green, pixel_center_col.blue);
 			x++;
 		}
 		y++;
@@ -72,13 +69,8 @@ int main(void)
 {
 	t_window			win;
 
-	//Light init.
-	// win.light.light_color.red = INFINITY;
-	
 	t_screenpoint		screen;
 	t_transform_comp	transform_comp;
-	// t_color_float		ambient;
-	// t_color_float		light;
 
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
