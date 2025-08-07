@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/04 12:13:47 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:23:50 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ int main(void)
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
-	 win.camera.transform_comp.forward = (t_vec3){0,0,-1};
-	win.objs = init_objs_list();
+	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
+	//win.objs = init_objs_list();
+	
 	// t_objs_list *temp = win.objs;
 	// while(temp)
 	// {

@@ -3,23 +3,30 @@
 int parse_plane(char *line, t_plane *plane)
 {
     char			**tokens;
-
     tokens = ft_split(line, ' ');
     if (!tokens)
         return (-1);
-
     //check param num for plane it must be 4.
     if (count_array_elem(tokens) != 4)
     {
         //free tokens?
         return (-1);
     }
+	// 0,0,0 	0,1.0,0 	255,0,225
     parse_vec3(tokens[1], &plane->point.x, &plane->point.y, &plane->point.z);
+	
     parse_vec3(tokens[2], &plane->unit_normal_vec.x, &plane->unit_normal_vec.y, &plane->unit_normal_vec.z);
-    //normalize or if inputvalue isn't normalized? then false?
-    vec3_normalized(&plane->unit_normal_vec);
+    //error
+	plane->unit_normal_vec = vec3_normalized(plane->unit_normal_vec);
+
+	printf(" plane->unit_normal_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
     parse_color(tokens[3], &plane->plane_color.red, &plane->plane_color.green, &plane->plane_color.blue);
-    return (1);
+	
+	printf(CYAN"plane unit_norm_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
+	printf("plane point %f, %f, %f\n", plane->point.x, plane->point.y, plane->point.z);
+	printf("plane color %f, %f, %f\n"DEFAULT, plane->plane_color.red, plane->plane_color.green, plane->plane_color.blue);
+	
+	return (1);
 }
 
 int parse_sphere(char *line, t_sphere *sphere)
@@ -29,38 +36,39 @@ int parse_sphere(char *line, t_sphere *sphere)
     tokens = ft_split(line, ' ');
     if (!tokens)
         return (-1);
-
     //check param num for sphere it must be 4.
     if (count_array_elem(tokens) != 4)
     {
         //free tokens?
         return (-1);
     }
+
     parse_vec3(tokens[1], &sphere->center.x, &sphere->center.y, &sphere->center.z);
     sphere->diameter = ft_atof(tokens[2]);
     parse_color(tokens[3], &sphere->sphere_color.red, &sphere->sphere_color.green, &sphere->sphere_color.blue);
+	
     return (1);
 }
 
-int parse_cylinder(char *line, t_cylinder *cylinder)
-{
-    char			**tokens;
+// int parse_cylinder(char *line, t_cylinder *cylinder)
+// {
+//     char			**tokens;
 
-    tokens = ft_split(line, ' ');
-    if (!tokens)
-        return (-1);
+//     tokens = ft_split(line, ' ');
+//     if (!tokens)
+//         return (-1);
 
-    //check param num for cylinder it must be 6.
-    if (count_array_elem(tokens) != 6)
-    {
-        //free tokens?
-        return (-1);
-    }
-    parse_vec3(tokens[1], &cylinder->center.x, &cylinder->center.y, &cylinder->center.z);
-    parse_vec3(tokens[2], &cylinder->axis.x, &cylinder->axis.y, &cylinder->axis.z);
-    vec3_normalize(&cylinder->axis);
-    cylinder->diameter = ft_atof(tokens[3]);
-    cylinder->height = ft_atof(tokens[4]);
-    parse_color(tokens[5], &cylinder->cylinder_color.red, &cylinder->cylinder_color.green, &cylinder->cylinder_color.blue);
-    return (1);
-}
+//     //check param num for cylinder it must be 6.
+//     if (count_array_elem(tokens) != 6)
+//     {
+//         //free tokens?
+//         return (-1);
+//     }
+//     parse_vec3(tokens[1], &cylinder->center.x, &cylinder->center.y, &cylinder->center.z);
+//     parse_vec3(tokens[2], &cylinder->axis.x, &cylinder->axis.y, &cylinder->axis.z);
+//     cylinder->axis = vec3_normalized(cylinder->axis);
+//     cylinder->diameter = ft_atof(tokens[3]);
+//     cylinder->height = ft_atof(tokens[4]);
+//     parse_color(tokens[5], &cylinder->cylinder_color.red, &cylinder->cylinder_color.green, &cylinder->cylinder_color.blue);
+//     return (1);
+// }

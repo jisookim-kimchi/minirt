@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/01 11:49:44 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:22:38 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	}
 	*x = ft_atof(temp);
 	
+	
 	temp = ft_strtok(NULL, ',');
 	if (!temp)
 		return (-1);
@@ -140,8 +141,10 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	}
 	*z = ft_atof(temp);
 	
+	//printf("x,y,z : %f %f %f\n", *x, *y, *z);
 	return (1);
 }
+
 int	is_digit(const char *token)
 {
 	int	i;

@@ -168,15 +168,21 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 {
 	double len;
 	len = vec3_length(vec3);
-	if (len < EPSILON)
+	if (len == 0.0)
 	{
-		printf("vec3_normalized: length is 0, cannot normalize %f\n", len);
+		printf("Error Zero Vector can't be normalized!\n");
 		exit(1);
+	}
+	//if already normalized? just return 
+	if (fabs(len - 1.0) < EPSILON)
+	{
+		printf("------already normalized-------\n");
+		return (vec3);
 	}
 	vec3.x = vec3.x / len;
 	vec3.y = vec3.y / len;
 	vec3.z = vec3.z / len;
-	return vec3;
+	return (vec3);
 }
 
 t_color_float color_float_multiply(t_color_float color, double t)
