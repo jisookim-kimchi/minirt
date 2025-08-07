@@ -110,38 +110,46 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 // we can get also float value...
 int	parse_vec3(char *token, double *x, double *y, double *z)
 {
-	char			*temp;
+	// char			*temp;
 
-	temp = ft_strtok(token, ',');
+	// temp = ft_strtok(token, ',');
 
-	if (!temp)
-		return (-1);
-	if (is_digit(temp) == -1 && temp[0] != '-')
-	{
-		printf("faile is_digit\n");
-		return (-1);
-	}
-	*x = ft_atof(temp);
+	// if (!temp)
+	// 	return (-1);
+	// if (is_digit(temp) == -1 && temp[0] != '-')
+	// {
+	// 	printf("faile is_digit\n");
+	// 	return (-1);
+	// }
+	// *x = ft_atof(temp);
 	
 	
-	temp = ft_strtok(NULL, ',');
-	if (!temp)
-		return (-1);
-	if (is_digit(temp) == -1 && temp[0] != '-')
-		return (-1);
-	*y = ft_atof(temp);
-	temp = ft_strtok(NULL, ',');
+	// temp = ft_strtok(NULL, ',');
+	// if (!temp)
+	// 	return (-1);
+	// if (is_digit(temp) == -1 && temp[0] != '-')
+	// 	return (-1);
+	// *y = ft_atof(temp);
+	// temp = ft_strtok(NULL, ',');
 
-	//temp -1
-	if (!temp)
-		return (-1);
-	if (is_digit(temp) == -1 && temp[0] != '-')
-	{
-		return (-1);
-	}
-	*z = ft_atof(temp);
+	// //temp -1
+	// if (!temp)
+	// 	return (-1);
+	// if (is_digit(temp) == -1 && temp[0] != '-')
+	// {
+	// 	return (-1);
+	// }
+	// *z = ft_atof(temp);
 	
-	//printf("x,y,z : %f %f %f\n", *x, *y, *z);
+	char **parts = ft_split(token, ',');
+    if (!parts || count_array_elem(parts) != 3)
+        return -1;
+    *x = ft_atof(parts[0]);
+    *y = ft_atof(parts[1]);
+    *z = ft_atof(parts[2]);
+
+    //free_split(parts);
+	printf("x,y,z : %f %f %f\n", *x, *y, *z);
 	return (1);
 }
 

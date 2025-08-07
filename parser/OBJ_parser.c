@@ -50,25 +50,25 @@ int parse_sphere(char *line, t_sphere *sphere)
     return (1);
 }
 
-// int parse_cylinder(char *line, t_cylinder *cylinder)
-// {
-//     char			**tokens;
+int parse_cylinder(char *line, t_cylinder *cylinder)
+{
+    char			**tokens;
 
-//     tokens = ft_split(line, ' ');
-//     if (!tokens)
-//         return (-1);
+    tokens = ft_split(line, ' ');
+    if (!tokens)
+        return (-1);
 
-//     //check param num for cylinder it must be 6.
-//     if (count_array_elem(tokens) != 6)
-//     {
-//         //free tokens?
-//         return (-1);
-//     }
-//     parse_vec3(tokens[1], &cylinder->center.x, &cylinder->center.y, &cylinder->center.z);
-//     parse_vec3(tokens[2], &cylinder->axis.x, &cylinder->axis.y, &cylinder->axis.z);
-//     cylinder->axis = vec3_normalized(cylinder->axis);
-//     cylinder->diameter = ft_atof(tokens[3]);
-//     cylinder->height = ft_atof(tokens[4]);
-//     parse_color(tokens[5], &cylinder->cylinder_color.red, &cylinder->cylinder_color.green, &cylinder->cylinder_color.blue);
-//     return (1);
-// }
+    //check param num for cylinder it must be 6.
+    if (count_array_elem(tokens) != 6)
+    {
+        //free tokens?
+        return (-1);
+    }
+    parse_vec3(tokens[1], &cylinder->center.x, &cylinder->center.y, &cylinder->center.z);
+    parse_vec3(tokens[2], &cylinder->axis.x, &cylinder->axis.y, &cylinder->axis.z);
+    cylinder->axis = vec3_normalized(cylinder->axis);
+    cylinder->diameter = ft_atof(tokens[3]);
+    cylinder->height = ft_atof(tokens[4]);
+    parse_color(tokens[5], &cylinder->cylinder_color.red, &cylinder->cylinder_color.green, &cylinder->cylinder_color.blue);
+    return (1);
+}

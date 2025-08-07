@@ -31,7 +31,7 @@ int		parse_light(char *line, t_light *light);
 //OBJ_parser.c
 int		parse_plane(char *line, t_plane *plane);
 int		parse_sphere(char *line, t_sphere *sphere);
-// int		parse_cylinder(char *line, t_cylinder *cylinder);
+int		parse_cylinder(char *line, t_cylinder *cylinder);
 
 //parse_utils.c
 int		count_array_elem(char **tokens);
