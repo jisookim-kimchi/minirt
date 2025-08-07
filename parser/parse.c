@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/01 11:45:50 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:21:07 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 */
 int	parsing_start(char *line, t_window *window)
 {
+	t_objs_list		*list;
 	if (ft_strncmp(line, "A", 1) == 0)
 	{
 		if (parse_ambient(line, &window->ambient) == -1)
@@ -43,19 +44,18 @@ int	parsing_start(char *line, t_window *window)
 	}
 	else if (ft_strncmp(line, "sp", 2) == 0)
 	{
+		printf(CYAN"1\n");
 		t_sphere *sphere = malloc(sizeof(t_sphere));
-
 		if (!sphere || parse_sphere(line, sphere) == -1)
 		{
 			//return ? or free all and exit(1);
 			return (-1);
 		}
-		// if (parse_sphere(line, &window->objs->sphere) == -1)
-		// {
-		// 	//return ? or free all and exit(1);
-		// 	return (-1);
-		// }
-		add_member_to_obj_list(&window->objs, SPHERE, &window->objs->sphere);
+		t_objs_list *obj = create_sphere(sphere->center, sphere->diameter, sphere->sphere_color);
+		// printf("sphere center %f, %f, %f\n", sphere->center.x, sphere->center.y, sphere->center.z);
+		// printf("sphere diameter %f,\n", sphere->diameter);
+		// printf("sphere color %f, %f, %f\n"DEFAULT, sphere->sphere_color.red, sphere->sphere_color.green, sphere->sphere_color.blue);
+		add_member_to_obj_list(&list, obj);
 	}
 	else if (ft_strncmp(line, "pl", 2) == 0)
 	{
@@ -70,23 +70,26 @@ int	parsing_start(char *line, t_window *window)
 		// 	//return ? or free all and exit(1);
 		// 	return (-1);
 		// }
-		add_member_to_obj_list(&window->objs, PLANE, &window->objs->plane);
+		t_objs_list *obj = create_plane(plane->unit_normal_vec, plane->point, plane->plane_color);
+		add_member_to_obj_list(&list, obj);
 	}
-	else if (ft_strncmp(line, "cy", 2) == 0)
-	{
-		t_cylinder *cylinder = malloc(sizeof(t_cylinder));
-		if (!cylinder || parse_cylinder(line, cylinder) == -1)
-		{
-			//return ? or free all and exit(1);
-			return (-1);
-		}
-		// if (parse_cylinder(line, &window->objs->cylinder) == -1)
-		// {
-		// 	//return ? or free all and exit(1);
-		// 	return (-1);
-		// }
-		add_member_to_obj_list(&window->objs, CYLINDER, &window->objs->cylinder);
-	}
+	
+	// else if (ft_strncmp(line, "cy", 2) == 0)
+	// {
+		
+	// 	t_cylinder *cylinder = malloc(sizeof(t_cylinder));
+	// 	if (!cylinder || parse_cylinder(line, cylinder) == -1)
+	// 	{
+	// 		//return ? or free all and exit(1);
+	// 		return (-1);
+	// 	}
+	// 	// if (parse_cylinder(line, &window->objs->cylinder) == -1)
+	// 	// {
+	// 	// 	//return ? or free all and exit(1);
+	// 	// 	return (-1);
+	// 	// }
+	// 	add_member_to_obj_list(&window->objs, cylinder);
+	// }
 	else
 	{
 		printf("Unknown element: %s\n", line);

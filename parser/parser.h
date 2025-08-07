@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:23:30 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:58:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		parse_light(char *line, t_light *light);
 //OBJ_parser.c
 int		parse_plane(char *line, t_plane *plane);
 int		parse_sphere(char *line, t_sphere *sphere);
-int		parse_cylinder(char *line, t_cylinder *cylinder);
+// int		parse_cylinder(char *line, t_cylinder *cylinder);
 
 //parse_utils.c
 int		count_array_elem(char **tokens);
