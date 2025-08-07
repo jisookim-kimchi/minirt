@@ -74,22 +74,23 @@ int	parsing_start(char *line, t_window *window)
 		add_member_to_obj_list(&list, obj);
 	}
 	
-	// else if (ft_strncmp(line, "cy", 2) == 0)
-	// {
+	else if (ft_strncmp(line, "cy", 2) == 0)
+	{
 		
-	// 	t_cylinder *cylinder = malloc(sizeof(t_cylinder));
-	// 	if (!cylinder || parse_cylinder(line, cylinder) == -1)
-	// 	{
-	// 		//return ? or free all and exit(1);
-	// 		return (-1);
-	// 	}
-	// 	// if (parse_cylinder(line, &window->objs->cylinder) == -1)
-	// 	// {
-	// 	// 	//return ? or free all and exit(1);
-	// 	// 	return (-1);
-	// 	// }
-	// 	add_member_to_obj_list(&window->objs, cylinder);
-	// }
+		t_cylinder *cylinder = malloc(sizeof(t_cylinder));
+		if (!cylinder || parse_cylinder(line, cylinder) == -1)
+		{
+			//return ? or free all and exit(1);
+			return (-1);
+		}
+		// if (parse_cylinder(line, &window->objs->cylinder) == -1)
+		// {
+		// 	//return ? or free all and exit(1);
+		// 	return (-1);
+		// }
+		t_objs_list *obj = create_cylinder(cylinder->axis, cylinder->center, cylinder->diameter, cylinder->height, cylinder->cylinder_color);
+		add_member_to_obj_list(&list, obj);
+	}
 	else
 	{
 		printf("Unknown element: %s\n", line);
