@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/04 13:07:52 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:29:26 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	// print_vec3(&camera->delta_horizontal);
 	// printf("The camera delta vertical:\n");
 	// print_vec3(&camera->delta_vertical);
-	ray->orign = camera->transform_comp.transform->position;
+	//memo make offset of ray from camera 
+	ray->orign = vec3_plus_vec3(camera->transform_comp.transform->position, (t_vec3){0, 0, -EPSILON});
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
@@ -51,8 +52,9 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
 	//print_vec3(&pixel_center);
 	//print_vec3(&(ray->orign));
-	
 	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
+	
+	//printf("Ray direction: (%f, %f, %f)\n", ray->dir.x, ray->dir.y, ray->dir.z);
 }
 
 /*
