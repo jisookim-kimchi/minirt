@@ -84,6 +84,7 @@ int main(void)
 		return (-1);
 	int fd = open_file(path);
 	int check_read = read_file(fd, &win);
+	//printf("check_read %d\n", check_read);
 	if (check_read < 0)
 	{
 		printf("failed parsing\n");
