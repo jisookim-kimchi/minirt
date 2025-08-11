@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/07 15:58:58 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:43:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../mlx_tools.h"
 
 //parse.c
-int		parsing_start(char *line, t_window *window);
+int		parsing_start(char *line, t_window *window, t_objs_list *list);
 
 //parse_file.c
 bool	is_valid_file(char *path);
@@ -37,6 +37,7 @@ int		parse_cylinder(char *line, t_cylinder *cylinder);
 int		count_array_elem(char **tokens);
 char 	*ft_strtok(char *str, const char c);
 int		parse_color(char *token, float *red, float *green, float *blue);
+void	free_string_array(char **to_free);
 
 //float or double?
 //int		parse_vec3(char *token, float *x, float *y, float *z);
