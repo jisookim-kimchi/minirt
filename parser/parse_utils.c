@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/11 11:41:03 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:41:42 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	// 	return (-1);
 	// }
 	// *z = ft_atof(temp);
-	
+
 	char **temp = ft_split(token, ',');
     if (!temp || count_array_elem(temp) != 3)
 	{

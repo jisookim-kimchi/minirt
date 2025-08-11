@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/11 14:30:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:12:54 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,18 @@ int main(void)
 	{
 		printf("failed parsing\n");
 	}
+	
 	/* parsing end */
 	// t_plane *temp;
 	// temp = win.objs->data;
 	// printf(CYAN"temp unit_norm_vec %f, %f, %f\n", temp->unit_normal_vec.x, temp->unit_normal_vec.y, temp->unit_normal_vec.z);
 	// printf("temp point %f, %f, %f\n", temp->point.x, temp->point.y, temp->point.z);
 	// printf("temp color %f, %f, %f\n"DEFAULT, temp->plane_color.red, temp->plane_color.green, temp->plane_color.blue);
+	// printf("win.light %f, %f, %f\n", win.light.light_position.x, win.light.light_position.y, win.light.light_position.z);
+	// printf("Camera position: (%f, %f, %f)\n", win.camera.transform_comp.transform->position.x, win.camera.transform_comp.transform->position.y, win.camera.transform_comp.transform->position.z);
+	// printf("Pixel00 location: (%f, %f, %f)\n", win.camera.pixel00loc.x, win.camera.pixel00loc.y, win.camera.pixel00loc.z);
+	// printf("Delta horizontal: (%f, %f, %f)\n", win.camera.delta_horizontal.x, win.camera.delta_horizontal.y, win.camera.delta_horizontal.z);
+	// printf("Delta vertical: (%f, %f, %f)\n", win.camera.delta_vertical.x, win.camera.delta_vertical.y, win.camera.delta_vertical.z);
 	
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)
@@ -104,6 +110,7 @@ int main(void)
 	win.image = mlx_new_image(win.mlx, \
 		(int32_t)screen.x, (int32_t)(screen.y));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	
 	/* image rendering start */
 	image_hook(&win);
 	if (!win.image || (mlx_image_to_window(win.mlx, win.image, 0, 0) < 0))
@@ -111,7 +118,6 @@ int main(void)
 		printf("error mlx_image or mlx_image_to_window\n");
 		error_window(&win);
 	}
-
 	if (mlx_loop_hook(win.mlx, image_hook, &win) == false)
 	 	error_window(&win);
 	mlx_key_hook(win.mlx, ft_key_hook, &win);
@@ -119,7 +125,6 @@ int main(void)
 
 	mlx_terminate(win.mlx);
 
-	
 	free_objs_list(&win.objs);
 	exit (0);
 	return (0);
