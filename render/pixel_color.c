@@ -42,7 +42,9 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	// printf("The camera delta vertical:\n");
 	// print_vec3(&camera->delta_vertical);
 	//memo make offset of ray from camera 
-	ray->orign = vec3_plus_vec3(camera->transform_comp.transform->position, (t_vec3){0, 0, -EPSILON});
+	ray->orign = vec3_plus_vec3(camera->transform_comp.transform->position,
+                            vec3_multiply(camera->transform_comp.forward, EPSILON));
+	//ray->orign = camera->transform_comp.transform->position;
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
