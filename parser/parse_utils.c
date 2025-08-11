@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/07 17:22:38 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:41:03 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,32 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	// }
 	// *z = ft_atof(temp);
 	
-	char **parts = ft_split(token, ',');
-    if (!parts || count_array_elem(parts) != 3)
+	char **temp = ft_split(token, ',');
+    if (!temp || count_array_elem(temp) != 3)
+	{
+		//free all exit(1);
         return -1;
-    *x = ft_atof(parts[0]);
-    *y = ft_atof(parts[1]);
-    *z = ft_atof(parts[2]);
+	}
+    *x = ft_atof(temp[0]);
+    *y = ft_atof(temp[1]);
+    *z = ft_atof(temp[2]);
+	free_string_array(temp);
 
-    //free_split(parts);
-	printf("x,y,z : %f %f %f\n", *x, *y, *z);
+	//printf("x,y,z : %f %f %f\n", *x, *y, *z);
 	return (1);
+}
+
+void	free_string_array(char **to_free)
+{
+	int	i;
+
+	i = 0;
+	while(to_free[i])
+	{
+		free(to_free[i]);
+		i++;
+	}
+	free (to_free);
 }
 
 int	is_digit(const char *token)

@@ -4,27 +4,22 @@ int parse_plane(char *line, t_plane *plane)
 {
     char			**tokens;
     tokens = ft_split(line, ' ');
-    if (!tokens)
+    if (!tokens || count_array_elem(tokens) != 4)
+	{
+		//todo all free exit(1);
         return (-1);
-    //check param num for plane it must be 4.
-    if (count_array_elem(tokens) != 4)
-    {
-        //free tokens?
-        return (-1);
-    }
+
+	}
 	// 0,0,0 	0,1.0,0 	255,0,225
     parse_vec3(tokens[1], &plane->point.x, &plane->point.y, &plane->point.z);
 	
     parse_vec3(tokens[2], &plane->unit_normal_vec.x, &plane->unit_normal_vec.y, &plane->unit_normal_vec.z);
-    //error
 	plane->unit_normal_vec = vec3_normalized(plane->unit_normal_vec);
-
-	printf(" plane->unit_normal_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
     parse_color(tokens[3], &plane->plane_color.red, &plane->plane_color.green, &plane->plane_color.blue);
 	
-	printf(CYAN"plane unit_norm_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
-	printf("plane point %f, %f, %f\n", plane->point.x, plane->point.y, plane->point.z);
-	printf("plane color %f, %f, %f\n"DEFAULT, plane->plane_color.red, plane->plane_color.green, plane->plane_color.blue);
+	// printf(CYAN"plane unit_norm_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
+	// printf("plane point %f, %f, %f\n", plane->point.x, plane->point.y, plane->point.z);
+	// printf("plane color %f, %f, %f\n"DEFAULT, plane->plane_color.red, plane->plane_color.green, plane->plane_color.blue);
 	
 	return (1);
 }

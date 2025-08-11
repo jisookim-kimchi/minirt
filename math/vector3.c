@@ -167,16 +167,17 @@ t_vec3 vec3_negate(t_vec3 v)
 t_vec3	vec3_normalized(t_vec3 vec3)
 {
 	double len;
+
 	len = vec3_length(vec3);
 	if (len == 0.0)
 	{
-		printf("Error Zero Vector can't be normalized!\n");
+		printf("Error Zero Vector can't be normalized! vec3 : %f, %f, %f\n", vec3.x, vec3.y, vec3.z);
 		exit(1);
 	}
 	//if already normalized? just return 
 	if (fabs(len - 1.0) < EPSILON)
 	{
-		printf("------already normalized-------\n");
+		//printf("------already normalized-------\n");
 		return (vec3);
 	}
 	vec3.x = vec3.x / len;

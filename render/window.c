@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/07 16:23:50 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:30:08 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,33 +77,23 @@ int main(void)
 	win.camera = init_camera(screen, transform_comp);
 	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	//win.objs = init_objs_list();
-	
-	// t_objs_list *temp = win.objs;
-	// while(temp)
-	// {
-	// 	if (temp->obj_type == PLANE)
-	// 		printf("PLANE\n");
-	// 	else if (temp->obj_type == SPHERE)
-	// 		printf("SPHERE\n");
-	// 	else if (temp->obj_type == CYLINDER)
-	// 		printf("CYLINDER\n");
-	// 	else
-	// 		printf("UNKNOWN OBJECT TYPE\n");
-	// 	temp = temp->next;
-	// }
 
 	/* parsing start */
-	char *path = "file/.rt";
+	char *path = "file/.justplane.rt";
 	if (!is_valid_file(path))
 		return (-1);
 	int fd = open_file(path);
 	int check_read = read_file(fd, &win);
-	printf("check_read = %d\n", check_read);
 	if (check_read < 0)
 	{
 		printf("failed parsing\n");
 	}
 	/* parsing end */
+	// t_plane *temp;
+	// temp = win.objs->data;
+	// printf(CYAN"temp unit_norm_vec %f, %f, %f\n", temp->unit_normal_vec.x, temp->unit_normal_vec.y, temp->unit_normal_vec.z);
+	// printf("temp point %f, %f, %f\n", temp->point.x, temp->point.y, temp->point.z);
+	// printf("temp color %f, %f, %f\n"DEFAULT, temp->plane_color.red, temp->plane_color.green, temp->plane_color.blue);
 	
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)
