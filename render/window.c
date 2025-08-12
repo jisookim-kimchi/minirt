@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/12 17:33:19 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:48:39 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,25 @@ int main(void)
 	// printf("Pixel00 location: (%f, %f, %f)\n", win.camera.pixel00loc.x, win.camera.pixel00loc.y, win.camera.pixel00loc.z);
 	// printf("Delta horizontal: (%f, %f, %f)\n", win.camera.delta_horizontal.x, win.camera.delta_horizontal.y, win.camera.delta_horizontal.z);
 	// printf("Delta vertical: (%f, %f, %f)\n", win.camera.delta_vertical.x, win.camera.delta_vertical.y, win.camera.delta_vertical.z);
-	while(win.objs)
+	
+	t_objs_list *test = win.objs;
+	while(test)
 	{
-		if (win.objs->obj_type == PLANE)
-			printf("plane\n");
-		else if (win.objs->obj_type == CYLINDER)
+		if (test->obj_type == PLANE)
+		{
+			printf("PLANE\n");
+			t_plane *plane = test->data;
+			printf("PLANE pos : %f, %f, %f\n", plane->point.x, plane->point.y, plane->point.z);
+		}
+		else if (test->obj_type == CYLINDER)
 			printf("cylinder\n");
-		else if (win.objs->obj_type == SPHERE)
-			printf("circle\n");
-		win.objs = win.objs->next;
+		else if (test->obj_type == SPHERE)
+		{
+			printf("SPHERE\n");
+			t_sphere *sphere = test->data;
+			printf("SPHERE pos : %f, %f, %f\n", sphere->center.x, sphere->center.y, sphere->center.z);
+		}
+		test = test->next;
 	}
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)
