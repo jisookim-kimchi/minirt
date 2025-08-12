@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/11 16:12:54 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:33:19 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,16 @@ int main(void)
 	// printf("Pixel00 location: (%f, %f, %f)\n", win.camera.pixel00loc.x, win.camera.pixel00loc.y, win.camera.pixel00loc.z);
 	// printf("Delta horizontal: (%f, %f, %f)\n", win.camera.delta_horizontal.x, win.camera.delta_horizontal.y, win.camera.delta_horizontal.z);
 	// printf("Delta vertical: (%f, %f, %f)\n", win.camera.delta_vertical.x, win.camera.delta_vertical.y, win.camera.delta_vertical.z);
-	
+	while(win.objs)
+	{
+		if (win.objs->obj_type == PLANE)
+			printf("plane\n");
+		else if (win.objs->obj_type == CYLINDER)
+			printf("cylinder\n");
+		else if (win.objs->obj_type == SPHERE)
+			printf("circle\n");
+		win.objs = win.objs->next;
+	}
 	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
 	if (!win.mlx)
 	{

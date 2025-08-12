@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/11 16:29:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:11:12 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,6 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 		exit(1);
 	}
 	set_ray_interval(&record, 0.001f, INFINITY);
-
-	// if (record.object.data == win->objs->data)
-	// {
-	// 	printf("The ray origin is the same as the object origin\n");
-	// 	record.object.data = NULL;
-	// }
-	
 	if (hit_world(ray, &record, win->objs))
 	{
 		if (is_shadow(win->objs, &win->light, &record) == true)
