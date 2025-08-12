@@ -15,6 +15,7 @@ int parse_plane(char *line, t_plane *plane)
 	
     parse_vec3(tokens[2], &plane->unit_normal_vec.x, &plane->unit_normal_vec.y, &plane->unit_normal_vec.z);
 	plane->unit_normal_vec = vec3_normalized(plane->unit_normal_vec);
+	printf("plane->unit_normal_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
     parse_color(tokens[3], &plane->plane_color.red, &plane->plane_color.green, &plane->plane_color.blue);
 	
 	// printf(CYAN"plane unit_norm_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
