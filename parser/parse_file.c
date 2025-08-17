@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/11 13:34:55 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:38:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int	read_file(int fd, t_window *window)
 {
 	char		*line;
 	int			result;
-	t_objs_list	*list;
 
-	list = NULL;
 	line = NULL;
 	result = 0;
 
@@ -80,7 +78,7 @@ int	read_file(int fd, t_window *window)
 		}
 		if (*line == '\n')
 			continue;
-		result = parsing_start(line, window, list);
+		result = parsing_start(line, window);
 		if (result < 0)
 		{
 			//garbage collector.
