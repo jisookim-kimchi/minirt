@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "../mlx_tools.h"
+# include "garbage.h"
 
 //parse.c
 int		parsing_start(char *line, t_window *window, t_objs_list *list);
