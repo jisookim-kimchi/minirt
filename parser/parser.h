@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/11 11:43:53 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:38:31 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "garbage.h"
 
 //parse.c
-int		parsing_start(char *line, t_window *window, t_objs_list *list);
+int		parsing_start(char *line, t_window *window);
 
 //parse_file.c
 bool	is_valid_file(char *path);
