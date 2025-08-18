@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/12 17:38:31 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:35:51 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PARSER_H
 
 # include "../mlx_tools.h"
-# include "garbage.h"
 
 //parse.c
 int		parsing_start(char *line, t_window *window);

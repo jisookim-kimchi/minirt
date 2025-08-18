@@ -17,6 +17,8 @@
 		"vector": "c",
 		"parser.h": "c",
 		"mlx_tools.h": "c",
-		"objects.h": "c"
+		"objects.h": "c",
+		"get_next_line.h": "c",
+		"chrono": "c"
 	}
 }
