@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/12 17:48:39 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:05:31 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	image_hook(void *param)
 
 int main(void)
 {
+	//todo make init function for t_window
 	t_window			win;
 
 	t_screenpoint		screen;
@@ -76,6 +77,7 @@ int main(void)
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
 	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
+	win.objs = NULL;
 	//win.objs = init_objs_list();
 
 	/* parsing start */

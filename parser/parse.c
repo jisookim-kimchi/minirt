@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/12 17:39:13 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:13:07 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	parsing_start(char *line, t_window *window)
 	}
 	else if (ft_strncmp(line, "sp", 2) == 0)
 	{
-		printf(CYAN"1\n");
 		t_sphere *sphere = malloc(sizeof(t_sphere));
 		if (!sphere || parse_sphere(line, sphere) == -1)
 		{
@@ -74,7 +73,7 @@ int	parsing_start(char *line, t_window *window)
 		add_member_to_obj_list(&window->objs, obj);
 	}
 	else if (ft_strncmp(line, "cy", 2) == 0)
-	{		
+	{		 
 		t_cylinder *cylinder = malloc(sizeof(t_cylinder));
 		if (!cylinder || parse_cylinder(line, cylinder) == -1)
 		{
