@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/12 16:42:03 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:08:11 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 		return ;
 	}
 	if (!(*list))
+	{
 		*list = new_member;
+	}
 	else
 	{
 		current = *list;

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/03 18:31:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:34:47 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 		// printf("%sEPSILON check%s\n", MAGENTA, DEFAULT);
 		return (false);
 	}
-
+	
 	//calculate the t value for the intersection point on the cap
 	double t = vec3_dot(vec3_sub_vec3(cap_center, ray->orign), cap_normal) / check;
 	if (t < hit->t_min || t > hit->t_max)
@@ -250,9 +250,9 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 		// printf("%sr circle check%s\n", MAGENTA, DEFAULT);
 		return (false);
 	}
-
-	// Backface Culling
-	if (vec3_dot(ray->dir, hit->normal) > 0)
+	
+	// TEST Backface Culling
+	if (vec3_dot(ray->dir, cap_normal) > 0)
     	return false;
 
 	hit->t = t;
