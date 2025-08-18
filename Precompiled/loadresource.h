@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/18 14:18:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:34:41 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "../math/mathheader.h"
 # include <fcntl.h>
 # include <assert.h>
-# include <stdio.h>
+//# include <stdio.h>
 # include <stdbool.h>
 
 # define MAX_MESHES 100

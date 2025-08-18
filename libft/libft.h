@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:30:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2024/10/17 16:54:55 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/18 17:35:11 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdlib.h>
+#include "../garbage/garbage.h"
+// # include <stdlib.h>
 # include <unistd.h>
 
 int		ft_isalpha(int ch);
