@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/12 17:38:58 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:50:44 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	read_file(int fd, t_window *window)
 			}	
 			return 0;
 		}
-		if (*line == '\n')
+		if (*line == '\n' || *line == '#')
 		{
 			free(line);
 			continue;
