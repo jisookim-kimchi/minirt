@@ -26,6 +26,7 @@ int	parse_ambient(char *line, t_ambient *ambient)
 	parse_color(tokens[2], &ambient->ambient_color.red, &ambient->ambient_color.green, &ambient->ambient_color.blue);
 	//printf("ambient_color %p\n", &ambient->ambient_color);
 	ambient->ambient_ratio = ratio;
+	free_splited_str(tokens);
 	return (1);
 }
 
@@ -47,7 +48,7 @@ int	parse_camera(char *line, t_camera *camera)
 		//free tokens?
 		return (-1);
 	}
-	parse_vec3(tokens[1], &camera->transform_comp.transform->position.x, &camera->transform_comp.transform->position.y, &camera->transform_comp.transform->position.z);
+	parse_vec3(tokens[1], &camera->transform_comp.transform.position.x, &camera->transform_comp.transform.position.y, &camera->transform_comp.transform.position.z);
 	// printf("token1 done \n");
 	// printf("camera position[%p]: %f, %f, %f\n", &camera->transform_comp.transform->position, camera->transform_comp.transform->position.x, camera->transform_comp.transform->position.y, camera->transform_comp.transform->position.z);
 	parse_vec3(tokens[2], &camera->transform_comp.forward.x, &camera->transform_comp.forward.y, &camera->transform_comp.forward.z);
@@ -71,6 +72,7 @@ int	parse_camera(char *line, t_camera *camera)
 		camera->transform_comp.right = vec3_cross(camera->transform_comp.forward ,(t_vec3){0, 1, 0});
 	camera->transform_comp.up = vec3_cross(camera->transform_comp.right, camera->transform_comp.forward);
 	camera->fov = fov;
+	free_splited_str(tokens);
 	return (1);
 }
 
@@ -93,5 +95,6 @@ int	parse_light(char *line, t_light *light)
 		return (-1);
 	parse_color(tokens[3], &light->light_color.red, &light->light_color.green, &light->light_color.blue);
 	light->is_light = true;
+	free_splited_str(tokens);
 	return (1);
 }

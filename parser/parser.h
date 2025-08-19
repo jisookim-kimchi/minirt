@@ -37,7 +37,7 @@ int		parse_cylinder(char *line, t_cylinder *cylinder);
 int		count_array_elem(char **tokens);
 char 	*ft_strtok(char *str, const char c);
 int		parse_color(char *token, float *red, float *green, float *blue);
-void	free_string_array(char **to_free);
+void	free_splited_str(char **to_free);
 
 //float or double?
 //int		parse_vec3(char *token, float *x, float *y, float *z);

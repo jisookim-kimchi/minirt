@@ -117,7 +117,7 @@ double	specular_term(t_camera *camera, t_hit *hit,
 	
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(hit->hit_point,
 				light->light_position));
-	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.transform->position,
+	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.transform.position,
 				hit->hit_point));
 	//if the light direction is not same side with the hit normal then return 0;
 	if (vec3_dot(hit->normal, vec3_negate(norm_light_dir)) <= 0.0)

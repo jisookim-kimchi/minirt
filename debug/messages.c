@@ -115,7 +115,7 @@ void	print_camera_infos(const t_camera *camera)
 	printf("The camera informations:\n");
 	printf("The transform component:\n");
 	printf("position:\n");
-	print_vec3(&camera->transform_comp.transform->position);
+	print_vec3(&camera->transform_comp.transform.position);
 	printf("right:\n");
 	print_vec3(&camera->transform_comp.right);
 	printf("up:\n");

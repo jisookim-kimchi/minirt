@@ -1,11 +1,10 @@
-# include "object/objects.h"
-# include "lighting/lighting.h"
+# include "lighting.h"
 
-t_spot_light	init_spot_light(const t_light *light, t_vec3 direction, float distance, float angle, float intensity)
+t_spot_light	init_spot_light(t_light *light, t_vec3 direction, float distance, float angle, float intensity)
 {
 	t_spot_light spot_light;
 
-	if (!light || distance <= 0 || angle <= 0 || intensity <= 0)
+	if (distance <= 0 || angle <= 0 || intensity <= 0)
 	{
 		printf("worng input for point_light so we give DEFAULT point_light\n");
 		spot_light.light.light_position = light->light_position;
@@ -21,6 +20,7 @@ t_spot_light	init_spot_light(const t_light *light, t_vec3 direction, float dista
 	spot_light.light.light_position = light->light_position;
 	spot_light.light.light_ratio = light->light_ratio;
 	spot_light.light.light_color = light->light_color;
+	spot_light.direction = vec3_normalized(direction);
 	spot_light.distance = distance;
 	spot_light.angle = angle;
 	spot_light.intensity = intensity;
@@ -33,6 +33,7 @@ void	set_spot_direction(t_spot_light *spot, t_vec3 direction)
 	if (!spot)
 	{
 		printf("spot light is NULL\n");
+		return ;
 	}
 	spot->direction = vec3_normalized(direction);
 }
@@ -85,11 +86,13 @@ float	spot_light_intensity_at(const t_spot_light *spot, t_vec3 point, t_vec3 nor
 	normalized_direction = vec3_normalized(spot->direction);
 	angle_cosine = cos(deg2rad(spot->angle) / 2);
 	point_cosine = vec3_dot(vec3_normalized(light_to_point), normalized_direction);
-
 	if (point_cosine < angle_cosine)
 		return (0.0f);
 
-	intensity = spot->intensity * spot->light.light_ratio;
+	float NdotL = vec3_dot(normal, vec3_normalized(light_to_point));
+    if (NdotL < 0)
+		NdotL = 0;
+	intensity = spot->intensity * spot->light.light_ratio * NdotL;
 	return (intensity);
 }
 

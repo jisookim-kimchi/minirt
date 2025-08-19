@@ -146,17 +146,18 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	{
 		//free all exit(1);
         return -1;
+		//release_garbage(garbage_lst);
 	}
+	// add_to_garbage_list(garbage_lst, do_malloc(temp, garbage_lst));
     *x = ft_atof(temp[0]);
     *y = ft_atof(temp[1]);
     *z = ft_atof(temp[2]);
-	free_string_array(temp);
+	free_splited_str(temp);
 
-	//printf("x,y,z : %f %f %f\n", *x, *y, *z);
 	return (1);
 }
 
-void	free_string_array(char **to_free)
+void	free_splited_str(char **to_free)
 {
 	int	i;
 
@@ -164,9 +165,11 @@ void	free_string_array(char **to_free)
 	while(to_free[i])
 	{
 		free(to_free[i]);
+		to_free[i] = NULL;
 		i++;
 	}
 	free (to_free);
+	to_free = NULL;
 }
 
 int	is_digit(const char *token)

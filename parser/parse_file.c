@@ -77,15 +77,16 @@ int	read_file(int fd, t_window *window)
 			return 0;
 		}
 		if (*line == '\n')
+		{
+			free(line);
 			continue;
+		}
 		result = parsing_start(line, window);
 		if (result < 0)
 		{
-			//garbage collector.
-			//perror();
-			//exit(1);
+			free_objs_list(&window->objs);
 			free(line);
-			return (-1);
+			exit(1);
 		}
 		free(line);
 	}
