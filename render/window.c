@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/18 15:05:31 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:38:07 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,28 @@ void	image_hook(void *param)
 	}
 }
 
-int main(void)
+char	*check_file_arg(int argc, char **argv)
+{
+	char	*filename;
+
+	if (argc != 2)
+	{
+		printf(RED);
+		ft_putendl_fd("Please give one filename!", 2);
+		printf(DEFAULT);
+		exit(1);
+	}
+	if (ft_strncmp(argv[1], "file/", 5) == 0)
+	{
+		filename = (char *)malloc((ft_strlen(argv[1]) + 1) * sizeof(char));
+		ft_strlcpy(filename, argv[1], (ft_strlen(argv[1]) + 1));
+	}
+	else
+		filename = ft_strjoin("file/", argv[1]);
+	return (filename);
+}
+
+int	main(int argc, char **argv)
 {
 	//todo make init function for t_window
 	t_window			win;
@@ -81,7 +102,11 @@ int main(void)
 	//win.objs = init_objs_list();
 
 	/* parsing start */
-	char *path = "file/.justplane.rt";
+	// char *path = "file/.justplane.rt";
+	// char *path = "file/.rt";
+	char *path = check_file_arg(argc, argv);
+	// (void)argc;
+	// (void)argv;
 	if (!is_valid_file(path))
 		return (-1);
 	int fd = open_file(path);
