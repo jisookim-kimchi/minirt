@@ -25,6 +25,7 @@ typedef struct s_window
 	// t_color_float	ambient;
 	t_ambient		ambient;
 	t_light			light;
+	t_spot_light	spot_light;
 	t_objs_list		*objs;
 	mlx_t			*mlx;
 	mlx_image_t		*image;

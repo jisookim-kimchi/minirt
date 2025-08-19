@@ -215,3 +215,12 @@ t_color_float color_col3_to_float(t_color3 input)
     col_float.blue = (float)input.z;
     return (col_float);
 }
+
+t_color_float color_float_multiply_vec3(t_color_float a, t_color_float b)
+{
+    t_color_float result;
+    result.red   = a.red   * b.red;
+    result.green = a.green * b.green;
+    result.blue  = a.blue  * b.blue;
+    return result;
+}

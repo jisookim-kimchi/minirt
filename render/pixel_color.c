@@ -42,7 +42,7 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	// printf("The camera delta vertical:\n");
 	// print_vec3(&camera->delta_vertical);
 	//memo make offset of ray from camera 
-	ray->orign = vec3_plus_vec3(camera->transform_comp.transform->position,
+	ray->orign = vec3_plus_vec3(camera->transform_comp.transform.position,
                             vec3_multiply(camera->transform_comp.forward, EPSILON));
 	//ray->orign = camera->transform_comp.transform->position;
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
@@ -131,14 +131,24 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	phong.specular_color = vec3_multiply(
 			color_float_to_col3(win->light.light_color),
 			win->light.light_ratio * phong.specular_t);
-	// if (hit->object.obj_type == PLANE)
-	// 	printf("phong.specular_color %f, %f, %f\n", phong.specular_color.x, phong.specular_color.y, phong.specular_color.z);
+
+	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
+	{
+    	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point, hit->normal);
+    	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
+
+    	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
+    	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
+
+    	// 기존 diffuse에 spot_light 효과 더하기
+    	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
+	}
+	
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
 				phong.specular_color));
-				
-	//printf("phong.result %f, %f, %f\n", phong.result.x, phong.result.y, phong.result.z);
 	
+	//printf("phong.result %f, %f, %f\n", phong.result.x, phong.result.y, phong.result.z);
 	result_float = color_col3_to_float(phong.result);
 	
 	return (result_float);

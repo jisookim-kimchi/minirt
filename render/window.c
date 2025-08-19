@@ -89,10 +89,12 @@ int main(void)
 	//printf("check_read %d\n", check_read);
 	if (check_read < 0)
 	{
+		free_objs_list(&win.objs);
 		printf("failed parsing\n");
+		exit(1);
 	}
-	
-	/* parsing end */
+	win.spot_light = init_spot_light(&win.light, (t_vec3){0,1,-1}, 100.0, 45.0, 1.0);
+
 	// t_plane *temp;
 	// temp = win.objs->data;
 	// printf(CYAN"temp unit_norm_vec %f, %f, %f\n", temp->unit_normal_vec.x, temp->unit_normal_vec.y, temp->unit_normal_vec.z);

@@ -54,26 +54,26 @@ void print_garbage_list(t_garbage_lst *garbage)
 }
 
 
-int main ()
-{
-    t_garbage_lst g_lst;
-    init_garbage_list(&g_lst);
+// int main ()
+// {
+//     t_garbage_lst g_lst;
+//     init_garbage_list(&g_lst);
 
-    char *a = malloc(1);
-    char *b = malloc(2);
-    char *c = malloc(3);
-    int  *d = malloc(sizeof(int) * 2);
+//     char *a = malloc(1);
+//     char *b = malloc(2);
+//     char *c = malloc(3);
+//     int  *d = malloc(sizeof(int) * 2);
 
-    add_to_garbage_list(&g_lst, do_malloc(a, &g_lst));
-    add_to_garbage_list(&g_lst, do_malloc(b, &g_lst));
-    add_to_garbage_list(&g_lst, do_malloc(c, &g_lst));
-    add_to_garbage_list(&g_lst, do_malloc(d, &g_lst));
+//     add_to_garbage_list(&g_lst, do_malloc(a, &g_lst));
+//     add_to_garbage_list(&g_lst, do_malloc(b, &g_lst));
+//     add_to_garbage_list(&g_lst, do_malloc(c, &g_lst));
+//     add_to_garbage_list(&g_lst, do_malloc(d, &g_lst));
 
-    print_garbage_list(&g_lst);
+//     print_garbage_list(&g_lst);
 
-    garbage_lst_release(&g_lst);
+//     garbage_lst_release(&g_lst);
 	
-	if (g_lst.head.next == NULL)
-		printf("null\n");
-    return 0;
-}
+// 	if (g_lst.head.next == NULL)
+// 		printf("null\n");
+//     return 0;
+// }

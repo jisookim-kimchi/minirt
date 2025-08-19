@@ -52,6 +52,7 @@ void	free_objs_list(t_objs_list **list)
 	while ((*list))
 	{
 		current = (*list)->next;
+		free((*list)->data);
 		free(*list);
 		*list = current;
 	}

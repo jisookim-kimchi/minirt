@@ -71,4 +71,13 @@ double			specular_term(t_camera *camera, t_hit *hit,
 
 //shadow.c
 bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit);
+
+//spot_light.c
+
+t_spot_light	init_spot_light(t_light *light, t_vec3 direction, float distance, float angle, float intensity);
+void	set_spot_direction(t_spot_light *spot, t_vec3 direction);
+bool	is_in_spot_cone(const t_spot_light *spot, t_vec3 point);
+float	spot_light_intensity_at(const t_spot_light *spot, t_vec3 point, t_vec3 normal);
+float	spot_light_falloff(const t_spot_light *spot, t_vec3 point);
+
 #endif
