@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/18 15:13:07 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:26:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	parsing_start(char *line, t_window *window)
 	{
 		if (parse_ambient(line, &window->ambient) == -1)
 		{
-			//return ? or free all and exit(1);
 			return (-1);
 		}
 	}
@@ -29,7 +28,6 @@ int	parsing_start(char *line, t_window *window)
 	{
 		if (parse_camera(line, &window->camera) == -1)
 		{
-			//return ? or free all and exit(1);
 			return (-1);
 		}
 	}
@@ -37,7 +35,6 @@ int	parsing_start(char *line, t_window *window)
 	{
 		if (parse_light(line, &window->light) == -1)
 		{
-			//return ? or free all and exit(1);
 			return (-1);
 		}
 	}
@@ -48,7 +45,6 @@ int	parsing_start(char *line, t_window *window)
 		{
 			return -1;
 		}
-		//add_to_garbage_list(garbage_lst, do_malloc(sphere, garbage_lst));
 		t_objs_list *obj = create_sphere(sphere->center, sphere->diameter, sphere->sphere_color);
 		if (!obj)
 		{
@@ -57,9 +53,6 @@ int	parsing_start(char *line, t_window *window)
 			return (-1);
 		}
 		free(sphere);
-		//  printf("sphere center %f, %f, %f\n", sphere->center.x, sphere->center.y, sphere->center.z);
-		//  printf("sphere diameter %f,\n", sphere->diameter);
-		//  printf("sphere color %f, %f, %f\n"DEFAULT, sphere->sphere_color.red, sphere->sphere_color.green, sphere->sphere_color.blue);
 		add_member_to_obj_list(&window->objs, obj);
 	}
 	else if (ft_strncmp(line, "pl", 2) == 0)
@@ -69,8 +62,6 @@ int	parsing_start(char *line, t_window *window)
 		{
 			return -1;
 		}
-		//add_to_garbage_list(garbage_lst, do_malloc(plane, garbage_lst));
-		//printf("plane color %f, %f, %f\n", plane->plane_color.red, plane->plane_color.green, plane->plane_color.blue);
 		t_objs_list *obj = create_plane(plane->unit_normal_vec, plane->point, plane->plane_color);
 		if (!obj)
 		{
@@ -88,7 +79,6 @@ int	parsing_start(char *line, t_window *window)
 		{
 			return (-1);
 		}
-		//add_to_garbage_list(garbage_lst, do_malloc(cylinder, garbage_lst));
 		t_objs_list *obj = create_cylinder(cylinder->axis, cylinder->center, cylinder->diameter, cylinder->height, cylinder->cylinder_color);
 		if (!obj)
 		{
@@ -107,11 +97,3 @@ int	parsing_start(char *line, t_window *window)
 
 	return (1);
 }
-
-/*
-	check if it has minimum components for rendering.
-*/
-// int	has_minimum_components()
-// {
-		
-// }

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/12 17:46:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:02:46 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	t_vec3	v_vertical;
 	t_vec3	uv;
 
-	// printf("%s\nIn the get_ray_from_camera function%s\n", MAGENTA, DEFAULT);
-	// printf("The x: %i\ty: %i\n", x, y);
-	// printf("The camera delta horizontal:\n");
-	// print_vec3(&camera->delta_horizontal);
-	// printf("The camera delta vertical:\n");
-	// print_vec3(&camera->delta_vertical);
 	//memo make offset of ray from camera 
 	ray->orign = vec3_plus_vec3(camera->transform_comp.transform.position,
                             vec3_multiply(camera->transform_comp.forward, EPSILON));
@@ -48,15 +42,8 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
 	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
-	
-	// printf("The uv vector:\n");
-	// print_vec3(&uv);
 	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	//print_vec3(&pixel_center);
-	//print_vec3(&(ray->orign));
 	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
-	
-	//printf("Ray direction: (%f, %f, %f)\n", ray->dir.x, ray->dir.y, ray->dir.z);
 }
 
 /*
@@ -106,41 +93,28 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 {
 	t_phong_terms	phong;
 	t_color_float	result_float;
-
 	
 	phong.diffuse_t = diffuse_term(hit, &win->light);
-	//usleep(2);
-	// printf("phong.diffuse_t %f\n", phong.diffuse_t);
 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
-	//printf("phong.specular_t %f\n", phong.specular_t);
 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
-				color_float_to_col3(win->ambient.ambient_color),
-				color_float_to_col3(hit->hit_color)),
-			win->ambient.ambient_ratio);
-	// if (hit->object.obj_type == PLANE)
-	// {
-	// 	printf("hit->color %f, %f, %f\n", hit->hit_color.red, hit->hit_color.green, hit->hit_color.blue);
-	// 	printf("phong.ambinet_color %f, %f, %f\n", phong.ambient_color.x, phong.ambient_color.y, phong.ambient_color.z);
-	// }
+			color_float_to_col3(win->ambient.ambient_color),
+			color_float_to_col3(hit->hit_color)),
+		win->ambient.ambient_ratio);
 	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
 				color_float_to_col3(win->light.light_color),
 				color_float_to_col3(hit->hit_color)),
 			win->light.light_ratio * phong.diffuse_t);
-	// if (hit->object.obj_type == PLANE)
-	// 	printf("phong.diffuse_color %f, %f, %f\n", phong.diffuse_color.x, phong.diffuse_color.y, phong.diffuse_color.z);
 	phong.specular_color = vec3_multiply(
 			color_float_to_col3(win->light.light_color),
 			win->light.light_ratio * phong.specular_t);
 
 	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
 	{
-    	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point, hit->normal);
+    	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
     	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
 
     	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
     	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
-
-    	// 기존 diffuse에 spot_light 효과 더하기
     	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
 	}
 	
