@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/30 15:13:09 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/20 16:59:16 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,23 @@ typedef struct s_objs_list
 /*
 	The objects structures
 */
+
+typedef struct s_material 
+{
+    mlx_texture_t* diffuse;
+    mlx_texture_t* normal;
+    mlx_texture_t* bump;
+} t_material;
+
+typedef struct s_uv
+{
+	double	u;
+	double	v;
+} t_uv;
+
 typedef struct s_plane
 {
+	t_material		material;
 	t_vec3			unit_normal_vec;
 	t_vec3			point;
 	t_color_float	plane_color;
@@ -57,6 +72,7 @@ typedef struct s_plane
 
 typedef struct s_sphere
 {
+	t_material		material;
 	t_vec3			center;
 	float			diameter;
 	t_color_float	sphere_color;
@@ -65,6 +81,7 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
+	t_material		material;
 	t_vec3			axis;
 	float			diameter;
 	float			height;
@@ -87,6 +104,8 @@ typedef struct s_hit
 	t_vec3			normal;
 	t_objs_list		object;
 	t_color_float	hit_color;
+	bool 			is_uv;
+	t_uv			uv;
 }	t_hit;
 
 //2d_objects.c

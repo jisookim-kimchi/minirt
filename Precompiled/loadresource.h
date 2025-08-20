@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/18 17:34:41 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:21:46 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ typedef struct s_mesh
     t_vec2  uvs[4];
 }   t_mesh;
 
-typedef struct s_texture
-{
-    char* path;
-    int initialized;
-} t_texture;
+// typedef struct s_texture
+// {
+//     char* path;
+//     int initialized;
+// } t_texture;
 
 //todo maybe we dont need t_vec3 pos the transform pointer has it already
 typedef struct s_transform_comp
@@ -103,22 +103,22 @@ typedef struct s_game_object
 }   t_game_object;
 
 //later it is better to add mlx* and mlx_image? 
-typedef struct s_engine
-{
-    t_mesh          meshes[MAX_MESHES];
-    int             mesh_count;
-    t_texture       textures[MAX_TEXTURES];
-    int             texture_count;
-    t_game_object   scene[MAX_SCENE_OBJECTS];
-    int             scene_count;
-    t_camera        camera;
-    //mlx_t         *mlx;
-}   t_engine;
+// typedef struct s_engine
+// {
+//     t_mesh          meshes[MAX_MESHES];
+//     int             mesh_count;
+//     t_texture       textures[MAX_TEXTURES];
+//     int             texture_count;
+//     t_game_object   scene[MAX_SCENE_OBJECTS];
+//     int             scene_count;
+//     t_camera        camera;
+//     //mlx_t         *mlx;
+// }   t_engine;
 
-typedef struct s_parser
-{
-	char *id;
-}	t_parser;
+// typedef struct s_parser
+// {
+// 	char *id;
+// }	t_parser;
 
 //camera.c
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp);

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/18 15:34:47 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/20 17:09:04 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,29 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	if (vec3_dot(ray->dir, hit_normal) > 0)
     	return false; 
 	set_ray_opposite_normal(ray, hit, hit_normal);
+	/*
+		UV
+		1. get theta : vertical radian
+		2. get phi : horizontal radian
+	*/
+	//1.
+	t_vec3 temp = vec3_sub_vec3(hit->hit_point, sphere->center);
+	t_vec3 temp_n = vec3_normalized(temp);
+	double temp_cos_theta = vec3_dot(temp_n, (t_vec3){0,1,0});
+	double theta = acos(temp_cos_theta);
+	
+	//2. 
+	// first param : in the X/Z plane temp_n.z : front or back
+	// second param : in the X/Z plane temp_n.x : left or right
+	
+	// -phi ~ +phi
+	double phi = atan2(temp_n.z, temp_n.x);
+	double u = (phi + M_PI) / (2 * M_PI);
+	double v = theta / M_PI;
+	
+	hit->uv.u = u;
+	hit->uv.v = v;
+	
 	return (true);
 }
 
