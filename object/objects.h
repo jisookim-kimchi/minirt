@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/20 16:59:16 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:52:49 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum e_obj_fill
 typedef struct s_objs_list
 {
 	t_obj_type			obj_type;
+	bool				has_checkerboard;
 	void				*data;
 	struct s_objs_list	*next;
 }	t_objs_list;
@@ -104,7 +105,6 @@ typedef struct s_hit
 	t_vec3			normal;
 	t_objs_list		object;
 	t_color_float	hit_color;
-	bool 			is_uv;
 	t_uv			uv;
 }	t_hit;
 
@@ -140,5 +140,5 @@ bool		hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 //check_interval.c
 float		clamp_calculation(float input_value, float min, float max);
 bool		check_value_in_range(float input_value, float min, float max);
-double	double_clamp_calculation(double input_value, double min, double max);
+double		double_clamp_calculation(double input_value, double min, double max);
 #endif

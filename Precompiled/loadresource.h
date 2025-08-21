@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/20 15:21:46 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:45:26 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@
 # define WHITE      "\033[1;37m"
 # define DEFAULT    "\033[0m"
 
-typedef struct s_mesh
-{
-    t_vec2  vertices[4];
-    int     vertex_count;
-    int     indices[6];
-    int     index_count;
-    t_vec2  uvs[4];
-}   t_mesh;
+// typedef struct s_mesh
+// {
+//     t_vec2  vertices[4];
+//     int     vertex_count;
+//     int     indices[6];
+//     int     index_count;
+//     t_vec2  uvs[4];
+// }   t_mesh;
 
 // typedef struct s_texture
 // {
@@ -91,16 +91,16 @@ typedef struct s_camera
     t_vec3              pixel00loc;
 } t_camera;
 
-//it must have transform_component;
-typedef struct s_game_object
-{
-    char    name[64];
-    //size_t  hash;
-    //int     mash_key;
-    t_transform_comp transform_comp;
-    //t_Linearcolor color;
-    int     is_visible;
-}   t_game_object;
+// //it must have transform_component;
+// typedef struct s_game_object
+// {
+//     char    name[64];
+//     //size_t  hash;
+//     //int     mash_key;
+//     t_transform_comp transform_comp;
+//     //t_Linearcolor color;
+//     int     is_visible;
+// }   t_game_object;
 
 //later it is better to add mlx* and mlx_image? 
 // typedef struct s_engine
