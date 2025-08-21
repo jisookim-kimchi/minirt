@@ -49,10 +49,7 @@ static void calculate_pixel00loc(t_camera *camera)
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
 {
     t_camera camera;
-    //t_vec3 forward;
-	//todo we can put it out this 
     camera.transform_comp = transform_comp;
-    // camera.viewportsize = screen;
 
     camera.fov = 60.f;
     float theta = deg2rad(camera.fov);
@@ -61,7 +58,6 @@ t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp)
     camera.viewport_h = 2.f * tanf(half_of_fov);
     camera.viewport_w = camera.viewport_h * screen.aspect_ratio;
 	
-	//camera pos
 	t_vec3 camera_position =  get_world_position(&camera.transform_comp);
 
     camera_orientation(&camera);

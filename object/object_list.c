@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/18 15:08:11 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:54:36 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	add_member_to_obj_list(t_objs_list **list, t_objs_list *new_member)
 	}
 }
 
-//jisoo's suggestion
 void	free_objs_list(t_objs_list **list)
 {
 	t_objs_list	*current;
@@ -58,21 +57,6 @@ void	free_objs_list(t_objs_list **list)
 	}
 	*list = NULL;
 }
-
-
-// void	free_objs_list(t_objs_list **list)
-// {
-// 	t_objs_list	*current;
-
-// 	while ((*list)->next)
-// 	{
-// 		current = (*list)->next;
-// 		free(*list);
-// 		*list = current;
-// 	}
-// 	free(list);
-// 	list = NULL;
-// }
 
 bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {

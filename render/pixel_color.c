@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/20 17:02:46 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/21 19:10:14 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,21 @@ void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
     | (col_32->blue << 8) | (col_32->alpha);
 	//return (col_32);
 }
+//TODO look at it !
+t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float black)
+{
+	float tile_scale = 10.0; //tile size
+	float u_scaled = hit->uv.u * tile_scale;
+	float v_scaled = hit->uv.v * tile_scale;
+
+    int u_int = (int)floor(u_scaled);
+    int v_int = (int)floor(v_scaled);
+	
+	if ((u_int + v_int) % 2 == 0)
+   		return white;
+	else
+    	return black;
+}
 
 /*
 	The shininess object related behavior. Now it is fixed value, but
@@ -94,6 +109,25 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	t_phong_terms	phong;
 	t_color_float	result_float;
 	
+	if (hit->object.obj_type == SPHERE)
+	{
+		hit->object.has_checkerboard = true;
+		win->objs->has_checkerboard = true;
+	}
+	else if (hit->object.obj_type == PLANE)
+	{
+		hit->object.has_checkerboard = true;
+		win->objs->has_checkerboard = true;
+	}
+	else
+		hit->object.has_checkerboard = false;
+	if (hit->object.has_checkerboard)
+	{
+		t_color_float white = {1.0, 1.0, 1.0};
+		t_color_float black = {0.0, 0.0, 0.0};
+		hit->hit_color = checkboard_pattern(hit, white, black);
+	}
+	
 	phong.diffuse_t = diffuse_term(hit, &win->light);
 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
@@ -108,6 +142,7 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 			color_float_to_col3(win->light.light_color),
 			win->light.light_ratio * phong.specular_t);
 
+	//FOR SPOT_LIGHT
 	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
 	{
     	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
@@ -121,8 +156,7 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
 				phong.specular_color));
-	
-	//printf("phong.result %f, %f, %f\n", phong.result.x, phong.result.y, phong.result.z);
+
 	result_float = color_col3_to_float(phong.result);
 	
 	return (result_float);
@@ -138,7 +172,8 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 {
 	t_color_float	temp;
 	t_hit			record;
-
+	t_color_float	shadow_color;
+	
 	if (!ray || !win || !win->objs || !result_color)
 	{
 		printf("Error : NULL PTR in pixel_center_color\n");
@@ -149,9 +184,19 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	{
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
-			//result_color->result_color = 0xFF0000FF;
-			t_color_float shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
-			color_transform_to_int(&shadow_color, result_color);
+			if (win->objs->has_checkerboard)
+			{
+				t_color_float white = {1.0, 1.0, 1.0};
+				t_color_float black = {0.0, 0.0, 0.0};
+				t_color_float checker_color = checkboard_pattern(&record, white, black);
+				shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
+				color_transform_to_int(&shadow_color, result_color);
+			}
+			else
+			{
+				shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
+				color_transform_to_int(&shadow_color, result_color);
+			}
 		}
 		else
 		{

@@ -19,6 +19,8 @@
 		"mlx_tools.h": "c",
 		"objects.h": "c",
 		"get_next_line.h": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"iosfwd": "c",
+		"iterator": "c"
 	}
 }

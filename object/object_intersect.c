@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/20 17:09:04 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/21 19:08:17 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,9 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->hit_color = sphere->sphere_color;
 	hit->object.obj_type = SPHERE;
 	hit->object.data = sphere;
-	// Backface Culling
-	if (vec3_dot(ray->dir, hit_normal) > 0)
-    	return false; 
+
 	set_ray_opposite_normal(ray, hit, hit_normal);
+
 	/*
 		UV
 		1. get theta : vertical radian
@@ -105,14 +104,11 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	// first param : in the X/Z plane temp_n.z : front or back
 	// second param : in the X/Z plane temp_n.x : left or right
 	
-	// -phi ~ +phi
+	// normalize to 0 ~ 1.0
 	double phi = atan2(temp_n.z, temp_n.x);
-	double u = (phi + M_PI) / (2 * M_PI);
-	double v = theta / M_PI;
-	
-	hit->uv.u = u;
-	hit->uv.v = v;
-	
+	hit->uv.u = (phi + M_PI) / (2 * M_PI);
+	hit->uv.v = theta / M_PI;
+
 	return (true);
 }
 
@@ -137,10 +133,6 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	if (fabs(rayn_planen_dot) < EPSILON)
 		return (false);
 
-	// Backface culling
-	if (rayn_planen_dot > 0)
-    	return (false);
-
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
 	if (t < hit->t_min || t > hit->t_max)
@@ -152,17 +144,31 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->object.obj_type = PLANE;
 	
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
-	// printf("hit_plane->normal %f, %f, %f\n", 
-	// 	hit->normal.x, hit->normal.y, hit->normal.z);
 	
-	// todo check why hit->normal.y is negative value
-	if (hit->normal.y < 0)
-	{
-		printf("ray->dir %f, %f, %f\n", 
-			ray->dir.x, ray->dir.y, ray->dir.z);
-		exit(1);
-	}
-		
+	// if (hit->normal.y < 0)
+	// 	return (false);
+	
+	/*
+		uv
+	*/
+	t_vec3 up = {0,1,0};
+	if (fabs(vec3_dot(plane->unit_normal_vec, up)) > 0.999)
+    	up = (t_vec3){1,0,0};
+
+	t_vec3 u = vec3_normalized(vec3_cross(up, plane->unit_normal_vec));
+	t_vec3 v = vec3_normalized(vec3_cross(plane->unit_normal_vec, u));
+	
+	t_vec3 hit_to_origin = vec3_sub_vec3(hit->hit_point, plane->point);
+    hit->uv.u = vec3_dot(hit_to_origin, u) / 5;
+    hit->uv.v = vec3_dot(hit_to_origin, v) / 5;
+
+	
+    // // UV 좌표를 0.0 ~ 1.0 범위로 제한
+    // hit->uv.u = fmod(hit->uv.u, 1.0);
+    // hit->uv.v = fmod(hit->uv.v, 1.0);
+    // if (hit->uv.u < 0) hit->uv.u += 1.0;
+    // if (hit->uv.v < 0) hit->uv.v += 1.0;
+	
 	return (true);
 }
 
@@ -208,7 +214,6 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 		t = (-half_b + sqrt(check)) / a;
 		if (t <hit->t_min || t > hit->t_max)
 			return (false);
-		//return (false);
 	}
 
 	//check if is in cylinder height
@@ -236,8 +241,8 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	hit->normal = vec3_normalized(normal);
 	
 	// Backface Culling
-	if (vec3_dot(ray->dir, hit->normal) > 0)
-    	return false;
+	// if (vec3_dot(ray->dir, hit->normal) > 0)
+    // 	return false;
 	set_ray_opposite_normal(ray, hit, hit->normal);
 	return (true);
 }
