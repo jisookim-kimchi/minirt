@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/21 19:10:14 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/21 19:13:19 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 //TODO look at it !
 t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float black)
 {
-	float tile_scale = 10.0; //tile size
+	float tile_scale = 0.1; //tile size
 	float u_scaled = hit->uv.u * tile_scale;
 	float v_scaled = hit->uv.v * tile_scale;
 
