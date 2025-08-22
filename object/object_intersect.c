@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/22 14:26:40 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/22 17:06:18 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,14 +186,15 @@ void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 
 void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_point)
 {
-	double phi;
-	
 	t_vec3 center_to_hit = vec3_sub_vec3(hit_point, cap_center);
-	double cap_radius = cylinder->diameter / 2;
-	
-	cylinder->uv.v;
-	cylinder->uv.u;
-	cylinder->uv.tile_scale = 10;
+
+	double r = sqrt(center_to_hit.x * center_to_hit.x + center_to_hit.z * center_to_hit.z);
+    double phi = atan2(center_to_hit.z, center_to_hit.x);
+
+    double cap_radius = cylinder->diameter / 2;
+
+    cylinder->uv.u = 0.5 + (r / cap_radius) * cos(phi) / 2;
+    cylinder->uv.v = 0.5 + (r / cap_radius) * sin(phi) / 2;
 }
 
 /*
@@ -282,7 +283,7 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 	hit->hit_point = p;
 	hit->hit_color = cylinder->cylinder_color;
 	set_ray_opposite_normal(ray, hit, cap_normal);
-	//calculate_cylinder_cap(cylinder, cap_center, hit->hit_point);
+	calculate_cylinder_cap(cylinder, cap_center, hit->hit_point);
 	return (true);	
 }
 
