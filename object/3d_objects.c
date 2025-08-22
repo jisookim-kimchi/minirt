@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 17:07:51 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/01 13:02:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/22 08:47:18 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ t_objs_list	*create_cylinder(t_vec3 in_axis, t_vec3 in_center,
 	new_list_member->obj_type = CYLINDER;
 	new_list_member->data = new_cylinder;
 	new_list_member->next = NULL;
+	
 	return (new_list_member);
 }

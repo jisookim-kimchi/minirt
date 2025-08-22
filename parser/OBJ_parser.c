@@ -8,19 +8,14 @@ int parse_plane(char *line, t_plane *plane)
 	{
         return (-1);
 	}
-	// 0,0,0 	0,1.0,0 	255,0,225
-    //add_to_garbage_list(garbage_lst, do_malloc(tokens, garbage_lst));
+
     parse_vec3(tokens[1], &plane->point.x, &plane->point.y, &plane->point.z);
 	
     parse_vec3(tokens[2], &plane->unit_normal_vec.x, &plane->unit_normal_vec.y, &plane->unit_normal_vec.z);
 	plane->unit_normal_vec = vec3_normalized(plane->unit_normal_vec);
-	//printf("plane->unit_normal_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
     parse_color(tokens[3], &plane->plane_color.red, &plane->plane_color.green, &plane->plane_color.blue);
 	free_splited_str(tokens);
-	// printf(CYAN"plane unit_norm_vec %f, %f, %f\n", plane->unit_normal_vec.x, plane->unit_normal_vec.y, plane->unit_normal_vec.z);
-	// printf("plane point %f, %f, %f\n", plane->point.x, plane->point.y, plane->point.z);
-	// printf("plane color %f, %f, %f\n"DEFAULT, plane->plane_color.red, plane->plane_color.green, plane->plane_color.blue);
-	
+
 	return (1);
 }
 
@@ -37,6 +32,12 @@ int parse_sphere(char *line, t_sphere *sphere)
     }
     parse_vec3(tokens[1], &sphere->center.x, &sphere->center.y, &sphere->center.z);
     sphere->diameter = ft_atof(tokens[2]);
+	if (sphere->diameter < EPSILON)
+	{
+		free_splited_str(tokens);
+		ft_putstr_fd(RED"Sphere Diameter is Negative\n"DEFAULT, 1);
+		return -1;
+	}
     parse_color(tokens[3], &sphere->sphere_color.red, &sphere->sphere_color.green, &sphere->sphere_color.blue);
 	free_splited_str(tokens);
     return (1);

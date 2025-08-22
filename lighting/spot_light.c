@@ -92,7 +92,6 @@ float	spot_light_intensity_at(const t_spot_light *spot, t_vec3 point)
 	point_cosine = vec3_dot(vec3_normalized(light_to_point), normalized_direction);
 	if (point_cosine < angle_cosine)
 		return (0.0f);
-
 	intensity = spot->intensity * spot->light.light_ratio;
 	return (intensity);
 }
@@ -114,8 +113,8 @@ float	spot_light_falloff(const t_spot_light *spot, t_vec3 point)
 	// Calculate the falloff based on the distance
 	float falloff = distance_to_light / spot->distance;
 	// Clamp the falloff value to the range 0 ~ 1
-	falloff = 1.0f - clamp_calculation(falloff, 0.0f, 1.0f);
-	if (falloff < 0.0f)
-		falloff = 0.0f;
+	falloff = pow(1.0f - clamp_calculation(falloff, 0.0f, 1.0f), 2.0f);
+	// if (falloff < 0.0f)
+	// 	falloff = 0.0f;
 	return (falloff);
 }
