@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/20 13:19:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/22 14:15:26 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	int fd = open_file(path);
 	int check_read = read_file(fd, &win);
-	win.spot_light = init_spot_light(&win.light, (t_vec3){0,-1,0}, 1000.0, 60.0, 100.0);
+	win.spot_light = init_spot_light(&win.light, (t_vec3){0,-1,0}, 1000.0, 60.0, 50.0);
 	if (check_read < 0)
 	{
 		free_objs_list(&win.objs);

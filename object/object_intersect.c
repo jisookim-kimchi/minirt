@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/21 19:08:17 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/22 14:26:40 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,29 +86,8 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->hit_color = sphere->sphere_color;
 	hit->object.obj_type = SPHERE;
 	hit->object.data = sphere;
-
 	set_ray_opposite_normal(ray, hit, hit_normal);
-
-	/*
-		UV
-		1. get theta : vertical radian
-		2. get phi : horizontal radian
-	*/
-	//1.
-	t_vec3 temp = vec3_sub_vec3(hit->hit_point, sphere->center);
-	t_vec3 temp_n = vec3_normalized(temp);
-	double temp_cos_theta = vec3_dot(temp_n, (t_vec3){0,1,0});
-	double theta = acos(temp_cos_theta);
-	
-	//2. 
-	// first param : in the X/Z plane temp_n.z : front or back
-	// second param : in the X/Z plane temp_n.x : left or right
-	
-	// normalize to 0 ~ 1.0
-	double phi = atan2(temp_n.z, temp_n.x);
-	hit->uv.u = (phi + M_PI) / (2 * M_PI);
-	hit->uv.v = theta / M_PI;
-
+	calculate_sphere_uv(sphere, hit->hit_point);
 	return (true);
 }
 
@@ -142,34 +121,79 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->hit_color = plane->plane_color;
 	hit->object.data = plane;
 	hit->object.obj_type = PLANE;
-	
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
-	
-	// if (hit->normal.y < 0)
-	// 	return (false);
-	
-	/*
-		uv
-	*/
-	t_vec3 up = {0,1,0};
-	if (fabs(vec3_dot(plane->unit_normal_vec, up)) > 0.999)
-    	up = (t_vec3){1,0,0};
+	calculate_plane_uv(plane, hit->hit_point);
+	return (true);
+}
 
+void	calculate_plane_uv(t_plane* plane, t_vec3 hit_point)
+{
+	t_vec3 up = {0,1,0};
+	if (fabs(plane->unit_normal_vec.x) > fabs(plane->unit_normal_vec.y) &&
+		fabs(plane->unit_normal_vec.x) > fabs(plane->unit_normal_vec.z))
+		up = (t_vec3){0, 1, 0};
+	else if (fabs(plane->unit_normal_vec.y) > fabs(plane->unit_normal_vec.z))
+		up = (t_vec3){0, 0, 1};
+	else
+		up = (t_vec3){1, 0, 0};
 	t_vec3 u = vec3_normalized(vec3_cross(up, plane->unit_normal_vec));
 	t_vec3 v = vec3_normalized(vec3_cross(plane->unit_normal_vec, u));
 	
-	t_vec3 hit_to_origin = vec3_sub_vec3(hit->hit_point, plane->point);
-    hit->uv.u = vec3_dot(hit_to_origin, u) / 5;
-    hit->uv.v = vec3_dot(hit_to_origin, v) / 5;
+	t_vec3 hit_to_origin = vec3_sub_vec3(hit_point, plane->point);
+    plane->uv.u = vec3_dot(hit_to_origin, u);
+    plane->uv.v = vec3_dot(hit_to_origin, v);
+	plane->uv.tile_scale = 0.01;
+}
 
+void	calculate_sphere_uv(t_sphere *sphere, t_vec3 hit_point)
+{
+	t_vec3 temp = vec3_sub_vec3(hit_point, sphere->center);
+	t_vec3 temp_n = vec3_normalized(temp);
+	double temp_cos_theta = vec3_dot(temp_n, (t_vec3){0,1,0});
+	double theta = acos(temp_cos_theta);
+
+	double phi = atan2(temp_n.z, temp_n.x); 
+	sphere->uv.u = (phi + M_PI) / (2 * M_PI);
+	sphere->uv.v = theta / M_PI;
+
+	sphere->uv.tile_scale =  sphere->diameter / (sphere->diameter / 10);
+}
+
+void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
+{
+	double phi;
+	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
+
+	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
+	cylinder->uv.v = (height_projection + (cylinder->height / 2)) / cylinder->height;
+ 
+	t_vec3 hit_point_flat = vec3_sub_vec3(axis_to_hit, vec3_multiply(cylinder->axis, height_projection));
+	if (fabs(cylinder->axis.x) > fabs(cylinder->axis.y) && fabs(cylinder->axis.x) > fabs(cylinder->axis.z))
+	{
+		phi = atan2(hit_point_flat.z, hit_point_flat.y);
+	}
+	else if (fabs(cylinder->axis.y) > fabs(cylinder->axis.x) && fabs(cylinder->axis.y) > fabs(cylinder->axis.z))
+	{
+		phi = atan2(hit_point_flat.z, hit_point_flat.x);
+	}
+	else
+	{
+		phi = atan2(hit_point_flat.y, hit_point_flat.x);
+	}
+	cylinder->uv.u = (phi + M_PI) / (2 * M_PI);
+	cylinder->uv.tile_scale = 10;
+}
+
+void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_point)
+{
+	double phi;
 	
-    // // UV 좌표를 0.0 ~ 1.0 범위로 제한
-    // hit->uv.u = fmod(hit->uv.u, 1.0);
-    // hit->uv.v = fmod(hit->uv.v, 1.0);
-    // if (hit->uv.u < 0) hit->uv.u += 1.0;
-    // if (hit->uv.v < 0) hit->uv.v += 1.0;
+	t_vec3 center_to_hit = vec3_sub_vec3(hit_point, cap_center);
+	double cap_radius = cylinder->diameter / 2;
 	
-	return (true);
+	cylinder->uv.v;
+	cylinder->uv.u;
+	cylinder->uv.tile_scale = 10;
 }
 
 /*
@@ -203,7 +227,6 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
 	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
 	double c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
-	//double c = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis)) - r * r;
 	double	check = half_b * half_b - a * c;
 	if(check < EPSILON)
 		return (false);
@@ -215,79 +238,51 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 		if (t <hit->t_min || t > hit->t_max)
 			return (false);
 	}
-
 	//check if is in cylinder height
 	t_vec3 hit_point = ray_at(ray, t);
 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
 	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
 	
-	//todo cehck height_projection < 0 is correct
-	// if (height_projection < 0 || height_projection > cylinder->height)
-	// 	return (false);
 	if (fabs(height_projection) > cylinder->height / 2)
-	{
 		return (false);
-	}
-
 	hit->t = t;
 	hit->hit_point = hit_point;
 	hit->hit_color = cylinder->cylinder_color;
-	//get normal 
+	
 	t_point3 hitpoint_height;
     t_vec3 normal;
-
 	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
 	hit->normal = vec3_normalized(normal);
-	
-	// Backface Culling
-	// if (vec3_dot(ray->dir, hit->normal) > 0)
-    // 	return false;
 	set_ray_opposite_normal(ray, hit, hit->normal);
+	calculate_clyinder_side(cylinder, hit->hit_point);
 	return (true);
 }
 
 bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal)
 {
-	// printf("%sIn hit_cylinder_cap function%s\n", GREEN, DEFAULT);
 	const double r = cylinder->diameter / 2;
-    // const t_vec3 cap_center = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, cylinder->height));
-
 	//check if the ray is parallel to the cap plane
 	double check = vec3_dot(ray->dir, cap_normal);
 	if (fabs(check) < EPSILON)
-	{
-		// printf("%sEPSILON check%s\n", MAGENTA, DEFAULT);
 		return (false);
-	}
-	
+
 	//calculate the t value for the intersection point on the cap
 	double t = vec3_dot(vec3_sub_vec3(cap_center, ray->orign), cap_normal) / check;
 	if (t < hit->t_min || t > hit->t_max)
-	{
-		// printf("%st_min: %f\tt_max: %f\tt: %f%s\n", MAGENTA, hit->t_min, hit->t_max, hit->t, DEFAULT);
-		// printf("%st interval check check%s\n", MAGENTA, DEFAULT);
 		return (false);
-	}
 	
 	t_point3 p = ray_at(ray, t);
 	
 	//check if it is within the cylinder's cap radius
 	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
-	{
-		// printf("%sr circle check%s\n", MAGENTA, DEFAULT);
 		return (false);
-	}
-	
-	// TEST Backface Culling
-	if (vec3_dot(ray->dir, cap_normal) > 0)
-    	return false;
 
 	hit->t = t;
 	hit->hit_point = p;
 	hit->hit_color = cylinder->cylinder_color;
 	set_ray_opposite_normal(ray, hit, cap_normal);
-	// printf("%scylinder cap: true%s\n", YELLOW, DEFAULT);
+	//calculate_cylinder_cap(cylinder, cap_center, hit->hit_point);
 	return (true);	
 }
 

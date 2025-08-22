@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/21 15:52:49 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/22 09:42:47 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ typedef struct s_uv
 {
 	double	u;
 	double	v;
+	float	tile_scale;
 } t_uv;
 
 typedef struct s_plane
 {
 	t_material		material;
+	t_uv			uv;
 	t_vec3			unit_normal_vec;
 	t_vec3			point;
 	t_color_float	plane_color;
@@ -74,6 +76,7 @@ typedef struct s_plane
 typedef struct s_sphere
 {
 	t_material		material;
+	t_uv			uv;
 	t_vec3			center;
 	float			diameter;
 	t_color_float	sphere_color;
@@ -83,6 +86,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_material		material;
+	t_uv			uv;
 	t_vec3			axis;
 	float			diameter;
 	float			height;
@@ -105,7 +109,6 @@ typedef struct s_hit
 	t_vec3			normal;
 	t_objs_list		object;
 	t_color_float	hit_color;
-	t_uv			uv;
 }	t_hit;
 
 //2d_objects.c
@@ -137,6 +140,8 @@ bool      	hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 bool		hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal);
 bool		hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 
+void		calculate_plane_uv(t_plane* plane, t_vec3 hit_point);
+void		calculate_sphere_uv(t_sphere *sphere, t_vec3 hit_point);
 //check_interval.c
 float		clamp_calculation(float input_value, float min, float max);
 bool		check_value_in_range(float input_value, float min, float max);

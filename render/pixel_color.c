@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/21 19:13:19 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/22 14:16:14 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,28 @@ void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 //TODO look at it !
 t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float black)
 {
-	float tile_scale = 0.1; //tile size
-	float u_scaled = hit->uv.u * tile_scale;
-	float v_scaled = hit->uv.v * tile_scale;
-
+	float u_scaled = 0.0;
+	float v_scaled = 0.0;
+	if(hit->object.obj_type == SPHERE)
+	{
+		t_sphere *sphere = (t_sphere*)hit->object.data;
+		u_scaled = sphere->uv.u * sphere->uv.tile_scale;
+		v_scaled = sphere->uv.v * sphere->uv.tile_scale;
+	}
+	if(hit->object.obj_type == PLANE)
+	{
+		t_plane *plane = (t_plane *)hit->object.data;
+        u_scaled = plane->uv.u * plane->uv.tile_scale;
+        v_scaled = plane->uv.v * plane->uv.tile_scale;
+	}
+	if(hit->object.obj_type == CYLINDER)
+	{
+		t_cylinder *cylinder = (t_cylinder *)hit->object.data;
+        u_scaled = cylinder->uv.u * cylinder->uv.tile_scale;
+        v_scaled = cylinder->uv.v * cylinder->uv.tile_scale;
+	}
     int u_int = (int)floor(u_scaled);
     int v_int = (int)floor(v_scaled);
-	
 	if ((u_int + v_int) % 2 == 0)
    		return white;
 	else
@@ -119,8 +134,13 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 		hit->object.has_checkerboard = true;
 		win->objs->has_checkerboard = true;
 	}
+	else if (hit->object.obj_type == CYLINDER)
+	{
+		hit->object.has_checkerboard = true;
+		win->objs->has_checkerboard = true;
+	}
 	else
-		hit->object.has_checkerboard = false;
+		hit->object.has_checkerboard = false;	
 	if (hit->object.has_checkerboard)
 	{
 		t_color_float white = {1.0, 1.0, 1.0};
@@ -147,7 +167,7 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	{
     	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
     	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
-
+		
     	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
     	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
     	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
