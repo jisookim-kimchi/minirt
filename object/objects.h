@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 15:23:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:49:06 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ typedef struct s_cylinder
 	t_uv			cap_uv;
 	t_uv			side_uv;
 	bool			is_side_hit;
-	bool			is_cap_hit;
+	bool			is_bottomcap_hit;
+	bool			is_topcap_hit;
 	t_vec3			axis;
 	float			diameter;
 	float			height;

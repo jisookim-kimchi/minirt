@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 15:51:28 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:49:48 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float 
 	if(hit->object.obj_type == CYLINDER)
 	{
 		t_cylinder *cylinder = (t_cylinder *)hit->object.data;
-		if (cylinder->is_cap_hit)
+		if (cylinder->is_topcap_hit || cylinder->is_bottomcap_hit)
         {
             u_scaled = cylinder->cap_uv.u * cylinder->cap_uv.tile_scale;
             v_scaled = cylinder->cap_uv.v * cylinder->cap_uv.tile_scale;

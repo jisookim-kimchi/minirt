@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/22 14:15:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:37:02 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,26 @@ int	main(int argc, char **argv)
 
 	t_screenpoint		screen;
 	t_transform_comp	transform_comp;
-
+	
 	transform_comp = init_transform_comp();
 	screen = make_screen(1200, 800);
 	win.camera = init_camera(screen, transform_comp);
 	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = NULL;
-	//win.objs = init_objs_list();
 
 	/* parsing start */
-	// char *path = "file/.justplane.rt";
-	// char *path = "file/.rt";
 	char *path = check_file_arg(argc, argv);
-	// (void)argc;
-	// (void)argv;
 	if (!is_valid_file(path))
+	{
+		printf(RED"non valid file\n"DEFAULT);
 		return (-1);
+	}
 	int fd = open_file(path);
+	if (fd < 0)
+	{
+		printf(RED"file open failed\n"DEFAULT);
+		return (-1);
+	}
 	int check_read = read_file(fd, &win);
 	win.spot_light = init_spot_light(&win.light, (t_vec3){0,-1,0}, 1000.0, 60.0, 50.0);
 	if (check_read < 0)

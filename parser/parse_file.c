@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/21 18:13:55 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:38:18 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	read_file(int fd, t_window *window)
 	while (1)
 	{
 		line = get_next_line(fd);
-		//printf("parsed line : %s\n", line);
+		printf("parsed line : %s\n", line);
 		if (!line)
 		{
 			if (result == 0)
@@ -84,6 +84,7 @@ int	read_file(int fd, t_window *window)
 		result = parsing_start(line, window);
 		if (result < 0)
 		{
+			printf("parsing_start() error\n");
 			free_objs_list(&window->objs);
 			free(line);
 			exit(1);
