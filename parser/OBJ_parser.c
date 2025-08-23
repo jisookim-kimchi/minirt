@@ -49,7 +49,9 @@ int parse_cylinder(char *line, t_cylinder *cylinder)
 
     tokens = ft_split(line, ' ');
     if (!tokens)
+	{
         return (-1);
+	}
 
     //check param num for cylinder it must be 6.
     if (count_array_elem(tokens) != 6)
