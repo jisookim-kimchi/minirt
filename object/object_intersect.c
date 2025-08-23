@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 14:42:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:45:06 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,8 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 		return (false);
 	cylinder->uv.tile_scale = (cylinder->height + cylinder->diameter) / 30;
 
+	
+    //bool is_hit = false;
 	double half_height = cylinder->height / 2.f;
     t_vec3 up = vec3_normalized(cylinder->axis);
     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
@@ -317,4 +319,5 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
     }
     return (false);
 }
+
 
