@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/22 17:06:18 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:42:45 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,9 @@ void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 		phi = atan2(hit_point_flat.y, hit_point_flat.x);
 	}
 	cylinder->uv.u = (phi + M_PI) / (2 * M_PI);
-	cylinder->uv.tile_scale = 10;
+	
+	cylinder->uv.u *= cylinder->uv.tile_scale;
+    cylinder->uv.v *= cylinder->uv.tile_scale;
 }
 
 void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_point)
@@ -195,6 +197,9 @@ void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_
 
     cylinder->uv.u = 0.5 + (r / cap_radius) * cos(phi) / 2;
     cylinder->uv.v = 0.5 + (r / cap_radius) * sin(phi) / 2;
+	
+	cylinder->uv.u *= cylinder->uv.tile_scale;
+    cylinder->uv.v *= cylinder->uv.tile_scale;
 }
 
 /*
@@ -275,15 +280,17 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 	
 	t_point3 p = ray_at(ray, t);
 	
-	//check if it is within the cylinder's cap radius
 	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
 		return (false);
 
-	hit->t = t;
-	hit->hit_point = p;
-	hit->hit_color = cylinder->cylinder_color;
-	set_ray_opposite_normal(ray, hit, cap_normal);
-	calculate_cylinder_cap(cylinder, cap_center, hit->hit_point);
+	if (t < hit->t)
+	{
+		hit->t = t;
+		hit->hit_point = p;
+		hit->hit_color = cylinder->cylinder_color;
+		set_ray_opposite_normal(ray, hit, cap_normal);
+		calculate_cylinder_cap(cylinder, cap_center, hit->hit_point);
+	}
 	return (true);	
 }
 
@@ -291,22 +298,23 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
 	if (!cylinder || !ray || !hit)
 		return (false);
-	
-    bool is_hit = false;
+	cylinder->uv.tile_scale = (cylinder->height + cylinder->diameter) / 30;
+
 	double half_height = cylinder->height / 2.f;
-	
     t_vec3 up = vec3_normalized(cylinder->axis);
     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
 
-	is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
-				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
-         		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
-	if (is_hit)
-	{
-		hit->object.data = cylinder;
-		hit->object.obj_type = CYLINDER;
-	}
-    return (is_hit);
+	bool is_hit_side = hit_cylinder_side(cylinder, ray, hit);
+    bool is_hit_bottom = hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
+    bool is_hit_top = hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+
+    if (is_hit_side || is_hit_bottom || is_hit_top)
+    {
+        hit->object.data = cylinder;
+        hit->object.obj_type = CYLINDER;
+        return (true);
+    }
+    return (false);
 }
 
