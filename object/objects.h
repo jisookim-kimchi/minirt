@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/22 09:42:47 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:23:45 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_material		material;
-	t_uv			uv;
+	t_uv			cap_uv;
+	t_uv			side_uv;
+	bool			is_side_hit;
+	bool			is_cap_hit;
 	t_vec3			axis;
 	float			diameter;
 	float			height;
