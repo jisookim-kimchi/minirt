@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 14:45:06 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:54:27 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->object.data = plane;
 	hit->object.obj_type = PLANE;
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
+	
 	calculate_plane_uv(plane, hit->hit_point);
 	return (true);
 }
@@ -165,7 +166,7 @@ void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
 
 	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
-	cylinder->uv.v = (height_projection + (cylinder->height / 2)) / cylinder->height;
+	cylinder->side_uv.v = (height_projection + (cylinder->height / 2)) / cylinder->height;
  
 	t_vec3 hit_point_flat = vec3_sub_vec3(axis_to_hit, vec3_multiply(cylinder->axis, height_projection));
 	if (fabs(cylinder->axis.x) > fabs(cylinder->axis.y) && fabs(cylinder->axis.x) > fabs(cylinder->axis.z))
@@ -180,10 +181,10 @@ void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 	{
 		phi = atan2(hit_point_flat.y, hit_point_flat.x);
 	}
-	cylinder->uv.u = (phi + M_PI) / (2 * M_PI);
+	cylinder->side_uv.u = (phi + M_PI) / (2 * M_PI);
 	
-	cylinder->uv.u *= cylinder->uv.tile_scale;
-    cylinder->uv.v *= cylinder->uv.tile_scale;
+	//todo set uv.tile_scale value!
+	cylinder->side_uv.tile_scale = 7;
 }
 
 void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_point)
@@ -195,11 +196,11 @@ void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_
 
     double cap_radius = cylinder->diameter / 2;
 
-    cylinder->uv.u = 0.5 + (r / cap_radius) * cos(phi) / 2;
-    cylinder->uv.v = 0.5 + (r / cap_radius) * sin(phi) / 2;
+    cylinder->cap_uv.u = 0.5 + (r / cap_radius) * cos(phi) / 2;
+    cylinder->cap_uv.v = 0.5 + (r / cap_radius) * sin(phi) / 2;
 	
-	cylinder->uv.u *= cylinder->uv.tile_scale;
-    cylinder->uv.v *= cylinder->uv.tile_scale;
+	//todo set uv.tile_scale value!
+	cylinder->cap_uv.tile_scale = 10;
 }
 
 /*
@@ -279,7 +280,6 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 		return (false);
 	
 	t_point3 p = ray_at(ray, t);
-	
 	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
 		return (false);
 
@@ -298,20 +298,19 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
 	if (!cylinder || !ray || !hit)
 		return (false);
-	cylinder->uv.tile_scale = (cylinder->height + cylinder->diameter) / 30;
-
-	
-    //bool is_hit = false;
 	double half_height = cylinder->height / 2.f;
     t_vec3 up = vec3_normalized(cylinder->axis);
     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
 
-	bool is_hit_side = hit_cylinder_side(cylinder, ray, hit);
-    bool is_hit_bottom = hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
-    bool is_hit_top = hit_cylinder_cap(cylinder, top_center, ray, hit, up);
-
-    if (is_hit_side || is_hit_bottom || is_hit_top)
+	cylinder->is_cap_hit = false;
+	cylinder->is_side_hit = false;
+	
+	cylinder->is_side_hit  = hit_cylinder_side(cylinder, ray, hit);
+	cylinder->is_cap_hit  = hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
+	cylinder->is_cap_hit = hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+	
+    if (cylinder->is_side_hit || cylinder->is_cap_hit)
     {
         hit->object.data = cylinder;
         hit->object.obj_type = CYLINDER;

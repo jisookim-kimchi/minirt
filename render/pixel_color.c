@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/22 14:16:14 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:51:28 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 
 void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 {
-	//t_color_32	col_32;
 	if (!col_float || !col_32)
 	{
 		printf("Error: Null pointer in color_transform_to_int\n");
@@ -77,7 +76,6 @@ void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 	col_32->alpha = 255;
 	col_32->result_color = (col_32->red << 24) | (col_32->green << 16)
     | (col_32->blue << 8) | (col_32->alpha);
-	//return (col_32);
 }
 //TODO look at it !
 t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float black)
@@ -99,8 +97,16 @@ t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float 
 	if(hit->object.obj_type == CYLINDER)
 	{
 		t_cylinder *cylinder = (t_cylinder *)hit->object.data;
-        u_scaled = cylinder->uv.u * cylinder->uv.tile_scale;
-        v_scaled = cylinder->uv.v * cylinder->uv.tile_scale;
+		if (cylinder->is_cap_hit)
+        {
+            u_scaled = cylinder->cap_uv.u * cylinder->cap_uv.tile_scale;
+            v_scaled = cylinder->cap_uv.v * cylinder->cap_uv.tile_scale;
+        }
+        else if (cylinder->is_side_hit)
+        {
+            u_scaled = cylinder->side_uv.u * cylinder->side_uv.tile_scale;
+            v_scaled = cylinder->side_uv.v * cylinder->side_uv.tile_scale;
+        }
 	}
     int u_int = (int)floor(u_scaled);
     int v_int = (int)floor(v_scaled);
