@@ -45,7 +45,7 @@ OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 all: libmlx $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) $(LIBSM) -o $(NAME) $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LIBSM)
 	@echo "$(NAME) built succesfully.\n"
 
 $(LIBFT):
