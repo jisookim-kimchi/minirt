@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 17:52:02 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/25 14:05:34 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,8 @@ void	calculate_sphere_uv(t_sphere *sphere, t_vec3 hit_point)
 	sphere->uv.tile_scale =  sphere->diameter / (sphere->diameter / 10);
 }
 
-void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
+//todo change that uv tili size 
+void	uv_calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 {
 	double phi;
 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
@@ -181,25 +182,32 @@ void	calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 	}
 	cylinder->side_uv.u = (phi + M_PI) / (2 * M_PI);
 	cylinder->side_uv.v = (height_projection + cylinder->height / 2) / cylinder->height;
-	
 	//todo set uv.tile_scale value!
 	cylinder->side_uv.tile_scale = 10;
 }
 
-void	calculate_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center ,t_vec3 hit_point)
+//todo change that calculating way 
+void uv_calculate_cylinder_cap(t_cylinder *cyl, t_vec3 cap_center, t_vec3 cap_normal, t_vec3 hit_point)
 {
-	t_vec3 center_to_hit = vec3_sub_vec3(hit_point, cap_center);
-	
-	double r = sqrt(center_to_hit.x * center_to_hit.x + center_to_hit.z * center_to_hit.z);
-    double phi = atan2(center_to_hit.z, center_to_hit.x);
+    t_vec3 center_to_hit = vec3_sub_vec3(hit_point, cap_center);
+	t_vec3 u_dir;
+	if (fabs(cap_normal.x) > fabs(cap_normal.y) && fabs(cap_normal.x) > fabs(cap_normal.z))
+		u_dir = (t_vec3){0, 1, 0};
+	else if (fabs(cap_normal.y) > fabs(cap_normal.z))
+		u_dir = (t_vec3){0, 0, 1};
+	else
+		u_dir = (t_vec3){1, 0, 0};
+    t_vec3 v_dir = vec3_cross(cap_normal, u_dir);
 
-    double cap_radius = cylinder->diameter / 2;
+    double u_local = vec3_dot(center_to_hit, u_dir);
+    double v_local = vec3_dot(center_to_hit, v_dir);
 
-    cylinder->cap_uv.u = 0.5 + (r / cap_radius) * cos(phi) / 2;
-    cylinder->cap_uv.v = 0.5 + (r / cap_radius) * sin(phi) / 2;
-	
-	//todo set uv.tile_scale value!
-	cylinder->cap_uv.tile_scale = 10;
+    double cap_radius = cyl->diameter * 0.5;
+
+    cyl->cap_uv.u = 0.5 + (u_local / cap_radius) * 0.5;
+    cyl->cap_uv.v = 0.5 + (v_local / cap_radius) * 0.5;
+
+    cyl->cap_uv.tile_scale = 10;
 }
 
 /*
@@ -260,8 +268,8 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
 	hit->normal = vec3_normalized(normal);
+	uv_calculate_clyinder_side(cylinder, hit->hit_point);
 	set_ray_opposite_normal(ray, hit, hit->normal);
-	calculate_clyinder_side(cylinder, hit->hit_point);
 	return (true);
 }
 
@@ -287,8 +295,9 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 		hit->t = t;
 		hit->hit_point = p;
 		hit->hit_color = cylinder->cylinder_color;
+		uv_calculate_cylinder_cap(cylinder, cap_center, cap_normal, hit->hit_point);
 		set_ray_opposite_normal(ray, hit, cap_normal);
-		calculate_cylinder_cap(cylinder, cap_center, hit->hit_point);
+		
 	}
 	return (true);	
 }
@@ -318,5 +327,28 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
     }
     return (false);
 }
+
+// bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+// {
+//     if (!cylinder || !ray || !hit)
+//         return (false);
+    
+//     bool is_hit = false;
+//     double half_height = cylinder->height / 2.f;
+    
+//     t_vec3 up = vec3_normalized(cylinder->axis);
+//     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+//     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+
+//     is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
+//                 hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
+//                 hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+//     if (is_hit)
+//     {
+//         hit->object.data = cylinder;
+//         hit->object.obj_type = CYLINDER;
+//     }
+//     return (is_hit);
+// }
 
 
