@@ -13,10 +13,11 @@ LIBSM :=$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -Wunreachable-code -fsanitize=address -g
+# -fsanitize=address -g
 HEADER = -I $(LIBMLX) -I./math -I./object -I./Precompiled -I./lighting -I./parser
 
 LIBFT = $(LIBFT_DIR)/libft.a
-GNL = $(GNL_DIR)/libgnl.a
+# GNL = $(GNL_DIR)/libgnl.a
 
 SRCS :=	object/2d_objects.c \
 		object/3d_objects.c \
@@ -46,7 +47,9 @@ SRCS :=	object/2d_objects.c \
 		parser/parse_file.c \
 		parser/parse_utils.c \
 		parser/parse.c \
-		garbage/garbage.c
+		garbage/garbage.c \
+		gnl/get_next_line.c \
+		gnl/get_next_line_utils.c 
 		
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
@@ -91,12 +94,12 @@ cleanmlx:
 clean:
 	@rm -rf $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(GNL_DIR) clean
+# 	@$(MAKE) -C $(GNL_DIR) clean
 
 fclean: clean cleanmlx
 	@rm -f $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@$(MAKE) -C $(GNL_DIR) fclean
+# 	@$(MAKE) -C $(GNL_DIR) fclean
 
 re: fclean all
 
