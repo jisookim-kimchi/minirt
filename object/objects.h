@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 17:49:06 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:41:43 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_uv
 typedef struct s_plane
 {
 	t_material		material;
+	bool			has_checkboard;
 	t_uv			uv;
 	t_vec3			unit_normal_vec;
 	t_vec3			point;
@@ -76,6 +77,7 @@ typedef struct s_plane
 typedef struct s_sphere
 {
 	t_material		material;
+	bool			has_checkboard;
 	t_uv			uv;
 	t_vec3			center;
 	float			diameter;
@@ -86,6 +88,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	t_material		material;
+	bool			has_checkboard;
 	t_uv			cap_uv;
 	t_uv			side_uv;
 	bool			is_side_hit;
