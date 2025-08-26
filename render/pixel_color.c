@@ -140,11 +140,11 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 		hit->object.has_checkerboard = true;
 		win->objs->has_checkerboard = true;
 	}
-	else if (hit->object.obj_type == CYLINDER)
-	{
-		hit->object.has_checkerboard = true;
-		win->objs->has_checkerboard = true;
-	}
+	// else if (hit->object.obj_type == CYLINDER)
+	// {
+	// 	hit->object.has_checkerboard = true;
+	// 	win->objs->has_checkerboard = true;
+	// }
 	else
 		hit->object.has_checkerboard = false;	
 	if (hit->object.has_checkerboard)
