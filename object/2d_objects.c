@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 16:33:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/21 15:05:34 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:46:23 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ t_objs_list	*create_plane(t_vec3 in_unit_normal_vec,
 	new_plane->unit_normal_vec = in_unit_normal_vec;
 	new_plane->point = in_point;
 	new_plane->plane_color = in_plane_color;
+	new_plane->has_checkboard = false;
 	new_list_member->obj_type = PLANE;
 	new_list_member->data = new_plane;
 	new_list_member->next = NULL;
+	new_list_member->has_checkerboard = false;
 	return (new_list_member);
 }
