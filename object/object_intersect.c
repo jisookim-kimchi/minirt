@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/25 14:19:30 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:54:14 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,18 +259,22 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	
 	if (fabs(height_projection) > cylinder->height / 2)
 		return (false);
-	hit->t = t;
-	hit->hit_point = hit_point;
-	hit->hit_color = cylinder->cylinder_color;
-	
-	t_point3 hitpoint_height;
-    t_vec3 normal;
-	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
-	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
-	hit->normal = vec3_normalized(normal);
-	uv_calculate_clyinder_side(cylinder, hit->hit_point);
-	set_ray_opposite_normal(ray, hit, hit->normal);
-	return (true);
+	if (t < hit->t)
+	{
+		hit->t = t;
+		hit->hit_point = hit_point;
+		hit->hit_color = cylinder->cylinder_color;
+		
+		t_point3 hitpoint_height;
+		t_vec3 normal;
+		hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
+		normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
+		hit->normal = vec3_normalized(normal);
+		uv_calculate_clyinder_side(cylinder, hit->hit_point);
+		set_ray_opposite_normal(ray, hit, hit->normal);
+		return (true);
+	}
+	return (false);
 }
 
 bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal)
@@ -297,9 +301,9 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 		hit->hit_color = cylinder->cylinder_color;
 		uv_calculate_cylinder_cap(cylinder, cap_center, cap_normal, hit->hit_point);
 		set_ray_opposite_normal(ray, hit, cap_normal);
-		
+		return (true);
 	}
-	return (true);	
+	return (false);	
 }
 
 bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)

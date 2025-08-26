@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 17:49:48 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/26 16:49:20 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,11 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 		hit->object.has_checkerboard = true;
 		win->objs->has_checkerboard = true;
 	}
-	// else if (hit->object.obj_type == CYLINDER)
-	// {
-	// 	hit->object.has_checkerboard = true;
-	// 	win->objs->has_checkerboard = true;
-	// }
+	else if (hit->object.obj_type == CYLINDER)
+	{
+		hit->object.has_checkerboard = true;
+		win->objs->has_checkerboard = true;
+	}
 	else
 		hit->object.has_checkerboard = false;	
 	if (hit->object.has_checkerboard)
