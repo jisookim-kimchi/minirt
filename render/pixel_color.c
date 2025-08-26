@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/23 17:49:48 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/26 18:31:17 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,10 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 		win->objs->has_checkerboard = true;
 	}
 	else
+	{
 		hit->object.has_checkerboard = false;	
+		win->objs->has_checkerboard = false;
+	}
 	if (hit->object.has_checkerboard)
 	{
 		t_color_float white = {1.0, 1.0, 1.0};
@@ -210,6 +213,26 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	{
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
+			// t_cylinder *c = (t_cylinder*)win->objs->data;
+			// if (c)
+			// {
+			// 	t_color_float white = {1.0, 1.0, 1.0};
+			// 	t_color_float black = {0.0, 0.0, 0.0};
+			// 	t_color_float checker_color = checkboard_pattern(&record, white, black);
+			// 	shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
+			// 	color_transform_to_int(&shadow_color, result_color);
+			// 	printf("cylinder shadow_color %f %f %f\n", shadow_color.red, shadow_color.green, shadow_color.blue);
+			// }
+			// t_sphere *s = (t_sphere *)win->objs->data;
+			// if (s)
+			// {
+			// 	t_color_float white = {1.0, 1.0, 1.0};
+			// 	t_color_float black = {0.0, 0.0, 0.0};
+			// 	t_color_float checker_color = checkboard_pattern(&record, white, black);
+			// 	shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
+			// 	color_transform_to_int(&shadow_color, result_color);
+			// 	printf("sphere shadow_color %f %f %f\n", shadow_color.red, shadow_color.green, shadow_color.blue);
+			// }
 			if (win->objs->has_checkerboard)
 			{
 				t_color_float white = {1.0, 1.0, 1.0};

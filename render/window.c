@@ -122,7 +122,7 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	
-	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, "Practice", true);
+	win.mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, argv[1] , true);
 	if (!win.mlx)
 	{
 		printf("error mlx_init\n");
