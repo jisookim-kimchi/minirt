@@ -302,31 +302,31 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 	return (true);	
 }
 
-bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
-{
-	if (!cylinder || !ray || !hit)
-		return (false);
-	double half_height = cylinder->height / 2.f;
-    t_vec3 up = vec3_normalized(cylinder->axis);
-    t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
-    t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+// bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+// {
+// 	if (!cylinder || !ray || !hit)
+// 		return (false);
+// 	double half_height = cylinder->height / 2.f;
+//     t_vec3 up = vec3_normalized(cylinder->axis);
+//     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+//     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
 
-	cylinder->is_bottomcap_hit = false;
-	cylinder->is_topcap_hit = false;
-	cylinder->is_side_hit = false;
+// 	cylinder->is_bottomcap_hit = false;
+// 	cylinder->is_topcap_hit = false;
+// 	cylinder->is_side_hit = false;
 	
-	cylinder->is_side_hit  = hit_cylinder_side(cylinder, ray, hit);
-	cylinder->is_bottomcap_hit  = hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
-	cylinder->is_topcap_hit = hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+// 	cylinder->is_side_hit  = hit_cylinder_side(cylinder, ray, hit);
+// 	cylinder->is_bottomcap_hit  = hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
+// 	cylinder->is_topcap_hit = hit_cylinder_cap(cylinder, top_center, ray, hit, up);
 	
-    if (cylinder->is_side_hit || cylinder->is_topcap_hit || cylinder->is_bottomcap_hit)
-    {
-        hit->object.data = cylinder;
-        hit->object.obj_type = CYLINDER;
-        return (true);
-    }
-    return (false);
-}
+//     if (cylinder->is_side_hit || cylinder->is_topcap_hit || cylinder->is_bottomcap_hit)
+//     {
+//         hit->object.data = cylinder;
+//         hit->object.obj_type = CYLINDER;
+//         return (true);
+//     }
+//     return (false);
+// }
 
 // bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 // {
@@ -352,3 +352,54 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 // }
 
 
+bool hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+    if (!cylinder || !ray || !hit)
+        return (false);
+
+    double half_height = cylinder->height / 2.f;
+    t_vec3 up = vec3_normalized(cylinder->axis);
+    t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+    t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+
+    t_hit side_hit, top_hit, bottom_hit;
+    bool side   = hit_cylinder_side(cylinder, ray, &side_hit);
+    bool bottom = hit_cylinder_cap(cylinder, bottom_center, ray, &bottom_hit, vec3_multiply(up, -1.0));
+    bool top    = hit_cylinder_cap(cylinder, top_center, ray, &top_hit, up);
+
+   
+    float min_t = INFINITY;
+    t_hit *closest = NULL;
+    int hit_type = 0; // 1:side, 2:bottom, 3:top
+
+    if (side && side_hit.t < min_t)
+		{ min_t = side_hit.t; closest = &side_hit; hit_type = 1; }
+    if (bottom && bottom_hit.t < min_t)
+		{ min_t = bottom_hit.t; closest = &bottom_hit; hit_type = 2; }
+    if (top && top_hit.t < min_t)
+	{ 
+		min_t = top_hit.t; 
+		closest = &top_hit; 
+		hit_type = 3; 
+	}
+    if (closest)
+    {
+        *hit = *closest;
+        hit->object.data = cylinder;
+        hit->object.obj_type = CYLINDER;
+        // 플래그 초기화
+        cylinder->is_side_hit = false;
+        cylinder->is_topcap_hit = false;
+        cylinder->is_bottomcap_hit = false;
+        // 가장 가까운 hit에 따라 플래그 설정
+        if (hit_type == 1)
+			cylinder->is_side_hit = true;
+        if (hit_type == 2)
+			cylinder->is_bottomcap_hit = true;
+        if (hit_type == 3)
+			cylinder->is_topcap_hit = true;
+        return true;
+    }
+    return false;
+   
+}

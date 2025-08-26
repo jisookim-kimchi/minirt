@@ -217,6 +217,8 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 				t_color_float checker_color = checkboard_pattern(&record, white, black);
 				shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
 				color_transform_to_int(&shadow_color, result_color);
+				printf("shadow for checkboard result color: %08X\n", result_color->result_color);
+
 			}
 			else
 			{

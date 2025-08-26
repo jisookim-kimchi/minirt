@@ -1,0 +1,24 @@
+parsed line : A 0.3 255,255,255
+
+parsed line : 
+
+parsed line : C 0,0,0 0,0,-1 60
+
+parsed line : 
+
+parsed line : L 0,500,-500 0.7 255,255,255
+
+parsed line : 
+
+parsed line : pl 0,-100,-1000 0,1.0,0 0,255,0
+
+parsed line : 
+
+parsed line : sp -50,0,-500 100 255,0,0
+
+parsed line : 
+
+parsed line : cy 100.0,10.0,-500 1,0,0 100 50 10,0,255
+
+parsed line : (null)
+EOF reached.
