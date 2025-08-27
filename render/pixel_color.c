@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 14:52:32 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/27 18:06:55 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,15 +152,15 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 			win->light.light_ratio * phong.specular_t);
 
 	//FOR SPOT_LIGHT
-	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
-	{
-    	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
-    	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
+	// if (is_in_spot_cone(&win->spot_light, hit->hit_point))
+	// {
+    // 	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
+    // 	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
 		
-    	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
-    	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
-    	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
-	}
+    // 	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
+    // 	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
+    // 	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
+	// }
 	
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
@@ -240,8 +240,6 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 				t_color_float checker_color = checkboard_pattern(&record, white, black);
 				shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
 				color_transform_to_int(&shadow_color, result_color);
-				if (record.object.obj_type == CYLINDER)
-					printf("shadow_color %f %f %f\n", shadow_color.red, shadow_color.green, shadow_color.blue);
 			}
 			else
 			{
@@ -251,6 +249,7 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 		}
 		else
 		{
+			printf("else record type %d\n", record.object.obj_type);
 			temp = calculate_hit_color(win, &record);
 			color_transform_to_int(&temp, result_color);
 		}

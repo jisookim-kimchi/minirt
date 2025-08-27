@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/21 14:54:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:55:59 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,11 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	{
 		if ((loop_objects->data != record->object.data) && ray_intersect(loop_objects, ray, &temp))
 		{
-			// w
 			found_hit = true;
 			temp.t_max = temp.t;
 			*record = temp;
+			record->object.obj_type = temp.object.obj_type;
+			printf("in hit_world object.obj_type : %d\n", temp.object.obj_type);
 		}
 		loop_objects = loop_objects->next;
 	}
