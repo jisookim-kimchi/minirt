@@ -1,0 +1,358 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   object_intersect.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
+/*   Updated: 2025/08/26 17:54:14 by tfarkas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "objects.h"
+
+/*
+	The set_ray_opposite_normal function set the hit normal that way it
+	point against the ray.
+*/
+void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
+{
+	if (vec3_dot(ray->dir, normal) < 0)
+	{
+		hit->normal = normal;
+	}
+	else
+		hit->normal = vec3_multiply(normal, -1.0);
+}
+
+/*
+	The set_hit_sphere_point function will giv the object to
+	the hittable objects list just that case if it is 
+	in the investigated ray intervallum.
+
+	TODO:
+	The t minimum and maximum value stored in hit structure. 
+	Still need to initialize with the desired ray intervallum
+*/
+static bool	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
+{
+	if (t_root1 < t_root2 && check_value_in_range(t_root1, hit->t_min, hit->t_max))
+		hit->t = t_root1;
+	else if (check_value_in_range(t_root2, hit->t_min, hit->t_max))
+		hit->t = t_root2;
+	else
+		return (false);
+	return (true);
+}
+
+/*
+	oc = sphere_center - ray_origin
+	b = -2h simplified qadratic equation solving formula exponents:
+	a = ray direction vector length squared
+	h = dot product of ray direction vector and oc vector
+	c = leng squared of oc vector substract the sphere's radius square
+	discriminant = h * h - a * c
+
+	the calculation made in double variable datatype
+*/
+bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
+{
+	t_vec3	oc;
+	double	sphere_radius;
+	float	t_root1;
+	float	t_root2;
+	double	a;
+	double	h;
+	double	c;
+	double	discriminant;
+	t_vec3	hit_normal;
+
+	sphere_radius = (double)((sphere->diameter) / 2);
+	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
+	a = vec3_length_squared(ray->dir);
+	h = vec3_dot(ray->dir, oc);
+	c = vec3_length_squared(oc) -	 sphere_radius * sphere_radius;
+	discriminant = h * h - a * c;
+	if (discriminant < 0)
+		return (false);
+	t_root1 = (float)((h - sqrt(discriminant)) / a);
+	t_root2 = (float)((h + sqrt(discriminant)) / a);
+	if (set_hit_sphere_point(t_root1, t_root2, hit) == false)
+		return (false);
+	hit->hit_point = ray_at(ray, hit->t);
+	hit_normal = vec3_divide(vec3_sub_vec3(hit->hit_point,
+				sphere->center), sphere_radius);
+	hit->hit_color = sphere->sphere_color;
+	hit->object.obj_type = SPHERE;
+	hit->object.data = sphere;
+	set_ray_opposite_normal(ray, hit, hit_normal);
+	calculate_sphere_uv(sphere, hit->hit_point);
+	return (true);
+}
+
+/*
+	First check if the ray parallel with the plane. If paralel there 
+	is no intersection. (during the check we need to use a small 
+	epsilon value not directly compare with 0).
+	rayn_planen_dot = ray_dir * plane_n
+	
+	After calculate the t value
+	ray_p_plane_p = plane->point - ray->orign;
+	t = (ray_p_plane_p * plane->unit_normal_vec) / rayn_planen_dot
+	Store as hit if the t value is in te t_min t_max intervallum
+*/
+bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
+{
+	double	rayn_planen_dot;
+	double	t;
+	t_vec3	ray_p_plane_p;
+
+	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
+	if (fabs(rayn_planen_dot) < EPSILON)
+		return (false);
+
+	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
+	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
+	if (t < hit->t_min || t > hit->t_max)
+		return (false);
+	hit->t = t;
+	hit->hit_point = ray_at(ray, hit->t);
+	hit->hit_color = plane->plane_color;
+	hit->object.data = plane;
+	hit->object.obj_type = PLANE;
+	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
+	
+	calculate_plane_uv(plane, hit->hit_point);
+	return (true);
+}
+
+void	calculate_plane_uv(t_plane* plane, t_vec3 hit_point)
+{
+	t_vec3 up = {0,1,0};
+	if (fabs(plane->unit_normal_vec.x) > fabs(plane->unit_normal_vec.y) &&
+		fabs(plane->unit_normal_vec.x) > fabs(plane->unit_normal_vec.z))
+		up = (t_vec3){0, 1, 0};
+	else if (fabs(plane->unit_normal_vec.y) > fabs(plane->unit_normal_vec.z))
+		up = (t_vec3){0, 0, 1};
+	else
+		up = (t_vec3){1, 0, 0};
+	t_vec3 u = vec3_normalized(vec3_cross(up, plane->unit_normal_vec));
+	t_vec3 v = vec3_normalized(vec3_cross(plane->unit_normal_vec, u));
+	
+	t_vec3 hit_to_origin = vec3_sub_vec3(hit_point, plane->point);
+    plane->uv.u = vec3_dot(hit_to_origin, u);
+    plane->uv.v = vec3_dot(hit_to_origin, v);
+	plane->uv.tile_scale = 0.01;
+}
+
+void	calculate_sphere_uv(t_sphere *sphere, t_vec3 hit_point)
+{
+	t_vec3 temp = vec3_sub_vec3(hit_point, sphere->center);
+	t_vec3 temp_n = vec3_normalized(temp);
+	double temp_cos_theta = vec3_dot(temp_n, (t_vec3){0,1,0});
+	double theta = acos(temp_cos_theta);
+
+	double phi = atan2(temp_n.z, temp_n.x); 
+	sphere->uv.u = (phi + M_PI) / (2 * M_PI);
+	sphere->uv.v = theta / M_PI;
+
+	sphere->uv.tile_scale =  sphere->diameter / (sphere->diameter / 10);
+}
+
+//todo change that uv tili size 
+void	uv_calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
+{
+	double phi;
+	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
+
+	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
+	t_vec3 hit_point_flat = vec3_sub_vec3(axis_to_hit, vec3_multiply(cylinder->axis, height_projection));
+	if (fabs(cylinder->axis.x) > fabs(cylinder->axis.y) && fabs(cylinder->axis.x) > fabs(cylinder->axis.z))
+	{
+		phi = atan2(hit_point_flat.z, hit_point_flat.y);
+	}
+	else if (fabs(cylinder->axis.y) > fabs(cylinder->axis.x) && fabs(cylinder->axis.y) > fabs(cylinder->axis.z))
+	{
+		phi = atan2(hit_point_flat.z, hit_point_flat.x);
+	}
+	else
+	{
+		phi = atan2(hit_point_flat.y, hit_point_flat.x);
+	}
+	cylinder->side_uv.u = (phi + M_PI) / (2 * M_PI);
+	cylinder->side_uv.v = (height_projection + cylinder->height / 2) / cylinder->height;
+	//todo set uv.tile_scale value!
+	cylinder->side_uv.tile_scale = 10;
+}
+
+//todo change that calculating way 
+void uv_calculate_cylinder_cap(t_cylinder *cyl, t_vec3 cap_center, t_vec3 cap_normal, t_vec3 hit_point)
+{
+    t_vec3 center_to_hit = vec3_sub_vec3(hit_point, cap_center);
+	t_vec3 u_dir;
+	if (fabs(cap_normal.x) > fabs(cap_normal.y) && fabs(cap_normal.x) > fabs(cap_normal.z))
+		u_dir = (t_vec3){0, 1, 0};
+	else if (fabs(cap_normal.y) > fabs(cap_normal.z))
+		u_dir = (t_vec3){0, 0, 1};
+	else
+		u_dir = (t_vec3){1, 0, 0};
+    t_vec3 v_dir = vec3_cross(cap_normal, u_dir);
+
+    double u_local = vec3_dot(center_to_hit, u_dir);
+    double v_local = vec3_dot(center_to_hit, v_dir);
+
+    double cap_radius = cyl->diameter * 0.5;
+
+    cyl->cap_uv.u = 0.5 + (u_local / cap_radius) * 0.5;
+    cyl->cap_uv.v = 0.5 + (v_local / cap_radius) * 0.5;
+
+    cyl->cap_uv.tile_scale = 10;
+}
+
+/*
+	a : ray direction vector length squared
+	r : half diameter
+
+	c_dir : cylinder axis vector
+	ray_dir : ray direction vector
+
+	1. get a t value for the intersection point
+	2. check if its in the cylinder height.
+	3. set the hit point, color and normal.
+
+	4. Handle intersection with cylinder caps (top & bottom)
+	5. Compute correct normal for cap intersections
+
+	cylinder->axis must be normalized!
+*/
+bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+	double	a;
+	double	r;
+	double	half_b;
+
+	t_vec3	ray_dir;
+	t_vec3	delta_p;
+
+	ray_dir = ray->dir;
+	r = cylinder->diameter / 2;
+	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
+	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
+	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
+	double c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
+	double	check = half_b * half_b - a * c;
+	if(check < EPSILON)
+		return (false);
+
+	double t = (-half_b - sqrt(check)) / a;
+	if (t < hit->t_min || t > hit->t_max)
+	{
+		t = (-half_b + sqrt(check)) / a;
+		if (t <hit->t_min || t > hit->t_max)
+			return (false);
+	}
+	//check if is in cylinder height
+	t_vec3 hit_point = ray_at(ray, t);
+	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
+	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
+	
+	if (fabs(height_projection) > cylinder->height / 2)
+		return (false);
+	if (t < hit->t)
+	{
+		hit->t = t;
+		hit->hit_point = hit_point;
+		hit->hit_color = cylinder->cylinder_color;
+		
+		t_point3 hitpoint_height;
+		t_vec3 normal;
+		hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
+		normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
+		hit->normal = vec3_normalized(normal);
+		uv_calculate_clyinder_side(cylinder, hit->hit_point);
+		set_ray_opposite_normal(ray, hit, hit->normal);
+		return (true);
+	}
+	return (false);
+}
+
+bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit *hit, t_vec3 cap_normal)
+{
+	const double r = cylinder->diameter / 2;
+	//check if the ray is parallel to the cap plane
+	double check = vec3_dot(ray->dir, cap_normal);
+	if (fabs(check) < EPSILON)
+		return (false);
+
+	//calculate the t value for the intersection point on the cap
+	double t = vec3_dot(vec3_sub_vec3(cap_center, ray->orign), cap_normal) / check;
+	if (t < hit->t_min || t > hit->t_max)
+		return (false);
+	
+	t_point3 p = ray_at(ray, t);
+	if (vec3_length_squared(vec3_sub_vec3(p, cap_center)) > r * r)
+		return (false);
+
+	if (t < hit->t)
+	{
+		hit->t = t;
+		hit->hit_point = p;
+		hit->hit_color = cylinder->cylinder_color;
+		uv_calculate_cylinder_cap(cylinder, cap_center, cap_normal, hit->hit_point);
+		set_ray_opposite_normal(ray, hit, cap_normal);
+		return (true);
+	}
+	return (false);	
+}
+
+bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+{
+	if (!cylinder || !ray || !hit)
+		return (false);
+	double half_height = cylinder->height / 2.f;
+    t_vec3 up = vec3_normalized(cylinder->axis);
+    t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+    t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+
+	cylinder->is_bottomcap_hit = false;
+	cylinder->is_topcap_hit = false;
+	cylinder->is_side_hit = false;
+	
+	cylinder->is_side_hit  = hit_cylinder_side(cylinder, ray, hit);
+	cylinder->is_bottomcap_hit  = hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
+	cylinder->is_topcap_hit = hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+	
+    if (cylinder->is_side_hit || cylinder->is_topcap_hit || cylinder->is_bottomcap_hit)
+    {
+        hit->object.data = cylinder;
+        hit->object.obj_type = CYLINDER;
+        return (true);
+    }
+    return (false);
+}
+
+// bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+// {
+//     if (!cylinder || !ray || !hit)
+//         return (false);
+    
+//     bool is_hit = false;
+//     double half_height = cylinder->height / 2.f;
+    
+//     t_vec3 up = vec3_normalized(cylinder->axis);
+//     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
+//     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
+
+//     is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
+//                 hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
+//                 hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+//     if (is_hit)
+//     {
+//         hit->object.data = cylinder;
+//         hit->object.obj_type = CYLINDER;
+//     }
+//     return (is_hit);
+// }
+
+

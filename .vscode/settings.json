@@ -1,0 +1,26 @@
+{
+	"files.associations": {
+		"mathheader.h": "c",
+		"loadresource.h": "c",
+		"ios": "c",
+		"debug.h": "c",
+		"__locale": "c",
+		"libft.h": "c",
+		"stdbool.h": "c",
+		"assert.h": "c",
+		"__config": "c",
+		"locale": "c",
+		"bitset": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"parser.h": "c",
+		"mlx_tools.h": "c",
+		"objects.h": "c",
+		"get_next_line.h": "c",
+		"chrono": "c",
+		"iosfwd": "c",
+		"iterator": "c"
+	}
+}
