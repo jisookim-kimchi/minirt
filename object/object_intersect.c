@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/26 17:54:14 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/27 20:42:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
 	a = vec3_length_squared(ray->dir);
 	h = vec3_dot(ray->dir, oc);
-	c = vec3_length_squared(oc) -	 sphere_radius * sphere_radius;
+	c = vec3_length_squared(oc) - sphere_radius * sphere_radius;
 	discriminant = h * h - a * c;
 	if (discriminant < 0)
 		return (false);
@@ -87,7 +87,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->object.obj_type = SPHERE;
 	hit->object.data = sphere;
 	set_ray_opposite_normal(ray, hit, hit_normal);
-	calculate_sphere_uv(sphere, hit->hit_point);
+	// calculate_sphere_uv(sphere, hit->hit_point);
 	return (true);
 }
 

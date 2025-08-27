@@ -12,12 +12,12 @@
 static void camera_orientation(t_camera *camera)
 {
     t_vec3  right;
-    //t_vec3  up;
+    t_vec3  up;
 
     right = get_right_vector(camera->transform_comp);
-    //up = get_up_vector(camera->transform_comp);
+    up = get_up_vector(camera->transform_comp);
     camera->horizontal = vec3_multiply(right, camera->viewport_w);
-    camera->vertical = vec3_multiply((t_vec3){0,-1,0}, camera->viewport_h);
+    camera->vertical = vec3_multiply(up, -camera->viewport_h);
     camera->delta_horizontal = vec3_divide(camera->horizontal, (double)IMAGE_WIDTH);
     camera->delta_vertical = vec3_divide(camera->vertical, (double)IMAGE_HEIGHT);
 }

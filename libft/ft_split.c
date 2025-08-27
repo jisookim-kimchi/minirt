@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 10:05:28 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/18 18:36:34 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:15:37 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,12 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	startpoz = 0;
 	countw = f_countword(s, c);
-	//todo add splitarray into garbagelist
 	splitarray = ft_calloc(countw + 1, sizeof(char *));
 	if (splitarray == NULL || s == NULL)
 		return (NULL);
 	while (i < countw)
 	{
-		//todo add splitarray[i] into garbagelist
 		splitarray[i] = f_saveword(s, c, &startpoz);
-		//todo we may comment 	if (splitarray[i] == NULL) we may use garbage_lst_realease
 		if (splitarray[i] == NULL)
 		{
 			while (i > 0)

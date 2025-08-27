@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:36:33 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/18 20:28:52 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/27 20:12:30 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 void	print_vec3(const t_vec3 * vec3);
 void	print_color_float(const t_color_float *float_color);
+void	print_color_compare(const t_color_float *float_color1,
+			const t_color_float *float_color2);
 void	print_sphere_infos(const t_sphere *sphere);
 void	print_plane_infos(const t_plane *plane);
 void	print_objs(t_objs_list *obj);

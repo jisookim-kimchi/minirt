@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loadresource.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/21 14:45:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:55:41 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,12 @@ typedef struct s_camera
 t_camera    init_camera(t_screenpoint screen, t_transform_comp transform_comp);
 
 //transform_comp.c
-t_vec3  get_world_position(t_transform_comp *transform_comp);
-t_vec3 get_right_vector(t_transform_comp transform_comp);
-t_vec3 get_up_vector(t_transform_comp transform_comp);
-t_vec3 get_forward_vector(t_transform_comp transform_comp);
-t_transform_comp init_transform_comp(void);
-
+t_vec3              get_world_position(t_transform_comp *transform_comp);
+t_vec3              get_right_vector(t_transform_comp transform_comp);
+t_vec3              get_up_vector(t_transform_comp transform_comp);
+t_vec3              get_forward_vector(t_transform_comp transform_comp);
+t_transform_comp    init_transform_comp(void);
+void                add_transform_comp_position(t_transform_comp *comp, t_vec3 delta);
+void                set_transform_comp_position(t_transform_comp *comp, t_vec3 pos);
+void                rotation_transform_comp(t_camera *camera, double x, double y);
 #endif

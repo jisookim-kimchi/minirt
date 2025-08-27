@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/29 14:58:46 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:14:31 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ void	print_color_float(const t_color_float *float_color)
 	printf("\nThe float color values:\n"
 		"red: %f\tgreen: %f\tblue: %f\n",
 		float_color->red, float_color->green, float_color->blue);
+}
+
+void	print_color_compare(const t_color_float *float_color1,
+	const t_color_float *float_color2)
+{
+	printf("%sThe first color values:", BLUE);
+	print_color_float(float_color1);
+	printf("%sThe second color values:", CYAN);
+	print_color_float(float_color2);
+	printf("%s", DEFAULT);
 }
 
 void	print_sphere_infos(const t_sphere *sphere)
