@@ -40,7 +40,7 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 
 	if (hit_world(&shadow_ray, &temp_hit, object))
 	{
-		printf("is_shadow obj_type : %d\n", temp_hit.object.obj_type);
+		// printf("is_shadow obj_type : %d\n", temp_hit.object.obj_type);
 		// hit->object = temp_hit.object;
 		// hit->object.data = temp_hit.object.data;
 		// hit->object.obj_type = temp_hit.object.obj_type;
