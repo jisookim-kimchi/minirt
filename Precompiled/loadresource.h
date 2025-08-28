@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/21 14:45:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:08:13 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ typedef struct s_camera
 	float				viewport_h;
 	float				viewport_w;
     float               fov;
-    // float               far_clip;
-    // float               near_clip;
     t_vec3              horizontal;
     t_vec3              vertical;
     t_vec3              delta_horizontal;

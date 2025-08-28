@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/11 15:41:42 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:00:20 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /*
 	255,255,255
 */
-char *ft_strtok(char *str, const char c)
+char	*ft_strtok(char *str, const char c)
 {
-	static char *input;
+	static char	*input;
 	char		*start;
 	int			i;
 
@@ -27,7 +27,7 @@ char *ft_strtok(char *str, const char c)
 	if (!input || !*input)
 		return (NULL);
 	start = input;
-	while(input[i] && input[i] != c && input[i] != '\n')
+	while (input[i] && input[i] != c && input[i] != '\n')
 		i++;
 	if (input[i])
 	{
@@ -44,7 +44,7 @@ int	count_array_elem(char **tokens)
 	int	i;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 	{
 		i++;
 	}
@@ -59,101 +59,52 @@ int	count_array_elem(char **tokens)
 	// 255,255,255
 */
 
+static int	parse_single_color(char *token, float *color)
+{
+	if (!token || is_digit(token) == -1)
+		return (-1);
+	*color = ft_atof(token);
+	if (!check_value_in_range(*color, 0.0, 255.0))
+		return (-1);
+	*color /= 255.f;
+	return (1);
+}
+
 int	parse_color(char *token, float *red, float *green, float *blue)
 {
-	char			*temp;
-	
+	char	*temp;
+
 	if (ft_strchr(token, '.'))
 	{
 		printf("error parse_color\n");
 		return (-1);
 	}
-	
 	temp = ft_strtok(token, ',');
-	if (!temp)
+	if (parse_single_color(temp, red) == -1)
 		return (-1);
-	if (is_digit(temp) == -1)
-		return (-1);
-	*red = ft_atof(temp);
-	if (!check_value_in_range(*red, 0.0, 255.0))
-		return (-1);
-	*red /= 255.f;
-	
 	temp = ft_strtok(NULL, ',');
-	if (!temp)
+	if (parse_single_color(temp, green) == -1)
 		return (-1);
-	if (is_digit(temp) == -1)
-	 	return (-1);
-	*green = ft_atof(temp);
-	if (!check_value_in_range(*green, 0.0, 255.0))
-		return (-1);
-	*green /= 255.f;
-	
 	temp = ft_strtok(NULL, ',');
-	if (!temp)
-	{
+	if (parse_single_color(temp, blue) == -1)
 		return (-1);
-	}
-	if (is_digit(temp) == -1)
-	{
-		return (-1);
-	}
-	*blue = ft_atof(temp);
-	if (!check_value_in_range(*blue, 0.0, 255.0))
-	{
-		return (-1);
-	}
-	*blue /= 255.f;
 	return (1);
 }
 
 // we can get also float value...
 int	parse_vec3(char *token, double *x, double *y, double *z)
 {
-	// char			*temp;
+	char	**temp;
 
-	// temp = ft_strtok(token, ',');
-
-	// if (!temp)
-	// 	return (-1);
-	// if (is_digit(temp) == -1 && temp[0] != '-')
-	// {
-	// 	printf("faile is_digit\n");
-	// 	return (-1);
-	// }
-	// *x = ft_atof(temp);
-	
-	
-	// temp = ft_strtok(NULL, ',');
-	// if (!temp)
-	// 	return (-1);
-	// if (is_digit(temp) == -1 && temp[0] != '-')
-	// 	return (-1);
-	// *y = ft_atof(temp);
-	// temp = ft_strtok(NULL, ',');
-
-	// //temp -1
-	// if (!temp)
-	// 	return (-1);
-	// if (is_digit(temp) == -1 && temp[0] != '-')
-	// {
-	// 	return (-1);
-	// }
-	// *z = ft_atof(temp);
-
-	char **temp = ft_split(token, ',');
-    if (!temp || count_array_elem(temp) != 3)
+	temp = ft_split(token, ',');
+	if (!temp || count_array_elem(temp) != 3)
 	{
-		//free all exit(1);
-        return -1;
-		//release_garbage(garbage_lst);
+		return (-1);
 	}
-	// add_to_garbage_list(garbage_lst, do_malloc(temp, garbage_lst));
-    *x = ft_atof(temp[0]);
-    *y = ft_atof(temp[1]);
-    *z = ft_atof(temp[2]);
+	*x = ft_atof(temp[0]);
+	*y = ft_atof(temp[1]);
+	*z = ft_atof(temp[2]);
 	free_splited_str(temp);
-
 	return (1);
 }
 
@@ -162,9 +113,9 @@ void	free_splited_str(char **to_free)
 	int	i;
 
 	i = 0;
-	while(to_free[i])
+	while (to_free[i])
 	{
-		free(to_free[i]);
+		free (to_free[i]);
 		to_free[i] = NULL;
 		i++;
 	}
@@ -177,7 +128,7 @@ int	is_digit(const char *token)
 	int	i;
 
 	i = 0;
-	while(token[i])
+	while (token[i])
 	{
 		if (ft_isdigit(token[i]))
 		{
@@ -194,40 +145,67 @@ int	is_digit(const char *token)
 	float	ft_atof(char *str, bool *flag_float) 
 	//todo to check if we need that declare 
 */
-float	ft_atof(char *str)
+
+static void	jmp_whitespace_and_sign(const char **str, int *sign)
+{
+	while (**str == ' ' || (**str >= 9 && **str <= 13))
+		(*str)++;
+	if (**str == '-')
+	{
+		*sign = -1;
+		(*str)++;
+	}
+}
+
+static double	convert_to_integer(const char **str)
+{
+	double	num;
+
+	num = 0.0;
+	while (**str >= '0' && **str <= '9')
+	{
+		num = num * 10 + (**str - '0');
+		(*str)++;
+	}
+	return (num);
+}
+
+static double	convert_to_frac(const char **str)
+{
+	double	div;
+	double	frac;
+	float	temp;
+
+	temp = 0.f;
+	div = 1.0;
+	frac = 0.0;
+	if (**str == '.')
+	{
+		(*str)++;
+		while (**str >= '0' && **str <= '9')
+		{
+			temp = (**str - '0');
+			div *= 10.0;
+			frac += temp / div;
+			(*str)++;
+		}
+	}
+	return (frac);
+}
+
+float	ft_atof(const char *str)
 {
 	double		num;
 	int			sign;
-	double		div;
 	double		frac;
 
-	div = 1.0;
 	frac = 0.0;
 	sign = 1;
 	num = 0.0;
-	
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-')
-	{
-		sign = -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		num = num * 10 + (*str - '0');
-		str++;
-	}
-	if (*str == '.')
-	{
-		str++;
-		while (*str >= '0' && *str <= '9')
-		{
-			float temp = (*str - '0');
-			div *= 10.0;
-			frac += temp / div;
-			str++;
-		}
-	}
+	if (!str)
+		return (-1.0);
+	jmp_whitespace_and_sign(&str, &sign);
+	num = convert_to_integer(&str);
+	frac = convert_to_frac(&str);
 	return ((frac + num) * sign);
 }

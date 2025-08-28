@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/18 17:35:51 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/28 16:49:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		parse_camera(char *line, t_camera *camera);
 int		parse_light(char *line, t_light *light);
 
 //OBJ_parser.c
-int		parse_plane(char *line, t_plane *plane);
-int		parse_sphere(char *line, t_sphere *sphere);
-int		parse_cylinder(char *line, t_cylinder *cylinder);
+int		parse_plane(const char *line, t_plane *plane);
+int		parse_sphere(const char *line, t_sphere *sphere);
+int		parse_cylinder(const char *line, t_cylinder *cylinder);
 
 //parse_utils.c
 int		count_array_elem(char **tokens);
-char 	*ft_strtok(char *str, const char c);
+char	*ft_strtok(char *str, const char c);
 int		parse_color(char *token, float *red, float *green, float *blue);
 void	free_splited_str(char **to_free);
 
@@ -43,5 +43,5 @@ void	free_splited_str(char **to_free);
 //int		parse_vec3(char *token, float *x, float *y, float *z);
 int		parse_vec3(char *token, double *x, double *y, double *z);
 int		is_digit(const char *token);
-float	ft_atof(char *str);
+float	ft_atof(const char *str);
 #endif

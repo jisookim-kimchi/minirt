@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/23 17:38:18 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:04:05 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ bool	is_valid_file(char *path)
 	if (!path || ft_strlen(path) <= 3)
 		return (false);
 	check = ft_strlen(path) - 3;
-
 	if (ft_strncmp(path + check, ".rt", 3) == 0)
 	{
 		return (true);
@@ -50,14 +49,34 @@ int	open_file(char *path)
 /*  //todo
 	read_file in progress
 */
+static int	handle_line(char *line, t_window *window)
+{
+	int	result;
+
+	if (*line == '\n' || *line == '#')
+	{
+		free(line);
+		return (0);
+	}
+	result = parsing_start(line, window);
+	if (result < 0)
+	{
+		printf("parsing_start() error\n");
+		free_objs_list(&window->objs);
+		free(line);
+		exit(1);
+	}
+	free(line);
+	return (result);
+}
+
 int	read_file(int fd, t_window *window)
 {
-	char		*line;
-	int			result;
+	char	*line;
+	int		result;
 
 	line = NULL;
 	result = 0;
-
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -69,38 +88,10 @@ int	read_file(int fd, t_window *window)
 				printf("no line\n");
 				return (-1);
 			}
-			else
-			{	
-				printf("EOF reached.\n");
-				break;
-			}	
-			return 0;
+			printf("EOF reached.\n");
+			break ;
 		}
-		if (*line == '\n' || *line == '#')
-		{
-			free(line);
-			continue;
-		}
-		result = parsing_start(line, window);
-		if (result < 0)
-		{
-			printf("parsing_start() error\n");
-			free_objs_list(&window->objs);
-			free(line);
-			exit(1);
-		}
-		free(line);
+		result = handle_line(line, window);
 	}
 	return (result);
 }
-
-// int main(void)
-// {
-// 	char *path = "../";
-// 	if (!is_valid_file(path))
-// 		return (-1);
-// 	int fd = open_file(path);
-// 	int  = read_file(fd);
-	
-// 	return (0);
-// }
