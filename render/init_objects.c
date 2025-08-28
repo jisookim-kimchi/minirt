@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:28:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/03 16:51:14 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/28 19:45:26 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_objs_list	*init_objs_list(void)
 	color_float_set(&cylinder_color, 0.0f, 1.0f, 0.0f);
 
 	cylinder = create_cylinder(cylinder_axis, cylinder_center, diameter, height, cylinder_color);
-
+	
 	add_member_to_obj_list(&list, plane1);
 	add_member_to_obj_list(&list, cylinder);
 	add_member_to_obj_list(&list, sphere);
