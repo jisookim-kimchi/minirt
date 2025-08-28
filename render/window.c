@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/28 13:25:32 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:08:17 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,25 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	}
 }
 
+void antialisign_message(t_window * win)
+{
+	if (win->antialisign_text)
+	{
+		mlx_delete_image(win->mlx, win->antialisign_text);
+		win->antialisign_text = NULL;
+	}
+	if (win->antialisign_on == true)
+	{
+		// win->antialisign_text->enabled = true;
+		win->antialisign_text = mlx_put_string(win->mlx, "Antialiasign: ON", 5, 5);
+	}
+	else
+	{
+		// win->antialisign_text->enabled = false;
+		win->antialisign_text = mlx_put_string(win->mlx, "Antialiasign: OFF", 5, 5);
+	}
+}
+
 /*
 	The color layout: 0xAARRGGBB
 	AA = Alpha (opacity)
@@ -105,8 +124,7 @@ void	image_hook(void *param)
 		}
 		y++;
 	}
-	if (win->antialisign_on == true)
-		mlx_put_string(win->mlx, "Antialiasign", 5, 5);
+	antialisign_message(win);
 }
 
 char	*check_file_arg(int argc, char **argv)
@@ -144,6 +162,7 @@ int	main(int argc, char **argv)
 	win.camera.transform_comp.forward = (t_vec3){0,0,-1};
 	win.objs = NULL;
 
+
 	/* parsing start */
 	char *path = check_file_arg(argc, argv);
 	if (!is_valid_file(path))
@@ -175,6 +194,7 @@ int	main(int argc, char **argv)
 	win.image = mlx_new_image(win.mlx, \
 		(int32_t)screen.x, (int32_t)(screen.y));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	win.antialisign_text = mlx_put_string(win.mlx, "Antialiasign: ", 5, 5);
 	
 	/* image rendering start */
 	image_hook(&win);
