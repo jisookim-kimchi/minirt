@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/28 18:21:41 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:33:49 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->object.obj_type = SPHERE;
 	hit->object.data = sphere;
 	set_ray_opposite_normal(ray, hit, hit_normal);
-	// calculate_sphere_uv(sphere, hit->hit_point);
+	calculate_sphere_uv(sphere, hit->hit_point);
 	return (true);
 }
 
@@ -412,6 +412,7 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
 	hit->normal = vec3_normalized(normal);
 	set_ray_opposite_normal(ray, hit, hit->normal);
+	uv_calculate_clyinder_side(cylinder, hit->hit_point);
 	return (true);
 }
 
@@ -452,6 +453,7 @@ bool	hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center, t_ray *ray, t_hit
 	hit->hit_color = cylinder->cylinder_color;
 	set_ray_opposite_normal(ray, hit, cap_normal);
 	// printf("%scylinder cap: true%s\n", YELLOW, DEFAULT);
+	uv_calculate_cylinder_cap(cylinder, cap_center, cap_normal, hit->hit_point);
 	return (true);	
 }
 
