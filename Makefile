@@ -94,12 +94,13 @@ cleanmlx:
 clean:
 	@rm -rf $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
-# 	@$(MAKE) -C $(GNL_DIR) clean
+	@$(MAKE) -C $(GNL_DIR) clean
 
 fclean: clean cleanmlx
-	@rm -f $(NAME)
+	@rm -rf $(OBJ_DIR)
+	@rm -rf $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-# 	@$(MAKE) -C $(GNL_DIR) fclean
+	@$(MAKE) -C $(GNL_DIR) fclean
 
 re: fclean all
 

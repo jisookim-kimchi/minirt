@@ -1,8 +1,10 @@
 obj/**/*.o
 libft/**/*.o
+gnl/**/*.o
 MLX42
 .gitmodules
 copy_files_to_another_branch.sh
 miniRT
 libft/libft.a
+*.a
 *.txt

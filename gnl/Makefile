@@ -10,6 +10,9 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
 	rm -rf $(OBJS)
 
@@ -22,3 +25,7 @@ d: $(NAME)
 
 t: $(NAME)
 	./gnl test.txt
+
+re: fclean all
+
+.PHONY: all clean fclean re
