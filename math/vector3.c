@@ -186,6 +186,16 @@ t_vec3	vec3_normalized(t_vec3 vec3)
 	return (vec3);
 }
 
+t_color_float	color_float_add(t_color_float color1, t_color_float color2)
+{
+    t_color_float   result;
+    
+    result.red = color1.red + color2.red;
+    result.green = color1.green + color2.green;
+    result.blue = color1.blue + color2.blue;
+    return (result);
+}
+
 t_color_float color_float_multiply(t_color_float color, double t)
 {
     t_color_float   result;

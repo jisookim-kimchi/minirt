@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 21:06:20 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/28 13:25:32 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	image_hook(void *param)
 	uint32_t	y;
 	// uint32_t	blue;
 	t_color_32	pixel_center_col;
-	t_ray		ray_pixel_center;
+	// t_ray		ray_pixel_center;
 
 	win = (t_window *)param;
 
@@ -97,8 +97,9 @@ void	image_hook(void *param)
 		x = 0;
 		while (x < win->image->width)
 		{
-			get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-			pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
+			// get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
+			// pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
+			switch_antialisgn(win, x, y, &pixel_center_col);
 			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
 			x++;
 		}

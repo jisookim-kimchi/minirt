@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/07/29 18:49:29 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/28 13:19:30 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_ray	get_pixel_ray(int i, int j, uint32_t x, uint32_t y, t_camera *camera, int 
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	uv = vec3_plus_vec3(camera->left_bottom, uv);
 	ray_dir = vec3_sub_vec3(uv, camera->left_bottom);
-	pixel_ray = ray(camera->transform_comp.pos, uv);
+	pixel_ray = create_ray(camera->transform_comp.transform.position, uv);
 	return (pixel_ray);
 }
 
@@ -130,27 +130,25 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win,
 }
 
 
-t_color_32	switch_antialisgn(t_window *win,
-	uint32_t x, uint32_t y)
+void	switch_antialisgn(t_window *win,
+	uint32_t x, uint32_t y, t_color_32 *pixel_center_col)
 {
-	t_color_32		pixel_center_col;
 	t_ray			ray_pixel_center;
 	t_color_float	temp;
 	int				samples;
 
 	samples = 5;
-	ray_pixel_center = ray(vec3(0, 0, 0), vec3(1, 1, 1));
+	ray_pixel_center = create_ray(vec3(0, 0, 0), vec3(1, 1, 1));
 	if (win->antialisign_on == true)
 	{
 		//check where should put
 		// mlx_put_string(win->mlx, "Antialisign", 100, 100);
 		temp = n_samples_in_pixel(samples, win, x, y);
-		pixel_center_col = color_transform_to_int(&temp);
+		color_transform_to_int(&temp, pixel_center_col);
 	}
 	else
 	{
 		get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-		pixel_center_col = pixel_center_color(&ray_pixel_center, win);
+		pixel_center_color(&ray_pixel_center, win, pixel_center_col);
 	}
-	return (pixel_center_col);
 }
