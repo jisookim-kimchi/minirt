@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 19:21:31 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:38:58 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,12 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	t_phong_terms	phong;
 	t_color_float	result_float;
 	
-	// if (hit->object.has_checkerboard)
-	// {
-	// 	t_color_float white = {1.0, 1.0, 1.0};
-	// 	t_color_float black = {0.0, 0.0, 0.0};
-	// 	hit->hit_color = checkboard_pattern(hit, white, black);
-	// }
+	if (hit->object.has_checkerboard)
+	{
+		t_color_float white = {1.0, 1.0, 1.0};
+		t_color_float black = {0.0, 0.0, 0.0};
+		hit->hit_color = checkboard_pattern(hit, white, black);
+	}
 	
 	phong.diffuse_t = diffuse_term(hit, &win->light);
 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
@@ -191,26 +191,26 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))
 	{
-		// if (record.object.obj_type == SPHERE)
-		// {
-		// 	record.object.has_checkerboard = true;
-		// 	win->objs->has_checkerboard = true;
-		// }
-		// else if (record.object.obj_type == PLANE)
-		// {
-		// 	record.object.has_checkerboard = true;
-		// 	win->objs->has_checkerboard = true;
-		// }
-		// else if (record.object.obj_type == CYLINDER)
-		// {
-		// 	record.object.has_checkerboard = true;
-		// 	win->objs->has_checkerboard = true;
-		// }
-		// else
-		// {
-		// 	record.object.has_checkerboard = false;	
-		// 	win->objs->has_checkerboard = false;
-		// }
+		if (record.object.obj_type == SPHERE)
+		{
+			record.object.has_checkerboard = true;
+			win->objs->has_checkerboard = true;
+		}
+		else if (record.object.obj_type == PLANE)
+		{
+			record.object.has_checkerboard = true;
+			win->objs->has_checkerboard = true;
+		}
+		else if (record.object.obj_type == CYLINDER)
+		{
+			record.object.has_checkerboard = true;
+			win->objs->has_checkerboard = true;
+		}
+		else
+		{
+			record.object.has_checkerboard = false;	
+			win->objs->has_checkerboard = false;
+		}
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
 			// t_cylinder *c = (t_cylinder*)win->objs->data;
@@ -233,19 +233,19 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 			// 	color_transform_to_int(&shadow_color, result_color);
 			// 	printf("sphere shadow_color %f %f %f\n", shadow_color.red, shadow_color.green, shadow_color.blue);
 			// }
-			// if (record.object.has_checkerboard)
-			// {
-			// 	t_color_float white = {1.0, 1.0, 1.0};
-			// 	t_color_float black = {0.0, 0.0, 0.0};
-			// 	t_color_float checker_color = checkboard_pattern(&record, white, black);
-			// 	shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
-			// 	color_transform_to_int(&shadow_color, result_color);
-			// }
-			// else
-			// {
+			if (record.object.has_checkerboard)
+			{
+				t_color_float white = {1.0, 1.0, 1.0};
+				t_color_float black = {0.0, 0.0, 0.0};
+				t_color_float checker_color = checkboard_pattern(&record, white, black);
+				shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
+				color_transform_to_int(&shadow_color, result_color);
+			}
+			else
+			{
 				shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
 				color_transform_to_int(&shadow_color, result_color);
-			//}
+			}
 		}
 		else
 		{
