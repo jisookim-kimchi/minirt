@@ -5,4 +5,5 @@ MLX42
 copy_files_to_another_branch.sh
 miniRT
 libft/libft.a
+*.a
 *.txt
