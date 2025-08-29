@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 17:53:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 20:02:23 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ void			switch_antialisgn(t_window *win,
 					t_color_32 *pixel_center_col);
 
 //checkboard.c
-t_color_float	checkboard_pattern(t_hit *hit,
-					t_color_float white, t_color_float black);
+t_color_float	checkboard_pattern(t_hit *hit);
+void			checkboard_switch_on(t_window *win, t_hit *record);
+
+// hooks.c
+void			ft_key_hook(mlx_key_data_t keydata, void *param);
+void			image_hook(void *param);
 
 #endif

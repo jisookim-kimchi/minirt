@@ -42,6 +42,7 @@ SRCS :=	object/2d_objects.c \
 		render/pixel_color.c \
 		render/antialisign.c \
 		render/checkboard.c \
+		render/hooks.c \
 		debug/messages.c \
 		parser/ACL_parser.c \
 		parser/OBJ_parser.c \

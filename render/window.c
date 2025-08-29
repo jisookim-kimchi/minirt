@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 17:32:43 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 18:59:59 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,6 @@ void	error_window(t_window *win)
 	ft_putendl_fd((char *)mlx_strerror(mlx_errno), 2);
 	if (win->mlx)
 		mlx_terminate(win->mlx);
-}
-
-void	ft_key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_window	*win;
-	double		delta_move;
-
-	win = (t_window *)param;
-	delta_move = 0.05;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(win->mlx);
-	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
-		win->antialisign.antialisign_on = true;
-	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
-		win->antialisign.antialisign_on = false;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(0, -1.0 * delta_move, 0));
-		print_camera_infos(&win->camera);
-	}
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(0, delta_move, 0));
-		print_camera_infos(&win->camera);
-	}
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(-1.0 *delta_move, 0, 0));
-		print_camera_infos(&win->camera);
-	}
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(delta_move, 0, 0));
-		print_camera_infos(&win->camera);
-	}
-	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
-	{
-		set_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, 0));
-		print_camera_infos(&win->camera);
-	}
-	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
-	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, delta_move));
-		print_camera_infos(&win->camera);
-	}
-	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
-	{
-		add_transform_comp_position(&win->camera.transform_comp, vec3(0, 0, -1.0 * delta_move));
-		print_camera_infos(&win->camera);
-	}
 }
 
 void	antialisign_message(t_window *win)
@@ -86,44 +36,6 @@ void	antialisign_message(t_window *win)
 		win->antialisign.antialisign_text =
 			mlx_put_string(win->mlx, "Antialiasign: OFF", 5, 5);
 	}
-}
-
-/*
-	The color layout: 0xAARRGGBB
-	AA = Alpha (opacity)
-	RR = Red
-	GG = Green
-	BB = Blue
-
-	The blue color made to check if the window can run. However it the 
-	final version it should be deleted.
-*/
-
-void	image_hook(void *param)
-{
-	t_window	*win;
-	// uint32_t	blue;
-	t_color_32	pixel_center_col;
-	// t_ray		ray_pixel_center;
-
-	win = (t_window *)param;
-
-	win->antialisign.y = 0;
-	while (win->antialisign.y < win->image->height)
-	{
-		win->antialisign.x = 0;
-		while (win->antialisign.x < win->image->width)
-		{
-			// get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
-			// pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
-			switch_antialisgn(win, &pixel_center_col);
-			mlx_put_pixel(win->image, win->antialisign.x,
-				win->antialisign.y, pixel_center_col.result_color);
-			win->antialisign.x++;
-		}
-		win->antialisign.y++;
-	}
-	antialisign_message(win);
 }
 
 char	*check_file_arg(int argc, char **argv)
