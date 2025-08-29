@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 17:19:23 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 20:47:25 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ typedef struct s_plane
 	t_vec3			point;
 	t_color_float	plane_color;
 }	t_plane;
+
+typedef struct s_intersection
+{
+    double	a;
+    double	half_b;
+    double	c;
+    double	t;
+	double	discriminant;
+} t_intersection;
 
 typedef struct s_sphere
 {

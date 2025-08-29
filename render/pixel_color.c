@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 18:43:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 20:41:56 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,15 +152,15 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 			win->light.light_ratio * phong.specular_t);
 
 	//FOR SPOT_LIGHT
-	// if (is_in_spot_cone(&win->spot_light, hit->hit_point))
-	// {
-    // 	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
-    // 	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
+	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
+	{
+    	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
+    	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
 		
-    // 	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
-    // 	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
-    // 	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
-	// }
+    	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
+    	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
+    	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
+	}
 	
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
