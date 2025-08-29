@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ACL_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 16:49:02 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/28 17:59:36 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 11:48:15 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,6 @@ int	parse_camera(char *line, t_camera *camera)
 	parse_vec3(tokens[2], &camera->transform_comp.forward.x,
 		&camera->transform_comp.forward.y,
 		&camera->transform_comp.forward.z);
-	if ((camera->transform_comp.forward.x > 1 || camera->transform_comp.forward.x < -1)
-		|| (camera->transform_comp.forward.y > 1 || camera->transform_comp.forward.y < -1)
-		|| (camera->transform_comp.forward.z > 1 || camera->transform_comp.forward.z < -1))
-		return (-1);
 	fov = ft_atof(tokens[3]);
 	if (fov < 0 || fov > 180)
 		return (-1);

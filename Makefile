@@ -49,8 +49,6 @@ SRCS :=	object/2d_objects.c \
 		parser/parse_utils.c \
 		parser/parse.c \
 		garbage/garbage.c \
-		gnl/get_next_line.c \
-		gnl/get_next_line_utils.c 
 		
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
@@ -95,12 +93,13 @@ cleanmlx:
 clean:
 	@rm -rf $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
-# 	@$(MAKE) -C $(GNL_DIR) clean
+	@$(MAKE) -C $(GNL_DIR) clean
 
 fclean: clean cleanmlx
-	@rm -f $(NAME)
+	@rm -rf $(OBJ_DIR)
+	@rm -rf $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-# 	@$(MAKE) -C $(GNL_DIR) fclean
+	@$(MAKE) -C $(GNL_DIR) fclean
 
 re: fclean all
 
