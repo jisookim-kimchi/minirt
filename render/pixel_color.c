@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/28 18:33:16 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 14:47:39 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@
 	camera->transform_comp->pos. It is depend on the structure scope
 */
 
-void	get_ray_from_camera(t_camera *camera, t_ray *ray,
-	uint32_t x, uint32_t y)
+void	get_ray_from_camera(t_window *win, t_ray *ray)
 {
 	t_vec3	pixel_center;
 	t_vec3	u_horizontal;
@@ -36,13 +35,13 @@ void	get_ray_from_camera(t_camera *camera, t_ray *ray,
 	t_vec3	uv;
 
 	//memo make offset of ray from camera 
-	ray->orign = vec3_plus_vec3(camera->transform_comp.transform.position,
-                            vec3_multiply(camera->transform_comp.forward, EPSILON));
+	ray->orign = vec3_plus_vec3(win->camera.transform_comp.transform.position,
+                            vec3_multiply(win->camera.transform_comp.forward, EPSILON));
 	//ray->orign = camera->transform_comp.transform->position;
-	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
-	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
+	u_horizontal = vec3_multiply(win->camera.delta_horizontal, (double)(win->antialisign.x));
+	v_vertical = vec3_multiply(win->camera.delta_vertical, (double)(win->antialisign.y));
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
-	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
+	pixel_center = vec3_plus_vec3(win->camera.pixel00loc, uv);
 	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
 }
 

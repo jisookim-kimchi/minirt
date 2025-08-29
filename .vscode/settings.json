@@ -21,6 +21,7 @@
 		"get_next_line.h": "c",
 		"chrono": "c",
 		"iosfwd": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"lighting.h": "c"
 	}
 }

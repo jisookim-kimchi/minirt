@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/28 17:08:17 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 16:29:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(win->mlx);
 	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
-		win->antialisign_on = true;
+		win->antialisign.antialisign_on = true;
 	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
-		win->antialisign_on = false;
+		win->antialisign.antialisign_on = false;
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 	{
 		add_transform_comp_position(&win->camera.transform_comp, vec3(0, -1.0 * delta_move, 0));
@@ -69,22 +69,22 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	}
 }
 
-void antialisign_message(t_window * win)
+void	antialisign_message(t_window * win)
 {
-	if (win->antialisign_text)
+	if (win->antialisign.antialisign_text)
 	{
-		mlx_delete_image(win->mlx, win->antialisign_text);
-		win->antialisign_text = NULL;
+		mlx_delete_image(win->mlx, win->antialisign.antialisign_text);
+		win->antialisign.antialisign_text = NULL;
 	}
-	if (win->antialisign_on == true)
+	if (win->antialisign.antialisign_on == true)
 	{
-		// win->antialisign_text->enabled = true;
-		win->antialisign_text = mlx_put_string(win->mlx, "Antialiasign: ON", 5, 5);
+		win->antialisign.antialisign_text = 
+			mlx_put_string(win->mlx, "Antialiasign: ON", 5, 5);
 	}
 	else
 	{
-		// win->antialisign_text->enabled = false;
-		win->antialisign_text = mlx_put_string(win->mlx, "Antialiasign: OFF", 5, 5);
+		win->antialisign.antialisign_text =
+			mlx_put_string(win->mlx, "Antialiasign: OFF", 5, 5);
 	}
 }
 
@@ -102,27 +102,26 @@ void antialisign_message(t_window * win)
 void	image_hook(void *param)
 {
 	t_window	*win;
-	uint32_t	x;
-	uint32_t	y;
 	// uint32_t	blue;
 	t_color_32	pixel_center_col;
 	// t_ray		ray_pixel_center;
 
 	win = (t_window *)param;
 
-	y = 0;
-	while (y < win->image->height)
+	win->antialisign.y = 0;
+	while (win->antialisign.y < win->image->height)
 	{
-		x = 0;
-		while (x < win->image->width)
+		win->antialisign.x = 0;
+		while (win->antialisign.x < win->image->width)
 		{
 			// get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
 			// pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
-			switch_antialisgn(win, x, y, &pixel_center_col);
-			mlx_put_pixel(win->image, x, y, pixel_center_col.result_color);
-			x++;
+			switch_antialisgn(win, &pixel_center_col);
+			mlx_put_pixel(win->image, win->antialisign.x,
+				win->antialisign.y, pixel_center_col.result_color);
+			win->antialisign.x++;
 		}
-		y++;
+		win->antialisign.y++;
 	}
 	antialisign_message(win);
 }
@@ -194,7 +193,7 @@ int	main(int argc, char **argv)
 	win.image = mlx_new_image(win.mlx, \
 		(int32_t)screen.x, (int32_t)(screen.y));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	win.antialisign_text = mlx_put_string(win.mlx, "Antialiasign: ", 5, 5);
+	// win.antialisign_text = mlx_put_string(win.mlx, "Antialiasign: ", 5, 5);
 	
 	/* image rendering start */
 	image_hook(&win);
