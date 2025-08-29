@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/28 16:49:58 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 12:38:22 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 //parse.c
 int		parsing_start(char *line, t_window *window);
+void	free_splited_str(char **to_free);
 
 //parse_file.c
 bool	is_valid_file(char *path);

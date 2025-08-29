@@ -48,9 +48,12 @@ SRCS :=	object/2d_objects.c \
 		parser/parse_file.c \
 		parser/parse_utils.c \
 		parser/parse.c \
+		parser/ft_atof.c\
+		parser/free.c\
 		garbage/garbage.c \
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\
+	
 
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
