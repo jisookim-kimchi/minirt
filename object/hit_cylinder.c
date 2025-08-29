@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 17:17:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 20:47:17 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 21:49:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,16 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
     t_vec3 top_center = vec3_plus_vec3(cylinder->center, vec3_multiply(up, half_height));
     t_vec3 bottom_center = vec3_sub_vec3(cylinder->center, vec3_multiply(up, half_height));
 
-	is_hit =  hit_cylinder_side(cylinder, ray, hit) ||
-				hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0)) ||
-         		hit_cylinder_cap(cylinder, top_center, ray, hit, up);
+	is_hit =  hit_cylinder_side(cylinder, ray, hit) || hit_cylinder_cap(cylinder, top_center, ray, hit, up)
+				|| hit_cylinder_cap(cylinder, bottom_center, ray, hit, vec3_multiply(up, -1.0));
 	
+	if (is_hit)
+	{
+		hit->object.obj_type = CYLINDER;
+		hit->object.data = cylinder;
+		hit->hit_color = cylinder->cylinder_color;
+	}
+				
     return (is_hit);
 }
 

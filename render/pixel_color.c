@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 20:41:56 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 22:26:00 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
 		// 	if (record.object.has_checkerboard)
-		// 	{
+		// 	{	
 		// 		t_color_float white = {1.0, 1.0, 1.0};
 		// 		t_color_float black = {0.0, 0.0, 0.0};
 		// 		t_color_float checker_color = checkboard_pattern(&record, white, black);
