@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 16:29:52 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:19:21 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void 			antialisign_message(t_window * win);
 //antialisign.c
 t_color_float	pixel_sample_color(t_ray *ray, t_window *win);
 t_ray			get_pixel_ray(t_window *window);
-t_color_float	n_samples_in_pixel(int samples, t_window *win);
+t_color_float	n_samples_in_pixel(t_window *win);
 void			switch_antialisgn(t_window *win, 
 					t_color_32 *pixel_center_col);
 

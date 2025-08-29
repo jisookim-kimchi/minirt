@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 14:47:39 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:08:10 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,26 +212,6 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 		}
 		if (is_shadow(win->objs, &win->light, &record) == true)
 		{
-			// t_cylinder *c = (t_cylinder*)win->objs->data;
-			// if (c)
-			// {
-			// 	t_color_float white = {1.0, 1.0, 1.0};
-			// 	t_color_float black = {0.0, 0.0, 0.0};
-			// 	t_color_float checker_color = checkboard_pattern(&record, white, black);
-			// 	shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
-			// 	color_transform_to_int(&shadow_color, result_color);
-			// 	printf("cylinder shadow_color %f %f %f\n", shadow_color.red, shadow_color.green, shadow_color.blue);
-			// }
-			// t_sphere *s = (t_sphere *)win->objs->data;
-			// if (s)
-			// {
-			// 	t_color_float white = {1.0, 1.0, 1.0};
-			// 	t_color_float black = {0.0, 0.0, 0.0};
-			// 	t_color_float checker_color = checkboard_pattern(&record, white, black);
-			// 	shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
-			// 	color_transform_to_int(&shadow_color, result_color);
-			// 	printf("sphere shadow_color %f %f %f\n", shadow_color.red, shadow_color.green, shadow_color.blue);
-			// }
 			if (record.object.has_checkerboard)
 			{
 				t_color_float white = {1.0, 1.0, 1.0};

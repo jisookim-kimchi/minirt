@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 16:30:08 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:21:49 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_ray	get_pixel_ray(t_window *win)
 	pixel_center_color. However the pixel_center_color need to modify it
 	can store the result in t_color_float datatype too.
 */
-t_color_float	n_samples_in_pixel(int samples, t_window *win)
+t_color_float	n_samples_in_pixel(t_window *win)
 {
 	t_color_float	result;
 	t_color_float	sample;
@@ -75,10 +75,10 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win)
 
 	win->antialisign.i = 0;
 	color_float_set(&result, 0.0f, 0.0f, 0.0f);
-	while (win->antialisign.i < samples)
+	while (win->antialisign.i < win->antialisign.samples_num)
 	{
 		win->antialisign.j = 0;
-		while (win->antialisign.j < samples)
+		while (win->antialisign.j < win->antialisign.samples_num)
 		{
 			pixel_ray = get_pixel_ray(win);
 			sample = pixel_sample_color(&pixel_ray, win);
@@ -87,7 +87,9 @@ t_color_float	n_samples_in_pixel(int samples, t_window *win)
 		}
 		win->antialisign.i++;
 	}
-	result = color_float_divide(result, (double)(samples));
+	result = color_float_divide(result,
+			(double)(win->antialisign.samples_num
+				* win->antialisign.samples_num));
 	return (result);
 }
 
@@ -96,13 +98,12 @@ void	switch_antialisgn(t_window *win,
 {
 	t_ray			ray_pixel_center;
 	t_color_float	temp;
-	int				samples;
 
-	samples = 5;
+	win->antialisign.samples_num = 5;
 	ray_pixel_center = create_ray(vec3(0, 0, 0), vec3(1, 1, 1));
 	if (win->antialisign.antialisign_on == true)
 	{
-		temp = n_samples_in_pixel(samples, win);
+		temp = n_samples_in_pixel(win);
 		color_transform_to_int(&temp, pixel_center_col);
 	}
 	else
