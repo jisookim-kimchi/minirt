@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 20:45:30 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 14:37:23 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 	if (obj->obj_type == SPHERE)
 		return (hit_sphere((t_sphere *)obj->data, ray, hit));
 	if (obj->obj_type == CYLINDER)
-	 	return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
+		return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
 	return (false);
 }
 
@@ -90,16 +90,15 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	temp.t_max = record->t_max;
 	found_hit = false;
 	loop_objects = objects;
-
 	while (loop_objects)
 	{
-		if ((loop_objects->data != record->object.data) && ray_intersect(loop_objects, ray, &temp))
+		if ((loop_objects->data != record->object.data)
+			&& ray_intersect(loop_objects, ray, &temp))
 		{
 			found_hit = true;
 			temp.t_max = temp.t;
 			*record = temp;
 			record->object.obj_type = temp.object.obj_type;
-			// printf("in hit_world object.obj_type : %d\n", temp.object.obj_type);
 		}
 		loop_objects = loop_objects->next;
 	}
@@ -107,9 +106,12 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 }
 
 /*
-	The get_hittable_list function check for all of the object if it is hit by the ray.
-	It will give the hittable_list, if in the hittable_list already doesn't 
-	exist an object which is hited by the ray and it is closer to the ray origin
+	The get_hittable_list function check for all of the object
+	if it is hit by the ray.
+	It will give the hittable_list,
+	if in the hittable_list already doesn't 
+	exist an object which is hited by the ray
+	and it is closer to the ray origin
 */
 t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {
@@ -122,19 +124,10 @@ t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
 		{
 			if (hit)
 			{
-				// printf("GREEN\n");
-				// printf("hit\n");
-				// printf("DEFAULT\n");
 				add_member_to_obj_list(&hittable_list, obj);
 			}
 		}
 		obj = obj->next;
 	}
 	return (hittable_list);
-}
-
-void	set_ray_interval(t_hit *hit, float set_t_min, float set_t_max)
-{
-	hit->t_min = set_t_min;
-	hit->t_max = set_t_max;
 }

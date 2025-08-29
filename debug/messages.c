@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:14:47 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 20:14:31 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 14:27:01 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,6 @@ void	print_sphere_infos(const t_sphere *sphere)
 	print_vec3(&sphere->center);
 	printf("diamater: %f\n", sphere->diameter);
 	print_color_float(&sphere->sphere_color);
-	if (sphere->obj_fill == SOLID)
-		printf("fill type: SOLID\n");
-	else
-		printf("fill type: SHELL\n");
 }
 
 void	print_plane_infos(const t_plane *plane)

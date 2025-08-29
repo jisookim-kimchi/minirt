@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 12:35:28 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:30:16 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ static int	handle_sphere(const char *line, t_window *window)
 	{
 		return (-1);
 	}
-	obj = create_sphere(sphere->center, sphere->diameter, sphere->sphere_color);
+	obj = create_sphere(sphere);
 	if (!obj)
 	{
 		printf("Failed to create object\n");
 		free(sphere);
 		return (-1);
 	}
-	free(sphere);
 	add_member_to_obj_list(&window->objs, obj);
 	return (1);
 }
@@ -48,15 +47,13 @@ static int	handle_plane(const char *line, t_window *window)
 	{
 		return (-1);
 	}
-	obj = create_plane(plane->unit_normal_vec, plane->point,
-			plane->plane_color);
+	obj = create_plane(plane);
 	if (!obj)
 	{
 		printf("Failed to create object\n");
 		free(plane);
 		return (-1);
 	}
-	free(plane);
 	add_member_to_obj_list(&window->objs, obj);
 	return (1);
 }
@@ -68,18 +65,15 @@ static int	handle_cylinder(const char *line, t_window *window)
 
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder || parse_cylinder(line, cylinder) == -1)
-	{
 		return (-1);
-	}
-	obj = create_cylinder(cylinder->axis, cylinder->center,
-			cylinder->diameter, cylinder->height, cylinder->cylinder_color);
+	obj = create_cylinder(cylinder);
 	if (!obj)
 	{
 		printf("Failed to create object\n");
 		free(cylinder);
 		return (-1);
 	}
-	free(cylinder);
+	//free(cylinder);
 	add_member_to_obj_list(&window->objs, obj);
 	return (1);
 }

@@ -19,11 +19,15 @@ HEADER = -I $(LIBMLX) -I./math -I./object -I./Precompiled -I./lighting -I./parse
 LIBFT = $(LIBFT_DIR)/libft.a
 #GNL = $(GNL_DIR)/libgnl.a
 
-SRCS :=	object/2d_objects.c \
+SRCS :=	object/2d_3d_objects_helper.c \
+		object/2d_objects.c \
 		object/3d_objects.c \
 		object/object_intersect.c \
 		object/object_list.c \
 		object/check_interval.c\
+		object/material_uv_init.c \
+		object/calculate_uv.c \
+		object/hit_cylinder.c \
 		math/mathutils.c \
 		math/quaternion.c \
 		math/rotator.c \
@@ -40,7 +44,6 @@ SRCS :=	object/2d_objects.c \
 		Precompiled/transform_comp.c \
 		render/window.c \
 		render/pixel_color.c \
-		render/init_objects.c \
 		render/antialisign.c \
 		debug/messages.c \
 		parser/ACL_parser.c \
