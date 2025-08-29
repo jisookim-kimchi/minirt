@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 16:29:35 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:32:43 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	}
 }
 
-void	antialisign_message(t_window * win)
+void	antialisign_message(t_window *win)
 {
 	if (win->antialisign.antialisign_text)
 	{

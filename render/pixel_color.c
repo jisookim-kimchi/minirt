@@ -6,12 +6,10 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 17:08:10 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:50:40 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../Precompiled/loadresource.h"
-//#include "../object/objects.h"
 #include "../mlx_tools.h"
 /*
 	The get_ray_from_camera function calculate the ray direction for the viewport
@@ -34,12 +32,12 @@ void	get_ray_from_camera(t_window *win, t_ray *ray)
 	t_vec3	v_vertical;
 	t_vec3	uv;
 
-	//memo make offset of ray from camera 
 	ray->orign = vec3_plus_vec3(win->camera.transform_comp.transform.position,
-                            vec3_multiply(win->camera.transform_comp.forward, EPSILON));
-	//ray->orign = camera->transform_comp.transform->position;
-	u_horizontal = vec3_multiply(win->camera.delta_horizontal, (double)(win->antialisign.x));
-	v_vertical = vec3_multiply(win->camera.delta_vertical, (double)(win->antialisign.y));
+			vec3_multiply(win->camera.transform_comp.forward, EPSILON));
+	u_horizontal = vec3_multiply(win->camera.delta_horizontal,
+			(double)(win->antialisign.x));
+	v_vertical = vec3_multiply(win->camera.delta_vertical,
+			(double)(win->antialisign.y));
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
 	pixel_center = vec3_plus_vec3(win->camera.pixel00loc, uv);
 	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
@@ -51,20 +49,12 @@ void	get_ray_from_camera(t_window *win, t_ray *ray)
 	into uint_32 format which the renderer can use
 */
 
-// void mlx_draw_pixel(uint8_t* pixel, uint32_t color)
-// {
-// 	*(pixel++) = (uint8_t)(color >> 24);
-// 	*(pixel++) = (uint8_t)(color >> 16);
-// 	*(pixel++) = (uint8_t)(color >> 8);
-// 	*(pixel++) = (uint8_t)(color & 0xFF);
-// }
-
 void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 {
 	if (!col_float || !col_32)
 	{
 		printf("Error: Null pointer in color_transform_to_int\n");
-		return;
+		return ;
 	}
 	col_32->red = (uint32_t)(255.999
 			* clamp_calculation(col_float->red, 0.0f, 1.0f));
@@ -74,45 +64,7 @@ void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
 	col_32->alpha = 255;
 	col_32->result_color = (col_32->red << 24) | (col_32->green << 16)
-    | (col_32->blue << 8) | (col_32->alpha);
-}
-//TODO look at it !
-t_color_float checkboard_pattern(t_hit *hit, t_color_float white, t_color_float black)
-{
-	float u_scaled = 0.0;
-	float v_scaled = 0.0;
-	if(hit->object.obj_type == SPHERE)
-	{
-		t_sphere *sphere = (t_sphere*)hit->object.data;
-		u_scaled = sphere->uv.u * sphere->uv.tile_scale;
-		v_scaled = sphere->uv.v * sphere->uv.tile_scale;
-	}
-	if(hit->object.obj_type == PLANE)
-	{
-		t_plane *plane = (t_plane *)hit->object.data;
-        u_scaled = plane->uv.u * plane->uv.tile_scale;
-        v_scaled = plane->uv.v * plane->uv.tile_scale;
-	}
-	if(hit->object.obj_type == CYLINDER)
-	{
-		t_cylinder *cylinder = (t_cylinder *)hit->object.data;
-		if (cylinder->is_topcap_hit || cylinder->is_bottomcap_hit)
-        {
-            u_scaled = cylinder->cap_uv.u * cylinder->cap_uv.tile_scale;
-            v_scaled = cylinder->cap_uv.v * cylinder->cap_uv.tile_scale;
-        }
-        else if (cylinder->is_side_hit)
-        {
-            u_scaled = cylinder->side_uv.u * cylinder->side_uv.tile_scale;
-            v_scaled = cylinder->side_uv.v * cylinder->side_uv.tile_scale;
-        }
-	}
-    int u_int = (int)floor(u_scaled);
-    int v_int = (int)floor(v_scaled);
-	if ((u_int + v_int) % 2 == 0)
-   		return white;
-	else
-    	return black;
+		| (col_32->blue << 8) | (col_32->alpha);
 }
 
 /*

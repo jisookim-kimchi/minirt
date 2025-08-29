@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 17:21:49 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:29:56 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ t_ray	get_pixel_ray(t_window *win)
 	In the n_sample_in_pixel function the pixel_sample_color should replaced with
 	pixel_center_color. However the pixel_center_color need to modify it
 	can store the result in t_color_float datatype too.
+
+	Important: in the color_float_divide function second argument
+	need to give the sample^2 not just sample
 */
 t_color_float	n_samples_in_pixel(t_window *win)
 {
