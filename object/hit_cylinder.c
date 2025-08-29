@@ -6,12 +6,32 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 17:17:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 18:47:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/29 19:17:11 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
 
+static t_point3	get_normal(t_cylinder *cylinder, t_hit *hit, double height_projection)
+{
+	t_point3 hitpoint_height;
+	
+	hitpoint_height = vec3_plus_vec3(cylinder->center,
+		vec3_multiply(cylinder->axis, height_projection));
+	return (vec3_normalized(vec3_sub_vec3(hit->hit_point, hitpoint_height)));
+}
+
+bool	is_side_intersection()
+{
+	r = cylinder->diameter / 2;
+	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
+	a = vec3_length_squared(vec3_cross(ray->dir, cylinder->axis));
+	half_b = vec3_dot(vec3_cross(ray->dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
+	c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
+	check = half_b * half_b - a * c;
+	if(check < EPSILON)
+		return (false);
+}
 
 bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 {
@@ -19,17 +39,14 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	double	r;
 	double	c;
 	double	t;
-	double	check;
 	double	half_b;
-
-	t_vec3	ray_dir;
+	double	check;
 	t_vec3	delta_p;
 
-	ray_dir = ray->dir;
 	r = cylinder->diameter / 2;
 	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
-	a = vec3_length_squared(vec3_cross(ray_dir, cylinder->axis));
-	half_b = vec3_dot(vec3_cross(ray_dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
+	a = vec3_length_squared(vec3_cross(ray->dir, cylinder->axis));
+	half_b = vec3_dot(vec3_cross(ray->dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
 	c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
 	check = half_b * half_b - a * c;
 	if(check < EPSILON)
@@ -53,17 +70,11 @@ bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 		return (false);
 	}
 
+	
 	hit->t = t;
 	hit->hit_point = hit_point;
 	hit->hit_color = cylinder->cylinder_color;
-
-	//get normal 
-	t_point3 hitpoint_height;
-    t_vec3 normal;
-	
-	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
-	normal = vec3_sub_vec3(hit->hit_point, hitpoint_height);
-	hit->normal = vec3_normalized(normal);
+	hit->normal = get_normal(cylinder, hit, height_projection);
 	set_ray_opposite_normal(ray, hit, hit->normal);
 	uv_calculate_clyinder_side(cylinder, hit->hit_point);
 	return (true);
@@ -113,3 +124,57 @@ bool      hit_cylinder( t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 	
     return (is_hit);
 }
+
+
+
+// bool	hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+// {
+// 	double	a;
+// 	double	r;
+// 	double	c;
+// 	double	t;
+// 	double	half_b;
+// 	double	check;
+// 	t_vec3	delta_p;
+
+// 	r = cylinder->diameter / 2;
+// 	delta_p = vec3_sub_vec3(ray->orign, cylinder->center);
+// 	a = vec3_length_squared(vec3_cross(ray->dir, cylinder->axis));
+// 	half_b = vec3_dot(vec3_cross(ray->dir, cylinder->axis), vec3_cross(delta_p, cylinder->axis));
+// 	c = vec3_length_squared(vec3_cross(delta_p, cylinder->axis)) - r * r;
+// 	check = half_b * half_b - a * c;
+// 	if(check < EPSILON)
+// 		return (false);
+	
+// 	t = (-half_b - sqrt(check)) / a;
+// 	if (t < hit->t_min || t > hit->t_max)
+// 	{
+// 		t = (-half_b + sqrt(check)) / a;
+// 		if (t <hit->t_min || t > hit->t_max)
+// 			return (false);
+// 	}
+
+// 	//check if is in cylinder height
+// 	t_vec3 hit_point = ray_at(ray, t);
+// 	t_vec3 axis_to_hit = vec3_sub_vec3(hit_point, cylinder->center);
+// 	double height_projection = vec3_dot(axis_to_hit, cylinder->axis);
+
+// 	if (fabs(height_projection) > cylinder->height / 2)
+// 	{
+// 		return (false);
+// 	}
+
+// 	hit->t = t;
+// 	hit->hit_point = hit_point;
+// 	hit->hit_color = cylinder->cylinder_color;
+
+// 	//get normal 
+// 	t_point3 hitpoint_height;
+	
+// 	hitpoint_height = vec3_plus_vec3(cylinder->center, vec3_multiply(cylinder->axis, height_projection));
+// 	hit->normal = vec3_normalized(vec3_sub_vec3(hit->hit_point, hitpoint_height));
+// 	hit->normal = get_normal(cylinder, hit, height_projection);
+// 	set_ray_opposite_normal(ray, hit, hit->normal);
+// 	uv_calculate_clyinder_side(cylinder, hit->hit_point);
+// 	return (true);
+// }
