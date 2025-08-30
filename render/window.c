@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 16:15:59 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 18:59:40 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static void	main_parsing_file(int argc, char **argv, t_window *win)
 		printf("failed parsing\n");
 		exit(1);
 	}
-	win->spot_light = init_spot_light(&win->light,
-			(t_vec3){0, -1, 0}, 1000.0, 60.0, 50.0);
 }
 
 static void	main_window_start(t_window *win, char **argv)

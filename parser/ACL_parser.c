@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ACL_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 16:49:02 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 12:51:04 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 19:05:33 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,31 @@ int	parse_ambient(char *line, t_ambient *ambient)
 	parse_color(tokens[2], &ambient->ambient_color.red,
 		&ambient->ambient_color.green, &ambient->ambient_color.blue);
 	ambient->ambient_ratio = ratio;
+	free_splited_str(tokens);
+	return (1);
+}
+
+int	parse_spot_light(const char *line, t_spot_light *light)
+{
+	char	**tokens;
+
+	tokens = ft_split(line, ' ');
+	if (!tokens || count_array_elem(tokens) != 9)
+		return (-1);
+	parse_vec3(tokens[1], &light->light_position.x,
+		&light->light_position.y, &light->light_position.z);
+	light->light_ratio = ft_atof(tokens[2]);
+	if (!check_value_in_range(light->light_ratio, 0.0, 1.0))
+		return (-1);
+	parse_color(tokens[3], &light->light_color.red,
+		&light->light_color.green, &light->light_color.blue);
+	light->is_light = true;
+	parse_vec3(tokens[4], &light->direction.x,
+		&light->direction.y, &light->direction.z);
+	light->intensity = ft_atof(tokens[5]);
+	light->radius = ft_atof(tokens[6]);
+	light->angle = ft_atof(tokens[7]);
+	light->distance = ft_atof(tokens[8]);
 	free_splited_str(tokens);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 20:32:15 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 18:44:00 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ typedef struct s_light
 
 typedef struct s_spot_light
 {
-	t_light			light;
+	// t_light			light;
+	t_vec3			light_position;
+	float			light_ratio;
+	t_color_float	light_color;
+	bool			is_light;
 	t_vec3			direction;
 	float			intensity;
 	float			radius;
@@ -73,11 +77,13 @@ double			specular_term(t_camera *camera, t_hit *hit,
 bool			is_shadow(t_objs_list *object, t_light *light, t_hit *hit);
 
 //spot_light.c
-
-t_spot_light	init_spot_light(t_light *light, t_vec3 direction, float distance, float angle, float intensity);
-void			set_spot_direction(t_spot_light *spot, t_vec3 direction);
 bool			is_in_spot_cone(const t_spot_light *spot, t_vec3 point);
 float			spot_light_intensity_at(const t_spot_light *spot, t_vec3 point);
 float			spot_light_falloff(const t_spot_light *spot, t_vec3 point);
+
+//spot_light_utils.c
+// t_spot_light	init_spot_light(t_light *light, t_vec3 direction, float distance, float angle, float intensity);
+void			set_spot_direction(t_spot_light *spot, t_vec3 direction);
+t_objs_list		*create_spotlight(t_spot_light *spotlight);
 
 #endif

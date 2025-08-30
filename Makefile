@@ -40,6 +40,7 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		math/vector4.c \
 		lighting/light.c \
 		lighting/shadow.c \
+		lighting/spot_light_utils.c \
 		lighting/spot_light.c\
 		Precompiled/camera.c \
 		Precompiled/transform_comp.c \

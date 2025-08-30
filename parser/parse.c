@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 16:30:16 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 19:04:20 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	handle_sphere(const char *line, t_window *window)
 	obj = create_sphere(sphere);
 	if (!obj)
 	{
-		printf("Failed to create object\n");
+		printf("Failed to create sphere object\n");
 		free(sphere);
 		return (-1);
 	}
@@ -50,7 +50,7 @@ static int	handle_plane(const char *line, t_window *window)
 	obj = create_plane(plane);
 	if (!obj)
 	{
-		printf("Failed to create object\n");
+		printf("Failed to create plane object\n");
 		free(plane);
 		return (-1);
 	}
@@ -69,11 +69,29 @@ static int	handle_cylinder(const char *line, t_window *window)
 	obj = create_cylinder(cylinder);
 	if (!obj)
 	{
-		printf("Failed to create object\n");
+		printf("Failed to create cylinder object\n");
 		free(cylinder);
 		return (-1);
 	}
-	//free(cylinder);
+	add_member_to_obj_list(&window->objs, obj);
+	return (1);
+}
+
+static int	handle_spot_light(const char *line, t_window *window)
+{
+	t_spot_light	*spot_light;
+	t_objs_list		*obj;
+
+	spot_light = malloc(sizeof(t_spot_light));
+	if (!spot_light || parse_spot_light(line, spot_light) == -1)
+		return (-1);
+	obj = create_spotlight(spot_light);
+	if (!obj)
+	{
+		printf("Failed to create spot_object\n");
+		free(spot_light);
+		return (-1);
+	}
 	add_member_to_obj_list(&window->objs, obj);
 	return (1);
 }
@@ -92,6 +110,8 @@ int	parsing_start(char *line, t_window *window)
 		return (handle_plane(line, window));
 	else if (ft_strncmp(line, "cy", 2) == 0)
 		return (handle_cylinder(line, window));
+	else if (ft_strncmp(line, "sl", 2) == 0)
+		return (handle_spot_light(line, window));
 	else
 	{
 		printf("Unknown element: %s\n", line);
