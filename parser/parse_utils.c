@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 20:18:33 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 20:45:40 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,23 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 int	parse_vec3(char *token, double *x, double *y, double *z)
 {
 	char	**temp;
+	int		i;
 
 	temp = ft_split(token, ',');
+	i = 0;
 	if (!temp || count_array_elem(temp) != 3)
 	{
 		return (-1);
 	}
-	if (is_digit(temp[0]) < 0)
-		return (-1);
-	if (is_digit(temp[1]) < 0)
-		return (-1);
-	if (is_digit(temp[2]) < 0)
-		return (-1);
+	while(i < 3)
+	{
+		if (is_digit(temp[i]) < 0 && *temp[i] != '-')
+		{
+			printf("i : %d, temp[i] : %s\n",i, temp[i]);
+			return (-1);
+		}
+		i++;
+	}
 	*x = ft_atof(temp[0]);
 	*y = ft_atof(temp[1]);
 	*z = ft_atof(temp[2]);

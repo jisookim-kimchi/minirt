@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ACL_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 16:49:02 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 19:05:33 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 20:43:49 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	parse_ambient(char *line, t_ambient *ambient)
 	{
 		return (-1);
 	}
-	parse_color(tokens[2], &ambient->ambient_color.red,
-		&ambient->ambient_color.green, &ambient->ambient_color.blue);
+	if (parse_color(tokens[2], &ambient->ambient_color.red,
+			&ambient->ambient_color.green, &ambient->ambient_color.blue) < 0)
+		return (-1);
 	ambient->ambient_ratio = ratio;
 	free_splited_str(tokens);
 	return (1);
@@ -64,13 +65,15 @@ int	parse_light(char *line, t_light *light)
 	tokens = ft_split(line, ' ');
 	if (!tokens || count_array_elem(tokens) != 4)
 		return (-1);
-	parse_vec3(tokens[1], &light->light_position.x,
-		&light->light_position.y, &light->light_position.z);
+	if (parse_vec3(tokens[1], &light->light_position.x,
+		&light->light_position.y, &light->light_position.z) < 0)
+		return (-1);
 	light->light_ratio = ft_atof(tokens[2]);
 	if (!check_value_in_range(light->light_ratio, 0.0, 1.0))
 		return (-1);
-	parse_color(tokens[3], &light->light_color.red,
-		&light->light_color.green, &light->light_color.blue);
+	if (parse_color(tokens[3], &light->light_color.red,
+		&light->light_color.green, &light->light_color.blue) < 0)
+		return (-1);
 	light->is_light = true;
 	free_splited_str(tokens);
 	return (1);
@@ -97,12 +100,14 @@ int	parse_camera(char *line, t_camera *camera)
 	tokens = ft_split(line, ' ');
 	if (!tokens || count_array_elem(tokens) != 4)
 		return (-1);
-	parse_vec3(tokens[1], &camera->transform_comp.transform.position.x,
+	if (parse_vec3(tokens[1], &camera->transform_comp.transform.position.x,
 		&camera->transform_comp.transform.position.y,
-		&camera->transform_comp.transform.position.z);
-	parse_vec3(tokens[2], &camera->transform_comp.forward.x,
+		&camera->transform_comp.transform.position.z) < 0)
+		return (-1);
+	if (parse_vec3(tokens[2], &camera->transform_comp.forward.x,
 		&camera->transform_comp.forward.y,
-		&camera->transform_comp.forward.z);
+		&camera->transform_comp.forward.z) < 0)
+		return (-1);
 	fov = ft_atof(tokens[3]);
 	if (fov < 0 || fov > 180)
 		return (-1);
