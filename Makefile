@@ -30,14 +30,15 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		object/hit_cylinder_side.c \
 		object/hit_cylinder_cap.c \
 		math/mathutils.c \
-		math/quaternion.c \
-		math/rotator.c \
 		math/screenpoint.c \
 		math/trace.c \
 		math/transform.c \
-		math/vector2.c \
 		math/vector3.c \
-		math/vector4.c \
+		math/vector3_utils.c \
+		math/vector3_utils1.c \
+		math/color_float_utils.c \
+		math/color_float.c \
+		math/point3.c \
 		lighting/light.c \
 		lighting/shadow.c \
 		lighting/spot_light.c\
