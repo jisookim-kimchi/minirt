@@ -78,7 +78,6 @@ double vec2_dot(t_vec2 vec1, t_vec2 vec2)
     return (vec1.x * vec2.x + vec1.y * vec2.y);
 }
 
-// get unit vector
 t_vec2 vec2_normalized(t_vec2 vec)
 {
     double len = vec2_length(vec);

@@ -10,7 +10,6 @@
 
 # define EPSILON 1e-5
 
-//typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
 typedef struct s_vec3 t_color3;
 
@@ -87,9 +86,7 @@ typedef struct s_rotator
     float pitch;
 } t_rotator;
 
-/*
-    aspectratio = x / y
-*/
+//aspectratio = x / y
 typedef struct s_screenpoint
 {
     int     x;
