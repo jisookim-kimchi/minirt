@@ -8,5 +8,5 @@ libft/libft.a
 *.a
 *.txt
 object/hit_cylinder_old.c
-math/ratator.c
-math/quaternion.c
+math/rot.c
+math/quater.c
