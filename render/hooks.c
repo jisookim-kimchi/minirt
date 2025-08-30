@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 18:40:58 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 19:20:12 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 12:02:40 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,25 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	camera_movements_keys(&keydata, win);
 }
 
+void	antialisign_message(t_window *win)
+{
+	if (win->antialisign.antialisign_text)
+	{
+		mlx_delete_image(win->mlx, win->antialisign.antialisign_text);
+		win->antialisign.antialisign_text = NULL;
+	}
+	if (win->antialisign.antialisign_on == true)
+	{
+		win->antialisign.antialisign_text
+			= mlx_put_string(win->mlx, "Antialiasign: ON", 5, 5);
+	}
+	else
+	{
+		win->antialisign.antialisign_text
+			= mlx_put_string(win->mlx, "Antialiasign: OFF", 5, 5);
+	}
+}
+
 /*
 	The color layout: 0xAARRGGBB
 	AA = Alpha (opacity)
@@ -73,7 +92,6 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
 		pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
 */
-
 void	image_hook(void *param)
 {
 	t_window	*win;
