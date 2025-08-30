@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 13:52:04 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 16:15:59 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	main_parsing_file(int argc, char **argv, t_window *win)
 
 static void	main_window_start(t_window *win, char **argv)
 {
-	win->mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / IMAGE_RATIO, argv[1], true);
+	win->mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / (16.0f / 9.0f),
+			argv[1], true);
 	if (!win->mlx)
 	{
 		printf("error mlx_init\n");

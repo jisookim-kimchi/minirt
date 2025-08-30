@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:36:41 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 15:40:18 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 16:14:47 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 # define IMAGE_WIDTH 1200
 # define IMAGE_HEIGHT 800
-# define IMAGE_RATIO (16.0f/9.0f)
 
 # define RED        "\033[1;31m"
 # define BLACK      "\033[1;30m"
