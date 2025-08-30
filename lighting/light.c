@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 20:18:32 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 16:30:47 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,19 @@ t_vec3	light_reflect(t_vec3 light_dir, t_vec3 normal)
 */
 double	diffuse_term(t_hit *hit, t_light *light)
 {
+	double	diffuse_t;
+	t_vec3	norm_light_dir;
+
 	if (!hit || !light)
 	{
 		printf("Error: Null pointer in diffuse_term\n");
 		return (0.0);
 	}
-	double	diffuse_t;
-	t_vec3	norm_light_dir;
-
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(light->light_position,
 				hit->hit_point));
-	//if the light direction is not same side with the hit normal then return 0;
 	if (vec3_dot(hit->normal, norm_light_dir) <= 0.0)
 		return (0.0);
 	diffuse_t = vec3_dot(hit->normal, norm_light_dir);
-	//printf("diffuse_t : %f\n", diffuse_t);
 	diffuse_t = double_clamp_calculation(diffuse_t, 0.0, 1.0);
 	return (diffuse_t);
 }
@@ -101,7 +99,11 @@ double	diffuse_term(t_hit *hit, t_light *light)
 	norm_camera_dir = normalized(camera position - hit_point)
 	specular_t = pow(max(dot(relflect, norm_camera_dir), 0.0), shininess)
 	
-	In the function the specular_t value calculated 3 steps, not in one big line
+	In the function the specular_t value calculated 3 steps, not in one big line.
+
+	The following if statement checks if the light direction is on the same side
+	with the hit normal. If not it return 0.0.
+		if (vec3_dot(hit->normal, vec3_negate(norm_light_dir)) <= 0.0)
 */
 
 double	specular_term(t_camera *camera, t_hit *hit,
@@ -112,14 +114,10 @@ double	specular_term(t_camera *camera, t_hit *hit,
 	t_vec3	norm_camera_dir;
 	t_vec3	reflect;
 
-	// printf("hit->object type : %d\n", hit->object.obj_type);
-	// printf("light->light_position : %f, %f, %f\n",light->light_position.x, light->light_position.y, light->light_position.z);
-	
 	norm_light_dir = vec3_normalized(vec3_sub_vec3(hit->hit_point,
 				light->light_position));
-	norm_camera_dir = vec3_normalized(vec3_sub_vec3(camera->transform_comp.transform.position,
-				hit->hit_point));
-	//if the light direction is not same side with the hit normal then return 0;
+	norm_camera_dir = vec3_normalized(vec3_sub_vec3(
+				camera->transform_comp.transform.position, hit->hit_point));
 	if (vec3_dot(hit->normal, vec3_negate(norm_light_dir)) <= 0.0)
 		return (0.0);
 	reflect = light_reflect(norm_light_dir, hit->normal);
@@ -128,4 +126,3 @@ double	specular_term(t_camera *camera, t_hit *hit,
 	specular_t = pow(specular_t, shininess);
 	return (specular_t);
 }
-

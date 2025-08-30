@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 14:47:38 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 19:00:54 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 /*
 	Spot_light calculation part.
 */
-// static void	spot_light_calculation(t_window *win, t_hit *hit,
-// 	t_phong_terms *phong)
-// {
-// 	float			spot_intensity;
-// 	float			spot_falloff;
-// 	t_color_float	spot_color;
+static void	spot_light_calculation(t_window *win, t_hit *hit,
+	t_phong_terms *phong)
+{
+	float			spot_intensity;
+	float			spot_falloff;
+	t_color_float	spot_color;
 
-// 	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
-// 	{
-// 		spot_intensity = spot_light_intensity_at(&win->spot_light,
-// 				hit->hit_point);
-// 		spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
-// 		spot_color = color_float_multiply(win->spot_light.light.light_color,
-// 				spot_intensity * spot_falloff);
-// 		spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
-// 		phong->diffuse_color = vec3_add(phong->diffuse_color,
-// 				spot_color.red, spot_color.green, spot_color.blue);
-// 	}
-// }
+	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
+	{
+		spot_intensity = spot_light_intensity_at(&win->spot_light,
+				hit->hit_point);
+		spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
+		spot_color = color_float_multiply(win->spot_light.light_color,
+				spot_intensity * spot_falloff);
+		spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
+		phong->diffuse_color = vec3_add(phong->diffuse_color,
+				spot_color.red, spot_color.green, spot_color.blue);
+	}
+}
 
 /*
 	The shininess object related behavior. Now it is fixed value, but
@@ -47,34 +47,6 @@
 	If the spot_light_calculation part will commented the spot_light
 	effect won't display.
 */
-
-// t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
-// {
-// 	t_phong_terms	phong;
-// 	t_color_float	result_float;
-
-// 	if (hit->object.has_checkerboard)
-// 		hit->hit_color = checkboard_pattern(hit);
-// 	phong.diffuse_t = diffuse_term(hit, &win->light);
-// 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
-// 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
-// 				color_float_to_col3(win->ambient.ambient_color),
-// 				color_float_to_col3(hit->hit_color)),
-// 			win->ambient.ambient_ratio);
-// 	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
-// 				color_float_to_col3(win->light.light_color),
-// 				color_float_to_col3(hit->hit_color)),
-// 			win->light.light_ratio * phong.diffuse_t);
-// 	phong.specular_color = vec3_multiply(
-// 			color_float_to_col3(win->light.light_color),
-// 			win->light.light_ratio * phong.specular_t);
-// 	spot_light_calculation(win, hit, &phong);
-// 	phong.result = vec3_plus_vec3(phong.ambient_color,
-// 			vec3_plus_vec3(phong.diffuse_color,
-// 				phong.specular_color));
-// 	result_float = color_col3_to_float(phong.result);
-// 	return (result_float);
-// }
 
 t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 {
@@ -96,12 +68,40 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	phong.specular_color = vec3_multiply(
 			color_float_to_col3(win->light.light_color),
 			win->light.light_ratio * phong.specular_t);
+	spot_light_calculation(win, hit, &phong);
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
 				phong.specular_color));
 	result_float = color_col3_to_float(phong.result);
 	return (result_float);
 }
+
+// t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
+// {
+// 	t_phong_terms	phong;
+// 	t_color_float	result_float;
+
+// 	if (hit->object.has_checkerboard)
+// 		hit->hit_color = checkboard_pattern(hit);
+// 	phong.diffuse_t = diffuse_term(hit, &win->light);
+// 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
+// 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
+// 				color_float_to_col3(win->ambient.ambient_color),
+// 				color_float_to_col3(hit->hit_color)),
+// 			win->ambient.ambient_ratio);
+// 	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
+// 				color_float_to_col3(win->light.light_color),
+// 				color_float_to_col3(hit->hit_color)),
+// 			win->light.light_ratio * phong.diffuse_t);
+// 	phong.specular_color = vec3_multiply(
+// 			color_float_to_col3(win->light.light_color),
+// 			win->light.light_ratio * phong.specular_t);
+// 	phong.result = vec3_plus_vec3(phong.ambient_color,
+// 			vec3_plus_vec3(phong.diffuse_color,
+// 				phong.specular_color));
+// 	result_float = color_col3_to_float(phong.result);
+// 	return (result_float);
+// }
 
 static void	pcc_object_hited(t_window *win, t_hit *record,
 	t_color_32 *result_color, t_color_float	*temp)

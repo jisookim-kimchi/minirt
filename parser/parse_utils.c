@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 12:39:26 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 20:18:33 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	{
 		return (-1);
 	}
+	if (is_digit(temp[0]) < 0)
+		return (-1);
+	if (is_digit(temp[1]) < 0)
+		return (-1);
+	if (is_digit(temp[2]) < 0)
+		return (-1);
 	*x = ft_atof(temp[0]);
 	*y = ft_atof(temp[1]);
 	*z = ft_atof(temp[2]);

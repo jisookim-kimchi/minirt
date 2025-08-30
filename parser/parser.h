@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 12:38:22 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 19:05:56 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		open_file(char *path);
 int		read_file(int fd, t_window *window);
 
 //ACL_parser.c
+int		parse_spot_light(const char *line, t_spot_light *light);
 int		parse_ambient(char *line, t_ambient *ambient);
 int		parse_camera(char *line, t_camera *camera);
 int		parse_light(char *line, t_light *light);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/28 17:04:05 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 20:16:25 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	handle_line(char *line, t_window *window)
 	if (*line == '\n' || *line == '#')
 	{
 		free(line);
-		return (0);
+		return (1);
 	}
 	result = parsing_start(line, window);
 	if (result < 0)
