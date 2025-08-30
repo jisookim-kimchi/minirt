@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 18:59:40 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 19:53:31 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	main_parsing_file(int argc, char **argv, t_window *win)
 	{
 		free_objs_list(&win->objs);
 		printf("failed parsing\n");
+		printf("check_read: %d\n", check_read);
 		exit(1);
 	}
 }

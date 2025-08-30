@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:36:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 18:44:00 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 19:16:22 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 	In the light structure the color stored in float variables, 
 	because of the lighting calculations.
 	In the .rt file the colors will be given in 0 - 255 int range.
-	When the light color stored need to call a function which transform
-	the integer value to float.
+	When the light color stored need to call a function which
+	transform the integer value to float.
 
 	The color_float_set function from mathheader.h can use to set float value
 	for the light_color.
@@ -82,7 +82,8 @@ float			spot_light_intensity_at(const t_spot_light *spot, t_vec3 point);
 float			spot_light_falloff(const t_spot_light *spot, t_vec3 point);
 
 //spot_light_utils.c
-// t_spot_light	init_spot_light(t_light *light, t_vec3 direction, float distance, float angle, float intensity);
+// t_spot_light	init_spot_light(t_light *light, t_vec3 direction, 
+//		float distance, float angle, float intensity);
 void			set_spot_direction(t_spot_light *spot, t_vec3 direction);
 t_objs_list		*create_spotlight(t_spot_light *spotlight);
 
