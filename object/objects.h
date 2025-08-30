@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 20:47:25 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 12:16:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,12 @@ typedef struct s_hit
 }	t_hit;
 
 
-//hit_cylinder.c
+//hit_cylinder_cap.c
 bool			hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 bool			hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center,
 					t_ray *ray, t_hit *hit, t_vec3 cap_normal);
+					
+//hit_cylinder_side.c
 bool			hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 
 //calculate_uv.c

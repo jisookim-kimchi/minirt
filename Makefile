@@ -27,7 +27,8 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		object/check_interval.c\
 		object/material_uv_init.c \
 		object/calculate_uv.c \
-		object/hit_cylinder.c \
+		object/hit_cylinder_side.c \
+		object/hit_cylinder_cap.c \
 		math/mathutils.c \
 		math/quaternion.c \
 		math/rotator.c \
