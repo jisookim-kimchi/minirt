@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 20:45:40 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 22:47:12 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,32 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 	return (1);
 }
 
+int	is_valid_input(char *token)
+{
+	int		i;
+	int		seen;
+
+	i = 0;
+	seen = 0;
+	if (!ft_isdigit(token[0]) && !(token[0] == '-'))
+		return (-1);
+	if ((token[0] == '-' && token[1] == '.') || (token[0] == '.'))
+		return (-1);
+	if (token[0] == '-')
+		i++;
+	while(token[i])
+	{
+		if (token[i] == '.')
+			seen++;
+		if (seen > 1 && !ft_isdigit(token[i]))
+		{
+			return (-1);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	parse_vec3(char *token, double *x, double *y, double *z)
 {
 	char	**temp;
@@ -93,9 +119,10 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	}
 	while(i < 3)
 	{
-		if (is_digit(temp[i]) < 0 && *temp[i] != '-')
+		if (is_valid_input(temp[i]) < 0)
 		{
-			printf("i : %d, temp[i] : %s\n",i, temp[i]);
+			//printf("error parse_vec3()\n");
+			free_splited_str(temp);
 			return (-1);
 		}
 		i++;

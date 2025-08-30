@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 20:03:36 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 22:21:46 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,29 @@ static int	handle_spot_light(const char *line, t_window *window)
 	return (1);
 }
 
+// static int	is_ACL_one(char *line, t_window *window, t_parser *parser)
+// {
+// 	if (ft_strncmp(line, "A", 1) == 0)
+// 	{
+// 		parser->a_count++;	
+// 		return (parse_ambient(line, &window->ambient));
+// 	}
+// 	else if (ft_strncmp(line, "C", 1) == 0)
+// 	{
+// 		parser->c_count++;
+// 		return (parse_camera(line, &window->camera));
+// 	}
+// 	else if (ft_strncmp(line, "L", 1) == 0)
+// 	{
+// 		parser->l_count++;
+// 		return (parse_light(line, &window->light));
+// 	}
+// 	return (1);
+// }
+// if (is_ACL_one(line, window, &parser) < 0)
+// 	return (-1);
+// else if (parser.a_count != 1 || parser.c_count != 1 || parser.l_count != 1)
+// 	return (-1);
 int	parsing_start(char *line, t_window *window)
 {
 	if (ft_strncmp(line, "A", 1) == 0)
@@ -104,7 +127,7 @@ int	parsing_start(char *line, t_window *window)
 		return (parse_camera(line, &window->camera));
 	else if (ft_strncmp(line, "L", 1) == 0)
 		return (parse_light(line, &window->light));
-	else if (ft_strncmp(line, "sp", 2) == 0)
+	if (ft_strncmp(line, "sp", 2) == 0)
 		return (handle_sphere(line, window));
 	else if (ft_strncmp(line, "pl", 2) == 0)
 		return (handle_plane(line, window));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 19:05:56 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 21:52:08 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define PARSER_H
 
 # include "../mlx_tools.h"
+
+typedef struct s_parser
+{
+	int	a_count;
+	int	c_count;
+	int	l_count;
+}	t_parser;
 
 //parse.c
 int		parsing_start(char *line, t_window *window);

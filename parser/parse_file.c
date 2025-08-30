@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 20:16:25 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 22:50:12 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,35 @@ static int	handle_line(char *line, t_window *window)
 	return (result);
 }
 
+static int	is_ACL_one(int fd)
+{
+	char	*line;
+	int		a;
+	int		c;
+	int		l;
+
+	a = 0;
+	c = 0;
+	l = 0;
+	line = NULL;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (ft_strncmp("A" ,line, 1) == 0)
+			a++;
+		else if (ft_strncmp("C" ,line, 1) == 0)
+			c++;
+		else if (ft_strncmp("L" ,line, 1) == 0)
+			l++;
+		free(line);
+	}
+	if (a != 1 || c != 1 || l != 1)
+		return (-1);
+	return (1);
+}
+
 int	read_file(int fd, t_window *window)
 {
 	char	*line;
@@ -77,21 +106,28 @@ int	read_file(int fd, t_window *window)
 
 	line = NULL;
 	result = 0;
+	// if (is_ACL_one(fd) < 0)
+	// {
+	// 	printf("is_ACL_one error\n");
+	// 	exit(1);
+	// }
 	while (1)
 	{
 		line = get_next_line(fd);
 		printf("parsed line : %s\n", line);
 		if (!line)
 		{
-			if (result == 0)
-			{
-				printf("no line\n");
-				return (-1);
-			}
-			printf("EOF reached.\n");
+			// if (result == 0)
+			// {
+			// 	printf("no line\n");
+			// 	return (-1);
+			// }
+			// printf("EOF reached.\n");
 			break ;
 		}
 		result = handle_line(line, window);
 	}
+	printf("EOF reached\n");
 	return (result);
 }
+
