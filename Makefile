@@ -45,7 +45,11 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		Precompiled/transform_comp.c \
 		render/window.c \
 		render/pixel_color.c \
+		render/color_calculation_utils.c \
 		render/antialisign.c \
+		render/checkboard.c \
+		render/hooks.c \
+		render/main_utils.c \
 		debug/messages.c \
 		parser/ACL_parser.c \
 		parser/OBJ_parser.c \

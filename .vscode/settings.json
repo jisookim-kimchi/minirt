@@ -23,6 +23,7 @@
 		"iosfwd": "c",
 		"iterator": "c",
 		"complex": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"lighting.h": "c"
 	}
 }

@@ -6,61 +6,23 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/28 13:19:30 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/29 17:29:56 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_tools.h"
 
-
 /*
-void	 get_ray_from_camera(t_camera *camera, t_ray *ray,
-	uint32_t x, uint32_t y)
-{
-	t_vec3	pixel_center;
-	t_vec3	u_horizontal;
-	t_vec3	v_vertical;
-	t_vec3	uv;
-
-	ray->orign = camera->transform_comp.pos;
-	u_horizontal = vec3_multiply(camera->delta_horizontal, (double)x);
-	v_vertical = vec3_multiply(camera->delta_vertical, (double)y);
-	uv = vec3_plus_vec3(u_horizontal, v_vertical);
-	pixel_center = vec3_plus_vec3(camera->pixel00loc, uv);
-	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
-}
-
-
-t_color_32	pixel_center_color(t_ray *ray, t_window *win)
-{
-	t_color_32		result_color;
-	t_color_float	temp;
-	t_hit			record;
-
-	set_ray_interval(&record, 0.001f, INFINITY);
-	if (hit_world(ray, &record, win->objs))
-	{
-		// result_color.result_color = 0xFF0000FF;
-		temp = calculate_hit_color(win, &record);
-		result_color = color_transform_to_int(&temp);
-	}
-	else
-	{
-		// result_color.result_color = 0xFF000000;
-		temp = color_float_multiply(win->ambient.ambient_color,
-				win->ambient.ambient_ratio);
-		result_color = color_transform_to_int(&temp);
-	}
-	return (result_color);
-}
-
 	The ray function can be used to get the ray from camera
 	origin to the pixel point. After the pixel_center_color 
 	function can be called if the return value changed to color_float.
 	In this case in the image_hook function should be transform back to
 	color_32 format.
-*/
 
+	The pixel_smaple_color function use that logic, which does not
+	include the shadow and checkerboard part. Later in the n_samples_in_pixel
+	function the pixel_sample_color should change to pixel_center_color 
+*/
 t_color_float	pixel_sample_color(t_ray *ray, t_window *win)
 {
 	t_color_float	temp;
@@ -79,7 +41,7 @@ t_color_float	pixel_sample_color(t_ray *ray, t_window *win)
 	return (temp);
 }
 
-t_ray	get_pixel_ray(int i, int j, uint32_t x, uint32_t y, t_camera *camera, int samples)
+t_ray	get_pixel_ray(t_window *win)
 {
 	t_ray	pixel_ray;
 	t_vec3	u_horizontal;
@@ -87,68 +49,69 @@ t_ray	get_pixel_ray(int i, int j, uint32_t x, uint32_t y, t_camera *camera, int 
 	t_vec3	uv;
 	t_vec3	ray_dir;
 
-	u_horizontal = vec3_multiply(camera->delta_horizontal,
-			(double)x + ((double)i + 0.5) / samples);
-	v_vertical = vec3_multiply(camera->delta_vertical,
-			(double)y + ((double)j + 0.5) / samples);
+	u_horizontal = vec3_multiply(win->camera.delta_horizontal,
+			(double)(win->antialisign.x) + ((double)(win->antialisign.i + 0.5))
+			/ win->antialisign.samples_num);
+	v_vertical = vec3_multiply(win->camera.delta_vertical,
+			(double)win->antialisign.y + ((double)win->antialisign.j + 0.5)
+			/ win->antialisign.samples_num);
 	uv = vec3_plus_vec3(u_horizontal, v_vertical);
-	uv = vec3_plus_vec3(camera->left_bottom, uv);
-	ray_dir = vec3_sub_vec3(uv, camera->left_bottom);
-	pixel_ray = create_ray(camera->transform_comp.transform.position, uv);
+	uv = vec3_plus_vec3(win->camera.left_bottom, uv);
+	ray_dir = vec3_sub_vec3(uv, win->camera.left_bottom);
+	pixel_ray = create_ray(win->camera.transform_comp.transform.position, uv);
 	return (pixel_ray);
 }
 
-t_color_float	n_samples_in_pixel(int samples, t_window *win,
-	uint32_t x, uint32_t y)
+/*
+	In the n_sample_in_pixel function the pixel_sample_color should replaced with
+	pixel_center_color. However the pixel_center_color need to modify it
+	can store the result in t_color_float datatype too.
+
+	Important: in the color_float_divide function second argument
+	need to give the sample^2 not just sample
+*/
+t_color_float	n_samples_in_pixel(t_window *win)
 {
 	t_color_float	result;
-	// static int		counter = 0;
 	t_color_float	sample;
 	t_ray			pixel_ray;
-	int				i;
-	int				j;
 
-	i = 0;
+	win->antialisign.i = 0;
 	color_float_set(&result, 0.0f, 0.0f, 0.0f);
-	while (i < samples)
+	while (win->antialisign.i < win->antialisign.samples_num)
 	{
-		j = 0;
-		while (j < samples)
+		win->antialisign.j = 0;
+		while (win->antialisign.j < win->antialisign.samples_num)
 		{
-			pixel_ray = get_pixel_ray(i, j, x, y, &win->camera, samples);
+			pixel_ray = get_pixel_ray(win);
 			sample = pixel_sample_color(&pixel_ray, win);
 			result = color_float_add(result, sample);
-			j++;
+			win->antialisign.j++;
 		}
-		i++;
+		win->antialisign.i++;
 	}
-	result = color_float_divide(result, (double)(samples *samples));
-	// if (counter == 100)
-	// 	print_color_compare(&sample, &result);
-	// counter++;
+	result = color_float_divide(result,
+			(double)(win->antialisign.samples_num
+				* win->antialisign.samples_num));
 	return (result);
 }
 
-
 void	switch_antialisgn(t_window *win,
-	uint32_t x, uint32_t y, t_color_32 *pixel_center_col)
+	t_color_32 *pixel_center_col)
 {
 	t_ray			ray_pixel_center;
 	t_color_float	temp;
-	int				samples;
 
-	samples = 5;
+	win->antialisign.samples_num = 5;
 	ray_pixel_center = create_ray(vec3(0, 0, 0), vec3(1, 1, 1));
-	if (win->antialisign_on == true)
+	if (win->antialisign.antialisign_on == true)
 	{
-		//check where should put
-		// mlx_put_string(win->mlx, "Antialisign", 100, 100);
-		temp = n_samples_in_pixel(samples, win, x, y);
+		temp = n_samples_in_pixel(win);
 		color_transform_to_int(&temp, pixel_center_col);
 	}
 	else
 	{
-		get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
+		get_ray_from_camera(win, &ray_pixel_center);
 		pixel_center_color(&ray_pixel_center, win, pixel_center_col);
 	}
 }
