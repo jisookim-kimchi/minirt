@@ -10,3 +10,6 @@ libft/libft.a
 object/hit_cylinder_old.c
 math/rot.c
 math/quater.c
+math/vec4.c
+math/vec2.c
+Precompiled/practice.c
