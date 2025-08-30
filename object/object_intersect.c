@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 14:52:57 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:07:21 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	set_ray_opposite_normal(t_ray *ray, t_hit *hit, t_vec3 normal)
 */
 static bool	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
 {
-	if (t_root1 < t_root2 && check_value_in_range(t_root1, hit->t_min, hit->t_max))
+	if (t_root1 < t_root2
+		&& check_value_in_range(t_root1, hit->t_min, hit->t_max))
 		hit->t = t_root1;
 	else if (check_value_in_range(t_root2, hit->t_min, hit->t_max))
 		hit->t = t_root2;
@@ -56,9 +57,24 @@ static bool	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
 
 	the calculation made in double variable datatype
 */
+
+static bool	is_hit(t_sphere *sphere,
+	double sphere_radius, t_ray *ray, t_intersection *inter)
+{
+	t_vec3	oc;
+
+	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
+	inter->a = vec3_length_squared(ray->dir);
+	inter->half_b = vec3_dot(ray->dir, oc);
+	inter->c = vec3_length_squared(oc) - sphere_radius * sphere_radius;
+	inter->discriminant = inter->half_b * inter->half_b - inter->a * inter->c;
+	if (inter->discriminant < 0)
+		return (false);
+	return (true);
+}
+
 bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 {
-	t_vec3			oc;
 	double			sphere_radius;
 	float			t_root1;
 	float			t_root2;
@@ -66,12 +82,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	t_intersection	inter;
 
 	sphere_radius = (double)((sphere->diameter) / 2);
-	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
-	inter.a = vec3_length_squared(ray->dir);
-	inter.half_b = vec3_dot(ray->dir, oc);
-	inter.c = vec3_length_squared(oc) - sphere_radius * sphere_radius;
-	inter.discriminant = inter.half_b * inter.half_b - inter.a * inter.c;
-	if (inter.discriminant < 0)
+	if (is_hit(sphere, sphere_radius, ray, &inter) == false)
 		return (false);
 	t_root1 = (float)((inter.half_b - sqrt(inter.discriminant)) / inter.a);
 	t_root2 = (float)((inter.half_b + sqrt(inter.discriminant)) / inter.a);
@@ -108,7 +119,6 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	rayn_planen_dot = vec3_dot(ray->dir, plane->unit_normal_vec);
 	if (fabs(rayn_planen_dot) < EPSILON)
 		return (false);
-
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
 	if (t < hit->t_min || t > hit->t_max)

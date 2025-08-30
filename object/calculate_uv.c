@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:35:23 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/29 21:44:05 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:16:02 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,11 @@ void	uv_calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point)
 void	uv_calculate_cylinder_cap(t_cylinder *cyl, t_vec3 cap_center,
 	t_vec3 cap_normal, t_vec3 hit_point)
 {
-	t_vec3	center_to_hit;
-	t_vec3	u_dir;
-	t_vec3	v_dir;
-	double	u_local;
-	double	v_local;
-	double	cap_radius;
+	t_vec3		center_to_hit;
+	t_vec3		u_dir;
+	t_vec3		v_dir;
+	t_uv_data	uv_data;
+	double		cap_radius;
 
 	center_to_hit = vec3_sub_vec3(hit_point, cap_center);
 	if (fabs(cap_normal.x) > fabs(cap_normal.y)
@@ -97,10 +96,10 @@ void	uv_calculate_cylinder_cap(t_cylinder *cyl, t_vec3 cap_center,
 	else
 		u_dir = (t_vec3){1, 0, 0};
 	v_dir = vec3_cross(cap_normal, u_dir);
-	u_local = vec3_dot(center_to_hit, u_dir);
-	v_local = vec3_dot(center_to_hit, v_dir);
+	uv_data.u_local = vec3_dot(center_to_hit, u_dir);
+	uv_data.v_local = vec3_dot(center_to_hit, v_dir);
 	cap_radius = cyl->diameter * 0.5;
-	cyl->cap_uv.u = 0.5 + (u_local / cap_radius) * 0.5;
-	cyl->cap_uv.v = 0.5 + (v_local / cap_radius) * 0.5;
+	cyl->cap_uv.u = 0.5 + (uv_data.u_local / cap_radius) * 0.5;
+	cyl->cap_uv.v = 0.5 + (uv_data.v_local / cap_radius) * 0.5;
 	cyl->cap_uv.tile_scale = 10;
 }

@@ -6,7 +6,7 @@
 /*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 13:59:37 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:15:46 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef struct s_material
 	mlx_texture_t	*bump;
 }	t_material;
 
+typedef struct s_uv_data
+{
+	double	u_local;
+	double	v_local;
+}	t_uv_data;
+
 typedef struct s_uv
 {
 	double	u;
@@ -63,12 +69,12 @@ typedef struct s_plane
 
 typedef struct s_intersection
 {
-    double	a;
-    double	half_b;
-    double	c;
-    double	t;
+	double	a;
+	double	half_b;
+	double	c;
+	double	t;
 	double	discriminant;
-} t_intersection;
+}	t_intersection;
 
 typedef struct s_sphere
 {
@@ -95,7 +101,6 @@ typedef struct s_cylinder
 	bool			is_side_hit;
 	bool			is_bottomcap_hit;
 	bool			is_topcap_hit;
-	
 	t_cap			cap;
 	t_vec3			axis;
 	float			diameter;
@@ -120,20 +125,19 @@ typedef struct s_hit
 	t_color_float	hit_color;
 }	t_hit;
 
-
 //hit_cylinder_cap.c
 bool			hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
-// bool			hit_cylinder_cap(t_cylinder *cylinder, t_vec3 cap_center,
-// 					t_ray *ray, t_hit *hit, t_vec3 cap_normal);
-					
+
 //hit_cylinder_side.c
 bool			hit_cylinder_side(t_cylinder *cylinder, t_ray *ray, t_hit *hit);
 
 //calculate_uv.c
 void			calculate_sphere_uv(t_sphere *sphere, t_vec3 hit_point);
-void			calculate_plane_uv(t_plane* plane, t_vec3 hit_point);
-void			uv_calculate_clyinder_side(t_cylinder *cylinder, t_vec3 hit_point);
-void			uv_calculate_cylinder_cap(t_cylinder *cyl, t_vec3 cap_center, t_vec3 cap_normal, t_vec3 hit_point);
+void			calculate_plane_uv(t_plane *plane, t_vec3 hit_point);
+void			uv_calculate_clyinder_side(t_cylinder *cylinder,
+					t_vec3 hit_point);
+void			uv_calculate_cylinder_cap(t_cylinder *cyl,
+					t_vec3 cap_center, t_vec3 cap_normal, t_vec3 hit_point);
 
 //material_uv_init.c
 void			init_uv(t_uv *uv);
