@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 14:33:41 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 14:52:57 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,23 @@ static bool	set_hit_sphere_point(float t_root1, float t_root2, t_hit *hit)
 */
 bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 {
-	t_vec3	oc;
-	double	sphere_radius;
-	float	t_root1;
-	float	t_root2;
-	double	a;
-	double	h;
-	double	c;
-	double	discriminant;
-	t_vec3	hit_normal;
+	t_vec3			oc;
+	double			sphere_radius;
+	float			t_root1;
+	float			t_root2;
+	t_vec3			hit_normal;
+	t_intersection	inter;
 
 	sphere_radius = (double)((sphere->diameter) / 2);
 	oc = vec3_sub_vec3(sphere->center, (t_vec3)ray->orign);
-	a = vec3_length_squared(ray->dir);
-	h = vec3_dot(ray->dir, oc);
-	c = vec3_length_squared(oc) - sphere_radius * sphere_radius;
-	discriminant = h * h - a * c;
-	if (discriminant < 0)
+	inter.a = vec3_length_squared(ray->dir);
+	inter.half_b = vec3_dot(ray->dir, oc);
+	inter.c = vec3_length_squared(oc) - sphere_radius * sphere_radius;
+	inter.discriminant = inter.half_b * inter.half_b - inter.a * inter.c;
+	if (inter.discriminant < 0)
 		return (false);
-	t_root1 = (float)((h - sqrt(discriminant)) / a);
-	t_root2 = (float)((h + sqrt(discriminant)) / a);
+	t_root1 = (float)((inter.half_b - sqrt(inter.discriminant)) / inter.a);
+	t_root2 = (float)((inter.half_b + sqrt(inter.discriminant)) / inter.a);
 	if (set_hit_sphere_point(t_root1, t_root2, hit) == false)
 		return (false);
 	hit->hit_point = ray_at(ray, hit->t);

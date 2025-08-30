@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 14:30:03 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 14:47:38 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	pcc_object_hited(t_window *win, t_hit *record,
 	t_color_float	shadow_color;
 	t_color_float	checker_color;
 
-	checkboard_switch_on(win, record);
+	//checkboard_switch_on(win, record);
 	if (is_shadow(win->objs, &win->light, record) == true)
 	{
 		if (record->object.has_checkerboard)
