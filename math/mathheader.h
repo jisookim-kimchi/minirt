@@ -129,6 +129,7 @@ t_color3 		color_float_to_col3(t_color_float input);
 t_color_float	color_float_add(t_color_float color1, t_color_float color2);
 t_color_float	color_col3_to_float(t_color3 input);
 t_color_float 	color_float_multiply(t_color_float color, double t);
+t_color_float 	color_float_multiply_vec3(t_color_float a, t_color_float b);
 t_color_float 	color_float_divide(t_color_float color, double t);
 void			point_set(t_point3 *point3, double x, double y, double z);
 double			vec3_length_squared(t_vec3 vec);

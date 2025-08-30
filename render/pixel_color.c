@@ -6,65 +6,33 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 20:02:59 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 11:49:17 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_tools.h"
-/*
-	The get_ray_from_camera function calculate the ray direction for the viewport
-	pixel center.
-	u_horizontal = the x double value multiply by the delta_horizontal vector
-	v_horizontal = the y double value multiply by the delta_vertical vector
-	uv = u_horizontal + v_horizontal
-	pixel_center = pixel00loc + uv
-	ray->dir = pixel_center - ray->orig
-
-	TODO:
-	Check if camera->transform_comp.pos is ok. Maybe it need to change
-	camera->transform_comp->pos. It is depend on the structure scope
-*/
-
-void	get_ray_from_camera(t_window *win, t_ray *ray)
-{
-	t_vec3	pixel_center;
-	t_vec3	u_horizontal;
-	t_vec3	v_vertical;
-	t_vec3	uv;
-
-	ray->orign = vec3_plus_vec3(win->camera.transform_comp.transform.position,
-			vec3_multiply(win->camera.transform_comp.forward, EPSILON));
-	u_horizontal = vec3_multiply(win->camera.delta_horizontal,
-			(double)(win->antialisign.x));
-	v_vertical = vec3_multiply(win->camera.delta_vertical,
-			(double)(win->antialisign.y));
-	uv = vec3_plus_vec3(u_horizontal, v_vertical);
-	pixel_center = vec3_plus_vec3(win->camera.pixel00loc, uv);
-	ray->dir = vec3_normalized(vec3_sub_vec3(pixel_center, ray->orign));
-}
 
 /*
-	The color_transform_to_int function change the color 
-	float value  (which should be in the range 0.0 and 1.0)
-	into uint_32 format which the renderer can use
+	Spot_light calculation part.
 */
-
-void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
+static void	spot_light_calculation(t_window *win, t_hit *hit,
+	t_phong_terms *phong)
 {
-	if (!col_float || !col_32)
+	float			spot_intensity;
+	float			spot_falloff;
+	t_color_float	spot_color;
+
+	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
 	{
-		printf("Error: Null pointer in color_transform_to_int\n");
-		return ;
+		spot_intensity = spot_light_intensity_at(&win->spot_light,
+				hit->hit_point);
+		spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
+		spot_color = color_float_multiply(win->spot_light.light.light_color,
+				spot_intensity * spot_falloff);
+		spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
+		phong->diffuse_color = vec3_add(phong->diffuse_color,
+				spot_color.red, spot_color.green, spot_color.blue);
 	}
-	col_32->red = (uint32_t)(255.999
-			* clamp_calculation(col_float->red, 0.0f, 1.0f));
-	col_32->green = (uint32_t)(255.999
-			* clamp_calculation(col_float->green, 0.0f, 1.0f));
-	col_32->blue = (uint32_t)(255.999
-			* clamp_calculation(col_float->blue, 0.0f, 1.0f));
-	col_32->alpha = 255;
-	col_32->result_color = (col_32->red << 24) | (col_32->green << 16)
-		| (col_32->blue << 8) | (col_32->alpha);
 }
 
 /*
@@ -75,6 +43,9 @@ void	color_transform_to_int(t_color_float *col_float, t_color_32 *col_32)
 	color = ambient + diff * light_color * object_color + spec * light_color;
 
 	where ambient = ambient_ratio * ambient_color * object_color;
+
+	If the spot_light_calculation part will commented the spot_light
+	effect won't display.
 */
 t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 {
@@ -86,9 +57,9 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	phong.diffuse_t = diffuse_term(hit, &win->light);
 	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
 	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
-			color_float_to_col3(win->ambient.ambient_color),
-			color_float_to_col3(hit->hit_color)),
-		win->ambient.ambient_ratio);
+				color_float_to_col3(win->ambient.ambient_color),
+				color_float_to_col3(hit->hit_color)),
+			win->ambient.ambient_ratio);
 	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
 				color_float_to_col3(win->light.light_color),
 				color_float_to_col3(hit->hit_color)),
@@ -96,23 +67,42 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	phong.specular_color = vec3_multiply(
 			color_float_to_col3(win->light.light_color),
 			win->light.light_ratio * phong.specular_t);
-
-	//FOR SPOT_LIGHT
-	// if (is_in_spot_cone(&win->spot_light, hit->hit_point))
-	// {
-    // 	float spot_intensity = spot_light_intensity_at(&win->spot_light, hit->hit_point);
-    // 	float spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
-		
-    // 	t_color_float spot_color = color_float_multiply(win->spot_light.light.light_color, spot_intensity * spot_falloff);
-    // 	spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
-    // 	phong.diffuse_color = vec3_add(phong.diffuse_color, spot_color.red, spot_color.green, spot_color.blue);
-	// }
-	
+	spot_light_calculation(win, hit, &phong);
 	phong.result = vec3_plus_vec3(phong.ambient_color,
 			vec3_plus_vec3(phong.diffuse_color,
 				phong.specular_color));
 	result_float = color_col3_to_float(phong.result);
 	return (result_float);
+}
+
+static void	pcc_object_hited(t_window *win, t_hit *record,
+	t_color_32 *result_color, t_color_float	*temp)
+{
+	t_color_float	shadow_color;
+	t_color_float	checker_color;
+
+	checkboard_switch_on(win, record);
+	if (is_shadow(win->objs, &win->light, record) == true)
+	{
+		if (record->object.has_checkerboard)
+		{
+			checker_color = checkboard_pattern(record);
+			shadow_color = color_float_multiply(checker_color,
+					win->ambient.ambient_ratio);
+			color_transform_to_int(&shadow_color, result_color);
+		}
+		else
+		{
+			shadow_color = color_float_multiply(record->hit_color,
+					win->ambient.ambient_ratio);
+			color_transform_to_int(&shadow_color, result_color);
+		}
+	}
+	else
+	{
+		*temp = calculate_hit_color(win, record);
+		color_transform_to_int(temp, result_color);
+	}
 }
 
 /*
@@ -125,7 +115,6 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 {
 	t_color_float	temp;
 	t_hit			record;
-	t_color_float	shadow_color;
 
 	if (!ray || !win || !win->objs || !result_color)
 	{
@@ -134,38 +123,11 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	}
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))
-	{
-		checkboard_switch_on(win, &record);
-		if (is_shadow(win->objs, &win->light, &record) == true)
-		{
-			if (record.object.has_checkerboard)
-			{
-				t_color_float checker_color = checkboard_pattern(&record);
-				shadow_color = color_float_multiply(checker_color, win->ambient.ambient_ratio);
-				color_transform_to_int(&shadow_color, result_color);
-			}
-			else
-			{
-				shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
-				color_transform_to_int(&shadow_color, result_color);
-			}
-
-			// shadow_color = color_float_multiply(record.hit_color, win->ambient.ambient_ratio);
-			// color_transform_to_int(&shadow_color, result_color);
-		}
-		else
-		{
-			//printf("else record type %d\n", record.object.obj_type);
-			temp = calculate_hit_color(win, &record);
-			color_transform_to_int(&temp, result_color);
-		}
-	}
+		pcc_object_hited(win, &record, result_color, &temp);
 	else
 	{
-		//result_color.result_color = 0xFF000000;
 		temp = color_float_multiply(win->ambient.ambient_color,
 				win->ambient.ambient_ratio);
 		color_transform_to_int(&temp, result_color);
 	}
 }
-

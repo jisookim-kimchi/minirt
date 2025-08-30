@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 20:02:23 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 11:46:19 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ typedef struct s_window
 	mlx_image_t		*image;
 }	t_window;
 
-// void			get_ray_from_camera(t_camera *camera, t_ray *ray,
-// 					uint32_t x, uint32_t y);
+//color_calculation_utils.c
 void			get_ray_from_camera(t_window *win, t_ray *ray);
 void			color_transform_to_int(t_color_float *col_float,
 					t_color_32 *col_32);
+
+// pixel_color.c
 void			pixel_center_color(t_ray *ray, t_window *win,
 					t_color_32 *result_color);
 t_color_float	calculate_hit_color(t_window *win, t_hit *hit);

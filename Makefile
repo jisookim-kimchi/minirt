@@ -40,6 +40,7 @@ SRCS :=	object/2d_objects.c \
 		Precompiled/transform_comp.c \
 		render/window.c \
 		render/pixel_color.c \
+		render/color_calculation_utils.c \
 		render/antialisign.c \
 		render/checkboard.c \
 		render/hooks.c \

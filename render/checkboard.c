@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 17:48:16 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 20:01:53 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 11:30:10 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,7 @@ void	checkboard_switch_on(t_window *win, t_hit *record)
 	}
 	else
 	{
-		record->object.has_checkerboard = false;	
+		record->object.has_checkerboard = false;
 		win->objs->has_checkerboard = false;
 	}
 }
-
