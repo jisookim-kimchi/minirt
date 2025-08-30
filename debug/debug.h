@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 14:36:33 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 20:12:30 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/30 18:07:53 by jisokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../math/mathheader.h"
 
-void	print_vec3(const t_vec3 * vec3);
+void	print_vec3(const t_vec3 *vec3);
 void	print_color_float(const t_color_float *float_color);
 void	print_color_compare(const t_color_float *float_color1,
 			const t_color_float *float_color2);
