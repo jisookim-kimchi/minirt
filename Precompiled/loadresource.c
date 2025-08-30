@@ -1,4 +1,16 @@
-#include "loadresource.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loadresource.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/30 15:35:56 by jisokim2          #+#    #+#             */
+/*   Updated: 2025/08/30 15:36:02 by jisokim2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+//#include "loadresource.h"
 
 /*
     should be called first
@@ -72,23 +84,4 @@
 //     new_object->name[sizeof(new_object->name) - 1] = '\0';
 
 //     return new_object;
-// }
-
-// int main() {
-//     t_engine engine = { 0 };
-
-//     if (!load_resource(&engine)) {
-//         printf("Failed to load resources\n");
-//         return -1;
-//     }
-
-//     t_game_object* obj = create_new_game_object(&engine, "obj");
-//     if (obj == NULL) {
-//         printf("Failed to create game object\n");
-//         return -1;
-//     }
-
-//     printf("game object created: %s\n", obj->name);
-
-//     return 0;
 // }

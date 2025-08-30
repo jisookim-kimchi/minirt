@@ -43,6 +43,7 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		lighting/spot_light.c\
 		Precompiled/camera.c \
 		Precompiled/transform_comp.c \
+		Precompiled/transform_comp_helper.c \
 		render/window.c \
 		render/pixel_color.c \
 		render/color_calculation_utils.c \
