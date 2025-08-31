@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/29 22:24:23 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 21:38:20 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
 {
 	if (obj->obj_type == PLANE)
 		return (hit_plane((t_plane *)obj->data, ray, hit));
-	if (obj->obj_type == SPHERE)
+	else if (obj->obj_type == SPHERE)
 		return (hit_sphere((t_sphere *)obj->data, ray, hit));
-	if (obj->obj_type == CYLINDER)
+	else if (obj->obj_type == CYLINDER)
 		return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
+	else
+		printf("ray_intersect: no object chosen\n");
 	return (false);
 }
 

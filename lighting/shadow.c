@@ -6,11 +6,47 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 17:25:59 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 17:31:46 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 21:29:53 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lighting/lighting.h"
+
+static bool	shadow_hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
+{
+	bool		found_hit;
+	t_objs_list	*loop_objects;
+	t_hit		temp;
+
+	if (!ray || !record || !objects)
+	{
+		printf("Error : NULL PTR in hit_world\n");
+		return (false);
+	}
+	temp.t_max = record->t_max;
+	found_hit = false;
+	loop_objects = objects;
+	while (loop_objects)
+	{
+		// printf(YELLOW"loop_objects: %p\n"DEFAULT, loop_objects->data);
+		// printf(BLUE"record->object.data: %p\n"DEFAULT, record->object.data);
+		
+		if ((loop_objects->data != record->object.data)
+			&& ray_intersect(loop_objects, ray, &temp))
+		{
+			printf(BLUE"record->object.data: %p\n"DEFAULT, record->object.data);
+			found_hit = true;
+			temp.t_max = temp.t;
+			*record = temp;
+			record->object.obj_type = temp.object.obj_type;
+			record->object.data = temp.object.data;
+		}
+		loop_objects = loop_objects->next;
+	}
+	// printf(CYAN"shadow hit world found hit: %d\n"DEFAULT, found_hit);
+	return (found_hit);
+}
+
 /*
 	Maybe in the if statement part need to fresh the hit->object data
 
@@ -35,8 +71,15 @@ static bool	shadow_object_loop(t_objs_list *object,
 	temp_hit.object = hit->object;
 	temp_hit.object.data = hit->object.data;
 	temp_hit.object.obj_type = hit->object.obj_type;
-	if (hit_world(shadow_ray, &temp_hit, object))
+	// printf(CYAN"shadow loop before hit world\n"DEFAULT);
+	if (shadow_hit_world(shadow_ray, &temp_hit, object))
+	{
+		hit->object = temp_hit.object;
+		hit->object.data = temp_hit.object.data;
+		hit->object.obj_type = temp_hit.object.obj_type;
 		return (true);
+	}
+	// printf(MAGENTA"shadow loop after hit world\n"DEFAULT);
 	return (false);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:54:35 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 16:30:47 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 20:58:41 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_light	init_light(t_vec3 in_pos, float in_bright_ratio,
 	}
 	l.light_ratio = in_bright_ratio;
 	l.light_color = in_color;
+	l.is_light = true;
 	return (l);
 }
 

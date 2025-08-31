@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 18:08:48 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 18:09:43 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 20:46:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void	print_objs(t_objs_list *obj)
 			print_plane_infos((t_plane *)(cur->data));
 		}
 		if (cur->obj_type == CYLINDER)
-			printf("current object is CYLINDER\n");
+		{
+			printf("\ncurrent object is CYLINDER");
+			print_cylinder_infos((t_cylinder *)(cur->data));
+		}
 		if (cur->obj_type == SPHERE)
 		{
-			printf("\ncurrent object is SPHERE\n");
+			printf("\ncurrent object is SPHERE");
 			print_sphere_infos((t_sphere *)(cur->data));
 		}
 		printf("cur addr : %p\n", cur);
