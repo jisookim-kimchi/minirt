@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:59 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 22:21:46 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:05:58 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ static int	handle_spot_light(const char *line, t_window *window)
 // 	return (-1);
 // else if (parser.a_count != 1 || parser.c_count != 1 || parser.l_count != 1)
 // 	return (-1);
+
 int	parsing_start(char *line, t_window *window)
 {
 	if (ft_strncmp(line, "A", 1) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 22:47:12 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:29:34 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	is_valid_input(char *token)
 	{
 		if (token[i] == '.')
 			seen++;
-		if (seen > 1 && !ft_isdigit(token[i]))
+		if (seen > 1 || !ft_isdigit(token[i]))
 		{
 			return (-1);
 		}
@@ -117,11 +117,11 @@ int	parse_vec3(char *token, double *x, double *y, double *z)
 	{
 		return (-1);
 	}
-	while(i < 3)
+	while (i < 3)
 	{
 		if (is_valid_input(temp[i]) < 0)
 		{
-			//printf("error parse_vec3()\n");
+			printf(RED"Error parse_vec3(): %s\n"DEFAULT, temp[i]);
 			free_splited_str(temp);
 			return (-1);
 		}
