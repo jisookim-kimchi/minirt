@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/31 18:41:45 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:58:25 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ typedef struct s_parser
 int		parsing_start(char *line, t_window *window);
 void	free_splited_str(char **to_free);
 
-//parse_file.c
+//parse_file_utils.c
+int		count_array_elem(char **tokens);
+char	*ft_strtok(char *str, const char c);
 bool	is_valid_file(char *path);
 int		open_file(char *path);
+
+//parse_file.c
 int		read_file(int fd, t_window *window, char *path);
 
 //ACL_parser.c
@@ -43,8 +47,6 @@ int		parse_sphere(const char *line, t_sphere *sphere);
 int		parse_cylinder(const char *line, t_cylinder *cylinder);
 
 //parse_utils.c
-int		count_array_elem(char **tokens);
-char	*ft_strtok(char *str, const char c);
 int		parse_color(char *token, float *red, float *green, float *blue);
 void	free_splited_str(char **to_free);
 

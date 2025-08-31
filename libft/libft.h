@@ -6,14 +6,14 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 20:30:14 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/27 20:17:19 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:24:27 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include "../garbage/garbage.h"
+# include "../garbage/garbage.h"
 // # include <stdlib.h>
 # include <unistd.h>
 

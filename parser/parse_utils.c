@@ -6,47 +6,11 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/31 19:03:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:58:39 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-char	*ft_strtok(char *str, const char c)
-{
-	static char	*input;
-	char		*start;
-	int			i;
-
-	i = 0;
-	if (str)
-		input = str;
-	if (!input || !*input)
-		return (NULL);
-	start = input;
-	while (input[i] && input[i] != c && input[i] != '\n')
-		i++;
-	if (input[i])
-	{
-		input[i] = '\0';
-		input = &input[i + 1];
-	}
-	else
-		input = NULL;
-	return (start);
-}
-
-int	count_array_elem(char **tokens)
-{
-	int	i;
-
-	i = 0;
-	while (tokens[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 static int	parse_single_color(char *token, float *color)
 {

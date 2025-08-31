@@ -6,49 +6,12 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/31 19:15:13 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 20:08:51 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-/*
-	check the file extension.
-*/
-bool	is_valid_file(char *path)
-{
-	int	check;
-
-	check = 0;
-	if (!path || ft_strlen(path) <= 3)
-		return (false);
-	check = ft_strlen(path) - 3;
-	if (ft_strncmp(path + check, ".rt", 3) == 0)
-	{
-		return (true);
-	}
-	return (false);
-}
-
-/*
-	open_file
-*/
-int	open_file(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(RED"FILE OPEN FAILED"DEFAULT);
-		exit(1);
-	}
-	return (fd);
-}
-
-/*  //todo
-	read_file in progress
-*/
 static int	handle_line(char *line, t_window *window)
 {
 	int	result;
@@ -70,9 +33,29 @@ static int	handle_line(char *line, t_window *window)
 	return (result);
 }
 
-static int	is_ACL_one(int fd, char *path)
+static int	is_acl_one_while(int fd, int *a, int *c, int *l)
 {
 	char	*line;
+
+	line = NULL;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (ft_strncmp("A", line, 1) == 0)
+			(*a)++;
+		else if (ft_strncmp("C", line, 1) == 0)
+			(*c)++;
+		else if (ft_strncmp("L", line, 1) == 0)
+			(*l)++;
+		free(line);
+	}
+	return (1);
+}
+
+static int	is_acl_one(int fd, char *path)
+{
 	int		a;
 	int		c;
 	int		l;
@@ -80,20 +63,7 @@ static int	is_ACL_one(int fd, char *path)
 	a = 0;
 	c = 0;
 	l = 0;
-	line = NULL;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (ft_strncmp("A" ,line, 1) == 0)
-			a++;
-		else if (ft_strncmp("C" ,line, 1) == 0)
-			c++;
-		else if (ft_strncmp("L" ,line, 1) == 0)
-			l++;
-		free(line);
-	}
+	is_acl_one_while(fd, &a, &c, &l);
 	if (a != 1 || c != 1 || l != 1)
 	{
 		printf(RED"ERROR: number of ACL is not correct:\n"
@@ -105,6 +75,20 @@ static int	is_ACL_one(int fd, char *path)
 	return (1);
 }
 
+/*
+	This was the if part before using the is_acl_one function
+
+	if (!line)
+	{
+		if (result == 0)
+		{
+			printf("no line\n");
+			return (-1);
+		}
+		printf("EOF reached.\n");
+		break ;
+	}
+*/
 int	read_file(int fd, t_window *window, char *path)
 {
 	char	*line;
@@ -112,10 +96,8 @@ int	read_file(int fd, t_window *window, char *path)
 
 	line = NULL;
 	result = 0;
-	if (is_ACL_one(fd, path) < 0)
-	{
+	if (is_acl_one(fd, path) < 0)
 		exit(1);
-	}
 	printf(GREEN"Start save data from file\n"DEFAULT);
 	while (1)
 	{
@@ -123,17 +105,10 @@ int	read_file(int fd, t_window *window, char *path)
 		printf("parsed line : %s\n", line);
 		if (!line)
 		{
-			// if (result == 0)
-			// {
-			// 	printf("no line\n");
-			// 	return (-1);
-			// }
-			// printf("EOF reached.\n");
 			break ;
 		}
 		result = handle_line(line, window);
 	}
-	printf("EOF reached\n");
+	printf(YELLOW"EOF reached\n"DEFAULT);
 	return (result);
 }
-

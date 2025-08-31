@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   OBJ_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 17:04:26 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 20:32:45 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 19:54:52 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int	parse_plane(const char *line, t_plane *plane)
 	tokens = ft_split(line, ' ');
 	if (!tokens || count_array_elem(tokens) != 4)
 		return (-1);
-	if (parse_vec3(tokens[1], &plane->point.x, &plane->point.y, &plane->point.z) < 0)
+	if (parse_vec3(tokens[1], &plane->point.x,
+			&plane->point.y, &plane->point.z) < 0)
 		return (-1);
 	if (parse_vec3(tokens[2], &plane->unit_normal_vec.x,
-		&plane->unit_normal_vec.y, &plane->unit_normal_vec.z) < 0)
+			&plane->unit_normal_vec.y, &plane->unit_normal_vec.z) < 0)
 		return (-1);
 	plane->unit_normal_vec = vec3_normalized(plane->unit_normal_vec);
 	if (parse_color(tokens[3], &plane->plane_color.red,
-		&plane->plane_color.green, &plane->plane_color.blue) < 0)
+			&plane->plane_color.green, &plane->plane_color.blue) < 0)
 		return (-1);
 	free_splited_str(tokens);
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ACL_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 16:49:02 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 21:46:28 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 19:55:49 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int	parse_light(char *line, t_light *light)
 	if (!tokens || count_array_elem(tokens) != 4)
 		return (-1);
 	if (parse_vec3(tokens[1], &light->light_position.x,
-		&light->light_position.y, &light->light_position.z) < 0)
+			&light->light_position.y, &light->light_position.z) < 0)
 		return (-1);
 	light->light_ratio = ft_atof(tokens[2]);
 	if (!check_value_in_range(light->light_ratio, 0.0, 1.0))
 		return (-1);
 	if (parse_color(tokens[3], &light->light_color.red,
-		&light->light_color.green, &light->light_color.blue) < 0)
+			&light->light_color.green, &light->light_color.blue) < 0)
 		return (-1);
 	light->is_light = true;
 	free_splited_str(tokens);
@@ -101,12 +101,12 @@ int	parse_camera(char *line, t_camera *camera)
 	if (!tokens || count_array_elem(tokens) != 4)
 		return (-1);
 	if (parse_vec3(tokens[1], &camera->transform_comp.transform.position.x,
-		&camera->transform_comp.transform.position.y,
-		&camera->transform_comp.transform.position.z) < 0)
+			&camera->transform_comp.transform.position.y,
+			&camera->transform_comp.transform.position.z) < 0)
 		return (-1);
 	if (parse_vec3(tokens[2], &camera->transform_comp.forward.x,
-		&camera->transform_comp.forward.y,
-		&camera->transform_comp.forward.z) < 0)
+			&camera->transform_comp.forward.y,
+			&camera->transform_comp.forward.z) < 0)
 		return (-1);
 	fov = ft_atof(tokens[3]);
 	if (fov < 0 || fov > 180)
