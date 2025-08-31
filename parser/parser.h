@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 14:46:39 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 21:52:08 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 18:41:45 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_splited_str(char **to_free);
 //parse_file.c
 bool	is_valid_file(char *path);
 int		open_file(char *path);
-int		read_file(int fd, t_window *window);
+int		read_file(int fd, t_window *window, char *path);
 
 //ACL_parser.c
 int		parse_spot_light(const char *line, t_spot_light *light);

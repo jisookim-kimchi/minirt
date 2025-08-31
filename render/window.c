@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/31 17:29:51 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 18:40:30 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	main_parsing_file(int argc, char **argv, t_window *win)
 		exit(1);
 	}
 	fd = open_file(path);
-	check_read = read_file(fd, win);
+	check_read = read_file(fd, win, path);
 	if (check_read < 0)
 	{
 		free_objs_list(&win->objs);

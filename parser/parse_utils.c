@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 10:04:00 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/31 18:29:34 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:03:26 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,51 @@ int	parse_color(char *token, float *red, float *green, float *blue)
 	return (1);
 }
 
+// int	is_valid_input(char *token)
+// {
+// 	int		i;
+// 	int		seen;
+
+// 	i = 0;
+// 	seen = 0;
+// 	if (!ft_isdigit(token[0]) && !(token[0] == '-'))
+// 		return (-1);
+// 	if ((token[0] == '-' && token[1] == '.') || (token[0] == '.'))
+// 		return (-1);
+// 	if (token[0] == '-')
+// 		i++;
+// 	while (token[i])
+// 	{
+// 		if (token[i] == '.')
+// 			seen++;
+// 		if (seen > 1 || !ft_isdigit(token[i]))
+// 		{
+// 			printf(YELLOW"token[%d]: %c\n"DEFAULT, i, token[i]);
+// 			return (-1);
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
+
 int	is_valid_input(char *token)
 {
 	int		i;
-	int		seen;
 
 	i = 0;
-	seen = 0;
+	if (ft_strchr(token, '.') != ft_strrchr(token, '.'))
+		return (-1);
 	if (!ft_isdigit(token[0]) && !(token[0] == '-'))
 		return (-1);
 	if ((token[0] == '-' && token[1] == '.') || (token[0] == '.'))
 		return (-1);
 	if (token[0] == '-')
 		i++;
-	while(token[i])
+	while (token[i])
 	{
-		if (token[i] == '.')
-			seen++;
-		if (seen > 1 || !ft_isdigit(token[i]))
+		if (!ft_isdigit(token[i]) && token[i] != '.')
 		{
+			printf(YELLOW"token[%d]: %c\n"DEFAULT, i, token[i]);
 			return (-1);
 		}
 		i++;
