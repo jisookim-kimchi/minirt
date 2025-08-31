@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 22:52:29 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/08/31 17:29:51 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,16 @@ static void	main_parsing_file(int argc, char **argv, t_window *win)
 		exit(1);
 	}
 	fd = open_file(path);
-	if (fd < 0)
-	{
-		printf(RED"file open failed\n"DEFAULT);
-		exit(1);
-	}
 	check_read = read_file(fd, win);
 	if (check_read < 0)
 	{
 		free_objs_list(&win->objs);
 		printf("failed parsing\n");
 		printf("check_read: %d\n", check_read);
+		close(fd);
 		exit(1);
 	}
+	close(fd);
 }
 
 static void	main_window_start(t_window *win, char **argv)
