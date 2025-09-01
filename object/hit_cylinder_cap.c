@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder_cap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 13:49:08 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/30 14:17:15 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/09/01 14:08:31 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	cal_caps(t_cylinder *cylinder, t_cap *top_cap, t_cap *bottom_cap)
 	bottom_cap->normal = down;
 }
 
-bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
+bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit, bool shadow_part)
 {
 	t_cap	top_cap;
 	t_cap	bottom_cap;
@@ -76,6 +76,13 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit)
 		hit->object.obj_type = CYLINDER;
 		hit->object.data = cylinder;
 		hit->hit_color = cylinder->cylinder_color;
+	}
+	if (shadow_part == true)
+	{
+		printf(CYAN"HIT_SPHERE:\n");
+		printf("loop_objects: %p\n", cylinder);
+		printf("record->object.data: %p\n", hit->object.data);
+		printf(DEFAULT);
 	}
 	return (is_hit);
 }

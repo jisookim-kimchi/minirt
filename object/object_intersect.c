@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_intersect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 15:07:21 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/09/01 14:07:18 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static bool	is_hit(t_sphere *sphere,
 	return (true);
 }
 
-bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
+bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, bool shadow_part)
 {
 	double			sphere_radius;
 	float			t_root1;
@@ -96,6 +96,13 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	hit->object.data = sphere;
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	calculate_sphere_uv(sphere, hit->hit_point);
+	if (shadow_part == true)
+	{
+		printf(CYAN"HIT_SPHERE:\n");
+		printf("loop_objects: %p\n", sphere);
+		printf("record->object.data: %p\n", hit->object.data);
+		printf(DEFAULT);
+	}
 	return (true);
 }
 
@@ -110,7 +117,7 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit)
 	t = (ray_p_plane_p * plane->unit_normal_vec) / rayn_planen_dot
 	Store as hit if the t value is in te t_min t_max intervallum
 */
-bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
+bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit, bool shadow_part)
 {
 	double	rayn_planen_dot;
 	double	t;
@@ -130,5 +137,12 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit)
 	hit->object.obj_type = PLANE;
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	calculate_plane_uv(plane, hit->hit_point);
+	if (shadow_part == true)
+	{
+		printf(CYAN"HIT_PLANE:\n");
+		printf("loop_objects: %p\n", plane);
+		printf("record->object.data: %p\n", hit->object.data);
+		printf(DEFAULT);
+	}
 	return (true);
 }
