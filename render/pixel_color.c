@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/01 17:23:19 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/01 17:46:46 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,8 @@ static void	pcc_object_hited(t_window *win, t_hit *record,
 	count++;
 	if (is_shadow(win->objs, &win->light, record) == true)
 	{
-		write(1, "1\n", 2);
 		if (record->object.has_checkerboard)
 		{
-			write(1, "2\n", 2);
 			checker_color = checkboard_pattern(record);
 			shadow_color = color_float_multiply(checker_color,
 					win->ambient.ambient_ratio);
@@ -127,7 +125,6 @@ static void	pcc_object_hited(t_window *win, t_hit *record,
 		}
 		else
 		{
-			write(1, "3\n", 2);
 			shadow_color = color_float_multiply(record->hit_color,
 					win->ambient.ambient_ratio);
 			color_transform_to_int(&shadow_color, result_color);
