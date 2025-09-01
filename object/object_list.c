@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/31 21:38:20 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/01 13:31:19 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,36 @@ void	free_objs_list(t_objs_list **list)
 	*list = NULL;
 }
 
-bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit)
+bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit, bool shadow_part)
 {
+	bool	result;
+
+	result = false;
+	(void)shadow_part;
+	// if (shadow_part == true)
+	// {
+	// 	printf(YELLOW"Before hit objectes check\n");
+	// 	printf("loop_objects: %p\n", obj->data);
+	// 	printf("record->object.data: %p\n", hit->object.data);
+	// 	printf(DEFAULT);
+	// }
 	if (obj->obj_type == PLANE)
-		return (hit_plane((t_plane *)obj->data, ray, hit));
+		result = hit_plane((t_plane *)obj->data, ray, hit);
 	else if (obj->obj_type == SPHERE)
-		return (hit_sphere((t_sphere *)obj->data, ray, hit));
+		result = hit_sphere((t_sphere *)obj->data, ray, hit);
 	else if (obj->obj_type == CYLINDER)
-		return (hit_cylinder((t_cylinder *)obj->data, ray, hit));
+		result = hit_cylinder((t_cylinder *)obj->data, ray, hit);
 	else
 		printf("ray_intersect: no object chosen\n");
-	return (false);
+	// if (shadow_part == true)
+	// {
+	// 	printf(CYAN"After hit objectes check\n");
+	// 	printf("loop_objects: %p\n", obj->data);
+	// 	printf("record->object.data: %p\n", hit->object.data);
+	// 	printf("The result: %d\n", result);
+	// 	printf(DEFAULT);
+	// }
+	return (result);
 }
 
 /*
@@ -95,7 +114,7 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	while (loop_objects)
 	{
 		if ((loop_objects->data != record->object.data)
-			&& ray_intersect(loop_objects, ray, &temp))
+			&& ray_intersect(loop_objects, ray, &temp, false))
 		{
 			found_hit = true;
 			temp.t_max = temp.t;
@@ -115,21 +134,21 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	exist an object which is hited by the ray
 	and it is closer to the ray origin
 */
-t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
-{
-	t_hittable_objs	*hittable_list;
+// t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit)
+// {
+// 	t_hittable_objs	*hittable_list;
 
-	hittable_list = NULL;
-	while (obj->next)
-	{
-		if (ray_intersect(obj, ray, hit) == true)
-		{
-			if (hit)
-			{
-				add_member_to_obj_list(&hittable_list, obj);
-			}
-		}
-		obj = obj->next;
-	}
-	return (hittable_list);
-}
+// 	hittable_list = NULL;
+// 	while (obj->next)
+// 	{
+// 		if (ray_intersect(obj, ray, hit) == true)
+// 		{
+// 			if (hit)
+// 			{
+// 				add_member_to_obj_list(&hittable_list, obj);
+// 			}
+// 		}
+// 		obj = obj->next;
+// 	}
+// 	return (hittable_list);
+// }

@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:47:54 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/31 18:40:30 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/01 13:24:46 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static void	main_parsing_file(int argc, char **argv, t_window *win)
 	close(fd);
 }
 
+/*
+	If the image hook line by line version used we need the:
+		win->antialisign.y = 0;
+*/
 static void	main_window_start(t_window *win, char **argv)
 {
 	win->mlx = mlx_init(IMAGE_WIDTH, IMAGE_WIDTH / (16.0f / 9.0f),
@@ -49,6 +53,7 @@ static void	main_window_start(t_window *win, char **argv)
 	win->image = mlx_new_image(win->mlx, \
 		(int32_t)(win->screen.x), (int32_t)(win->screen.y));
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	win->antialisign.y = 0;
 	image_hook(win);
 	if (!win->image || (mlx_image_to_window(win->mlx, win->image, 0, 0) < 0))
 	{

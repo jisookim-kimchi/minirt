@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 18:40:58 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 12:02:40 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/01 13:40:22 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,48 @@ void	antialisign_message(t_window *win)
 		get_ray_from_camera(&win->camera, &ray_pixel_center, x, y);
 		pixel_center_color(&ray_pixel_center, win, &pixel_center_col);
 */
+// void	image_hook(void *param)
+// {
+// 	t_window	*win;
+// 	t_color_32	pixel_center_col;
+
+// 	win = (t_window *)param;
+// 	win->antialisign.y = 0;
+// 	while (win->antialisign.y < win->image->height)
+// 	{
+// 		win->antialisign.x = 0;
+// 		while (win->antialisign.x < win->image->width)
+// 		{
+// 			switch_antialisgn(win, &pixel_center_col);
+// 			mlx_put_pixel(win->image, win->antialisign.x,
+// 				win->antialisign.y, pixel_center_col.result_color);
+// 			win->antialisign.x++;
+// 		}
+// 		win->antialisign.y++;
+// 	}
+// 	antialisign_message(win);
+// }
+
 void	image_hook(void *param)
 {
 	t_window	*win;
 	t_color_32	pixel_center_col;
 
 	win = (t_window *)param;
-	win->antialisign.y = 0;
-	while (win->antialisign.y < win->image->height)
+
+	if (win->antialisign.y >= win->image->height)
 	{
-		win->antialisign.x = 0;
-		while (win->antialisign.x < win->image->width)
-		{
-			switch_antialisgn(win, &pixel_center_col);
-			mlx_put_pixel(win->image, win->antialisign.x,
-				win->antialisign.y, pixel_center_col.result_color);
-			win->antialisign.x++;
-		}
-		win->antialisign.y++;
+		win->antialisign.y = 0;
+		return ;
 	}
+	win->antialisign.x = 0;
+	while (win->antialisign.x < win->image->width)
+	{
+		switch_antialisgn(win, &pixel_center_col);
+		mlx_put_pixel(win->image, win->antialisign.x,
+			win->antialisign.y, pixel_center_col.result_color);
+		win->antialisign.x++;
+	}
+	win->antialisign.y++;
 	antialisign_message(win);
 }

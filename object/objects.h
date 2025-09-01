@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:30:52 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 18:40:48 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:47:03 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ t_objs_list		*create_cylinder(t_cylinder *cylinder);
 void			add_member_to_obj_list(t_objs_list **list,
 					t_objs_list *new_member);
 void			free_objs_list(t_objs_list **list);
-bool			ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit);
+bool			ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit, bool shadow_part);
 bool			hit_world(t_ray *ray, t_hit *record, t_objs_list *objects);
 void			print_objs(t_objs_list *obj);
 t_hittable_objs	*get_hittable_list(t_objs_list *obj, t_ray *ray, t_hit *hit);

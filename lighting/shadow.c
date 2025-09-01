@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 17:25:59 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/31 21:29:53 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:45:19 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	shadow_hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 		// printf(BLUE"record->object.data: %p\n"DEFAULT, record->object.data);
 		
 		if ((loop_objects->data != record->object.data)
-			&& ray_intersect(loop_objects, ray, &temp))
+			&& ray_intersect(loop_objects, ray, &temp, true))
 		{
 			printf(BLUE"record->object.data: %p\n"DEFAULT, record->object.data);
 			found_hit = true;
