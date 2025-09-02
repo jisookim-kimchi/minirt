@@ -52,6 +52,7 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		render/antialisign.c \
 		render/antialisign_shadow.c \
 		render/checkboard.c \
+		render/checkboard_switch.c \
 		render/hooks.c \
 		render/main_utils.c \
 		debug/messages.c \

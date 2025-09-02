@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 18:40:58 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 06:27:01 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 08:29:04 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		win->antialisign.antialisign_on = true;
 	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
 		win->antialisign.antialisign_on = false;
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+		check_on_all_obj(win, true);
+	if (keydata.key == MLX_KEY_V && keydata.action == MLX_PRESS)
+		check_on_all_obj(win, false);
 	camera_movements_keys(&keydata, win);
 }
 

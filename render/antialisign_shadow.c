@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 07:14:16 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 07:53:18 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 08:31:42 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_color_float	antialisign_pcc_object_hited(t_window *win,
 	t_color_float	shadow_color;
 	t_color_float	checker_color;
 
-	checkboard_switch_on(win, record);
+	record->object.has_checkerboard = win->objs->has_checkerboard;
 	if (is_shadow(win->objs, &win->light, record) == true)
 	{
 		if (record->object.has_checkerboard)

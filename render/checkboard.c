@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 17:48:16 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 11:30:10 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 08:35:04 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,26 @@ t_color_float	checkboard_pattern(t_hit *hit)
 /*
 	This function need to be improve later
 */
-void	checkboard_switch_on(t_window *win, t_hit *record)
-{
-	if (record->object.obj_type == SPHERE)
-	{
-		record->object.has_checkerboard = true;
-		win->objs->has_checkerboard = true;
-	}
-	else if (record->object.obj_type == PLANE)
-	{
-		record->object.has_checkerboard = true;
-		win->objs->has_checkerboard = true;
-	}
-	else if (record->object.obj_type == CYLINDER)
-	{
-		record->object.has_checkerboard = true;
-		win->objs->has_checkerboard = true;
-	}
-	else
-	{
-		record->object.has_checkerboard = false;
-		win->objs->has_checkerboard = false;
-	}
-}
+// void	checkboard_switch_on(t_window *win, t_hit *record)
+// {
+// 	if (record->object.obj_type == SPHERE)
+// 	{
+// 		record->object.has_checkerboard = true;
+// 		win->objs->has_checkerboard = true;
+// 	}
+// 	else if (record->object.obj_type == PLANE)
+// 	{
+// 		record->object.has_checkerboard = true;
+// 		win->objs->has_checkerboard = true;
+// 	}
+// 	else if (record->object.obj_type == CYLINDER)
+// 	{
+// 		record->object.has_checkerboard = true;
+// 		win->objs->has_checkerboard = true;
+// 	}
+// 	else
+// 	{
+// 		record->object.has_checkerboard = false;
+// 		win->objs->has_checkerboard = false;
+// 	}
+// }
