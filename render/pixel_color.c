@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 07:03:16 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 07:42:39 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,45 +106,13 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 	return (result_float);
 }
 
-// static void	pcc_object_hited(t_window *win, t_hit *record,
-// 	t_color_32 *result_color, t_color_float	*temp)
-// {
-// 	t_color_float	shadow_color;
-// 	t_color_float	checker_color;
-
-// 	//checkboard_switch_on(win, record);
-// 	if (is_shadow(win->objs, &win->light, record) == true)
-// 	{
-// 		if (record->object.has_checkerboard)
-// 		{
-// 			checker_color = checkboard_pattern(record);
-// 			shadow_color = color_float_multiply(checker_color,
-// 					win->ambient.ambient_ratio);
-// 			color_transform_to_int(&shadow_color, result_color);
-// 		}
-// 		else
-// 		{
-// 			shadow_color = color_float_multiply(record->hit_color,
-// 					win->ambient.ambient_ratio);
-// 			color_transform_to_int(&shadow_color, result_color);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		*temp = calculate_hit_color(win, record);
-// 		color_transform_to_int(temp, result_color);
-// 	}
-// }
-
-/*
-	pcc-object hitted function without spot_light
-*/
 static void	pcc_object_hited(t_window *win, t_hit *record,
 	t_color_32 *result_color, t_color_float	*temp)
 {
 	t_color_float	shadow_color;
 	t_color_float	checker_color;
 
+	checkboard_switch_on(win, record);
 	if (is_shadow(win->objs, &win->light, record) == true)
 	{
 		if (record->object.has_checkerboard)
@@ -167,6 +135,38 @@ static void	pcc_object_hited(t_window *win, t_hit *record,
 		color_transform_to_int(temp, result_color);
 	}
 }
+
+/*
+	pcc-object hitted function without checkboard pattern
+*/
+// static void	pcc_object_hited(t_window *win, t_hit *record,
+// 	t_color_32 *result_color, t_color_float	*temp)
+// {
+// 	t_color_float	shadow_color;
+// 	t_color_float	checker_color;
+
+// 	if (is_shadow(win->objs, &win->light, record) == true)
+// 	{
+// 		if (record->object.has_checkerboard)
+// 		{
+// 			checker_color = checkboard_pattern(record);
+// 			shadow_color = color_float_multiply(checker_color,
+// 					win->ambient.ambient_ratio);
+// 			color_transform_to_int(&shadow_color, result_color);
+// 		}
+// 		else
+// 		{
+// 			shadow_color = color_float_multiply(record->hit_color,
+// 					win->ambient.ambient_ratio);
+// 			color_transform_to_int(&shadow_color, result_color);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		*temp = calculate_hit_color(win, record);
+// 		color_transform_to_int(temp, result_color);
+// 	}
+// }
 
 /*
 	The pixel_center_color function return the color 
