@@ -50,6 +50,7 @@ SRCS :=	object/2d_3d_objects_helper.c \
 		render/pixel_color.c \
 		render/color_calculation_utils.c \
 		render/antialisign.c \
+		render/antialisign_shadow.c \
 		render/checkboard.c \
 		render/hooks.c \
 		render/main_utils.c \

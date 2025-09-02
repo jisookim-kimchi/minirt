@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 06:29:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 07:03:16 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 /*
 	Spot_light calculation part.
 */
-static void	spot_light_calculation(t_window *win, t_hit *hit,
-	t_phong_terms *phong)
-{
-	float			spot_intensity;
-	float			spot_falloff;
-	t_color_float	spot_color;
+// static void	spot_light_calculation(t_window *win, t_hit *hit,
+// 	t_phong_terms *phong)
+// {
+// 	float			spot_intensity;
+// 	float			spot_falloff;
+// 	t_color_float	spot_color;
 
-	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
-	{
-		spot_intensity = spot_light_intensity_at(&win->spot_light,
-				hit->hit_point);
-		spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
-		spot_color = color_float_multiply(win->spot_light.light_color,
-				spot_intensity * spot_falloff);
-		spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
-		phong->diffuse_color = vec3_add(phong->diffuse_color,
-				spot_color.red, spot_color.green, spot_color.blue);
-	}
-}
+// 	if (is_in_spot_cone(&win->spot_light, hit->hit_point))
+// 	{
+// 		spot_intensity = spot_light_intensity_at(&win->spot_light,
+// 				hit->hit_point);
+// 		spot_falloff = spot_light_falloff(&win->spot_light, hit->hit_point);
+// 		spot_color = color_float_multiply(win->spot_light.light_color,
+// 				spot_intensity * spot_falloff);
+// 		spot_color = color_float_multiply_vec3(spot_color, hit->hit_color);
+// 		phong->diffuse_color = vec3_add(phong->diffuse_color,
+// 				spot_color.red, spot_color.green, spot_color.blue);
+// 	}
+// }
 
 /*
 	The shininess object related behavior. Now it is fixed value, but

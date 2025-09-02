@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 19:18:25 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/31 16:34:44 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 07:25:37 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@
 	include the shadow and checkerboard part. Later in the n_samples_in_pixel
 	function the pixel_sample_color should change to pixel_center_color 
 */
-t_color_float	pixel_sample_color(t_ray *ray, t_window *win)
-{
-	t_color_float	temp;
-	t_hit			record;
+// t_color_float	pixel_sample_color(t_ray *ray, t_window *win)
+// {
+// 	t_color_float	temp;
+// 	t_hit			record;
 
-	set_ray_interval(&record, 0.001f, INFINITY);
-	if (hit_world(ray, &record, win->objs))
-	{
-		temp = calculate_hit_color(win, &record);
-	}
-	else
-	{
-		temp = color_float_multiply(win->ambient.ambient_color,
-				win->ambient.ambient_ratio);
-	}
-	return (temp);
-}
+// 	set_ray_interval(&record, 0.001f, INFINITY);
+// 	if (hit_world(ray, &record, win->objs))
+// 	{
+// 		temp = calculate_hit_color(win, &record);
+// 	}
+// 	else
+// 	{
+// 		temp = color_float_multiply(win->ambient.ambient_color,
+// 				win->ambient.ambient_ratio);
+// 	}
+// 	return (temp);
+// }
 
 t_ray	get_pixel_ray(t_window *win)
 {
