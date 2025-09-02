@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 06:32:41 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 10:45:13 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 		return (false);
 	}
 	temp.t_max = record->t_max;
+	temp.object.data = record->object.data;
 	found_hit = false;
 	loop_objects = objects;
 	while (loop_objects)
