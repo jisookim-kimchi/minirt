@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/01 17:26:41 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 06:32:41 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,13 @@ void	free_objs_list(t_objs_list **list)
 	*list = NULL;
 }
 
-bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit, bool shadow_part)
+bool	ray_intersect(t_objs_list *obj, t_ray *ray,
+	t_hit *hit, bool shadow_part)
 {
 	bool	result;
 
 	result = false;
 	(void)shadow_part;
-	// if (shadow_part == true)
-	// {
-	// 	printf(YELLOW"Before hit objectes check\n");
-	// 	printf("loop_objects: %p\n", obj->data);
-	// 	printf("record->object.data: %p\n", hit->object.data);
-	// 	printf(DEFAULT);
-	// }
 	if (obj->obj_type == PLANE)
 		result = hit_plane((t_plane *)obj->data, ray, hit, shadow_part);
 	else if (obj->obj_type == SPHERE)
@@ -79,14 +73,6 @@ bool	ray_intersect(t_objs_list *obj, t_ray *ray, t_hit *hit, bool shadow_part)
 		result = hit_cylinder((t_cylinder *)obj->data, ray, hit, shadow_part);
 	else
 		printf("ray_intersect: no object chosen\n");
-	// if (shadow_part == true)
-	// {
-	// 	printf(CYAN"After hit objectes check\n");
-	// 	printf("loop_objects: %p\n", obj->data);
-	// 	printf("record->object.data: %p\n", hit->object.data);
-	// 	printf("The result: %d\n", result);
-	// 	printf(DEFAULT);
-	// }
 	return (result);
 }
 

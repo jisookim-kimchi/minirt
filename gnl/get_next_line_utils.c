@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokim2 <jisokim2@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 19:11:29 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/07/29 15:44:41 by jisokim2         ###   ########.fr       */
+/*   Updated: 2025/09/02 06:36:46 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,9 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	char	*temp_r;
 	size_t	len_s1;
 	size_t	len_s2;
-	// size_t	i;
-	// size_t	j;
 
 	len_s1 = ft_strlen_gnl(s1);
 	len_s2 = ft_strlen_gnl(s2);
-	// i = 0;
-	// j = 0;
 	temp_r = malloc(((len_s1 + len_s2) + 1) * sizeof(char));
 	if (!temp_r)
 		return (NULL);

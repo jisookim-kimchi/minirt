@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 18:40:58 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/01 13:40:22 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 06:27:01 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void	image_hook(void *param)
 	t_color_32	pixel_center_col;
 
 	win = (t_window *)param;
-
 	if (win->antialisign.y >= win->image->height)
 	{
 		win->antialisign.y = 0;

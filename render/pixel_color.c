@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/01 17:46:46 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 06:29:26 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,6 @@ static void	spot_light_calculation(t_window *win, t_hit *hit,
 	effect won't display.
 */
 
-t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
-{
-	t_phong_terms	phong;
-	t_color_float	result_float;
-
-	if (hit->object.has_checkerboard)
-		hit->hit_color = checkboard_pattern(hit);
-	phong.diffuse_t = diffuse_term(hit, &win->light);
-	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
-	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
-				color_float_to_col3(win->ambient.ambient_color),
-				color_float_to_col3(hit->hit_color)),
-			win->ambient.ambient_ratio);
-	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
-				color_float_to_col3(win->light.light_color),
-				color_float_to_col3(hit->hit_color)),
-			win->light.light_ratio * phong.diffuse_t);
-	phong.specular_color = vec3_multiply(
-			color_float_to_col3(win->light.light_color),
-			win->light.light_ratio * phong.specular_t);
-	spot_light_calculation(win, hit, &phong);
-	phong.result = vec3_plus_vec3(phong.ambient_color,
-			vec3_plus_vec3(phong.diffuse_color,
-				phong.specular_color));
-	result_float = color_col3_to_float(phong.result);
-	return (result_float);
-}
-
 // t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 // {
 // 	t_phong_terms	phong;
@@ -96,6 +68,7 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 // 	phong.specular_color = vec3_multiply(
 // 			color_float_to_col3(win->light.light_color),
 // 			win->light.light_ratio * phong.specular_t);
+// 	spot_light_calculation(win, hit, &phong);
 // 	phong.result = vec3_plus_vec3(phong.ambient_color,
 // 			vec3_plus_vec3(phong.diffuse_color,
 // 				phong.specular_color));
@@ -103,17 +76,75 @@ t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
 // 	return (result_float);
 // }
 
+/*
+	calculate_hit_color function without spot_light
+*/
+t_color_float	calculate_hit_color(t_window *win, t_hit *hit)
+{
+	t_phong_terms	phong;
+	t_color_float	result_float;
+
+	if (hit->object.has_checkerboard)
+		hit->hit_color = checkboard_pattern(hit);
+	phong.diffuse_t = diffuse_term(hit, &win->light);
+	phong.specular_t = specular_term(&win->camera, hit, &win->light, 12.0);
+	phong.ambient_color = vec3_multiply(vec3_multiply_vec3(
+				color_float_to_col3(win->ambient.ambient_color),
+				color_float_to_col3(hit->hit_color)),
+			win->ambient.ambient_ratio);
+	phong.diffuse_color = vec3_multiply(vec3_multiply_vec3(
+				color_float_to_col3(win->light.light_color),
+				color_float_to_col3(hit->hit_color)),
+			win->light.light_ratio * phong.diffuse_t);
+	phong.specular_color = vec3_multiply(
+			color_float_to_col3(win->light.light_color),
+			win->light.light_ratio * phong.specular_t);
+	phong.result = vec3_plus_vec3(phong.ambient_color,
+			vec3_plus_vec3(phong.diffuse_color,
+				phong.specular_color));
+	result_float = color_col3_to_float(phong.result);
+	return (result_float);
+}
+
+// static void	pcc_object_hited(t_window *win, t_hit *record,
+// 	t_color_32 *result_color, t_color_float	*temp)
+// {
+// 	t_color_float	shadow_color;
+// 	t_color_float	checker_color;
+
+// 	//checkboard_switch_on(win, record);
+// 	if (is_shadow(win->objs, &win->light, record) == true)
+// 	{
+// 		if (record->object.has_checkerboard)
+// 		{
+// 			checker_color = checkboard_pattern(record);
+// 			shadow_color = color_float_multiply(checker_color,
+// 					win->ambient.ambient_ratio);
+// 			color_transform_to_int(&shadow_color, result_color);
+// 		}
+// 		else
+// 		{
+// 			shadow_color = color_float_multiply(record->hit_color,
+// 					win->ambient.ambient_ratio);
+// 			color_transform_to_int(&shadow_color, result_color);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		*temp = calculate_hit_color(win, record);
+// 		color_transform_to_int(temp, result_color);
+// 	}
+// }
+
+/*
+	pcc-object hitted function without spot_light
+*/
 static void	pcc_object_hited(t_window *win, t_hit *record,
 	t_color_32 *result_color, t_color_float	*temp)
 {
 	t_color_float	shadow_color;
 	t_color_float	checker_color;
-	static int		count = 1;
 
-	//checkboard_switch_on(win, record);
-	if (count == 1)
-		print_objs(win->objs);
-	count++;
 	if (is_shadow(win->objs, &win->light, record) == true)
 	{
 		if (record->object.has_checkerboard)

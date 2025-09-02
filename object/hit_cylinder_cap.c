@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 13:49:08 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/09/01 16:39:26 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 06:44:01 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,15 @@ static void	cal_caps(t_cylinder *cylinder, t_cap *top_cap, t_cap *bottom_cap)
 	bottom_cap->normal = down;
 }
 
-bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit, bool shadow_part)
+bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray,
+	t_hit *hit, bool shadow_part)
 {
 	t_cap	top_cap;
 	t_cap	bottom_cap;
 	bool	is_hit;
 
 	is_hit = false;
+	(void)(shadow_part);
 	if (!cylinder || !ray || !hit)
 		return (false);
 	cal_caps(cylinder, &top_cap, &bottom_cap);
@@ -77,13 +79,5 @@ bool	hit_cylinder(t_cylinder *cylinder, t_ray *ray, t_hit *hit, bool shadow_part
 		hit->object.data = cylinder;
 		hit->hit_color = cylinder->cylinder_color;
 	}
-	(void)shadow_part;
-	// if (shadow_part == true)
-	// {
-	// 	printf(CYAN"HIT_SPHERE:\n");
-	// 	printf("loop_objects: %p\n", cylinder);
-	// 	printf("record->object.data: %p\n", hit->object.data);
-	// 	printf(DEFAULT);
-	// }
 	return (is_hit);
 }

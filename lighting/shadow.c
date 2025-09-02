@@ -6,11 +6,43 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 17:25:59 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/01 17:46:25 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 06:59:19 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lighting/lighting.h"
+
+// static bool	shadow_hit_world(t_ray *ray, 
+// t_hit *record, t_objs_list *objects)
+// {
+// 	bool		found_hit;
+// 	t_objs_list	*loop_objects;
+// 	t_hit		temp;
+
+// 	if (!ray || !record || !objects)
+// 	{
+// 		printf("Error : NULL PTR in hit_world\n");
+// 		return (false);
+// 	}
+// 	temp.t_max = record->t_max;
+// 	temp.object.data = record->object.data;
+// 	found_hit = false;
+// 	loop_objects = objects;
+// 	while (loop_objects)
+// 	{
+// 		if ((loop_objects->data != record->object.data)
+// 			&& ray_intersect(loop_objects, ray, &temp, true))
+// 		{
+// 			found_hit = true;
+// 			temp.t_max = temp.t;
+// 			*record = temp;
+// 			record->object.obj_type = temp.object.obj_type;
+// 			record->object.data = temp.object.data;
+// 		}
+// 		loop_objects = loop_objects->next;
+// 	}
+// 	return (found_hit);
+// }
 
 static bool	shadow_hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 {
@@ -32,11 +64,7 @@ static bool	shadow_hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 		if ((loop_objects->data != record->object.data)
 			&& ray_intersect(loop_objects, ray, &temp, true))
 		{
-			found_hit = true;
-			temp.t_max = temp.t;
-			*record = temp;
-			record->object.obj_type = temp.object.obj_type;
-			record->object.data = temp.object.data;
+			return (true);
 		}
 		loop_objects = loop_objects->next;
 	}
@@ -67,9 +95,6 @@ static bool	shadow_object_loop(t_objs_list *object,
 	temp_hit.object.obj_type = hit->object.obj_type;
 	if (shadow_hit_world(shadow_ray, &temp_hit, object))
 	{
-		// hit->object = temp_hit.object;
-		// hit->object.data = temp_hit.object.data;
-		// hit->object.obj_type = temp_hit.object.obj_type;
 		return (true);
 	}
 	return (false);
@@ -94,7 +119,6 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 	t_vec3	shadow_offset;
 	t_ray	shadow_ray;
 	double	shadow_len;
-	bool	result;
 
 	if (light->is_light == false)
 		return (false);
@@ -103,7 +127,5 @@ bool	is_shadow(t_objs_list *object, t_light *light, t_hit *hit)
 	shadow_offset = vec3_multiply(hit->normal, EPSILON);
 	shadow_origin = vec3_plus_vec3(hit->hit_point, shadow_offset);
 	shadow_ray = create_ray(shadow_origin, shadow_dir);
-	result = shadow_object_loop(object, hit, &shadow_ray, shadow_len);
-	return (result);
+	return (shadow_object_loop(object, hit, &shadow_ray, shadow_len));
 }
-

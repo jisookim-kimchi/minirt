@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/01 16:38:57 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 06:43:28 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,6 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, bool shadow_part)
 	set_ray_opposite_normal(ray, hit, hit_normal);
 	calculate_sphere_uv(sphere, hit->hit_point);
 	(void)shadow_part;
-	// if (shadow_part == true)
-	// {
-	// 	printf(CYAN"HIT_SPHERE:\n");
-	// 	printf("loop_objects: %p\n", sphere);
-	// 	printf("record->object.data: %p\n", hit->object.data);
-	// 	printf(DEFAULT);
-	// }
 	return (true);
 }
 
@@ -117,6 +110,15 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, bool shadow_part)
 	ray_p_plane_p = plane->point - ray->orign;
 	t = (ray_p_plane_p * plane->unit_normal_vec) / rayn_planen_dot
 	Store as hit if the t value is in te t_min t_max intervallum
+
+	For debug printig message
+	// if (shadow_part == true)
+	// {
+	// 	printf(CYAN"HIT_PLANE:\n");
+	// 	printf("loop_objects: %p\n", plane);
+	// 	printf("record->object.data: %p\n", hit->object.data);
+	// 	printf(DEFAULT);
+	// }
 */
 bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit, bool shadow_part)
 {
@@ -139,12 +141,5 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit, bool shadow_part)
 	set_ray_opposite_normal(ray, hit, plane->unit_normal_vec);
 	calculate_plane_uv(plane, hit->hit_point);
 	(void)shadow_part;
-	// if (shadow_part == true)
-	// {
-	// 	printf(CYAN"HIT_PLANE:\n");
-	// 	printf("loop_objects: %p\n", plane);
-	// 	printf("record->object.data: %p\n", hit->object.data);
-	// 	printf(DEFAULT);
-	// }
 	return (true);
 }
