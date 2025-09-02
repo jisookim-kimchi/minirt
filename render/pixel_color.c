@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 17:40:12 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 08:31:10 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:36:54 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void	pixel_center_color(t_ray *ray, t_window *win, t_color_32 *result_color)
 	if (!ray || !win || !win->objs || !result_color)
 	{
 		printf("Error : NULL PTR in pixel_center_color\n");
-		exit(1);
+		clean_list_and_terminate(win);
 	}
 	set_ray_interval(&record, 0.001f, INFINITY);
 	if (hit_world(ray, &record, win->objs))

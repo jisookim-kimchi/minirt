@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 10:40:28 by jisokim2          #+#    #+#             */
-/*   Updated: 2025/08/31 20:08:51 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:34:28 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	handle_line(char *line, t_window *window)
 	if (result < 0)
 	{
 		printf("parsing_start() error\n");
-		free_objs_list(&window->objs);
 		free(line);
+		free_objs_list(&window->objs);
 		exit(1);
 	}
 	free(line);

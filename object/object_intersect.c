@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 20:07:13 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 06:43:28 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 16:29:35 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ bool	hit_sphere(t_sphere *sphere, t_ray *ray, t_hit *hit, bool shadow_part)
 	// 	printf("record->object.data: %p\n", hit->object.data);
 	// 	printf(DEFAULT);
 	// }
+
+	// if (t < (hit->t_min - EPSILON) || t > hit->t_max)
 */
 bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit, bool shadow_part)
 {
@@ -131,7 +133,7 @@ bool	hit_plane(t_plane *plane, t_ray *ray, t_hit *hit, bool shadow_part)
 		return (false);
 	ray_p_plane_p = vec3_sub_vec3(plane->point, ray->orign);
 	t = vec3_dot(ray_p_plane_p, plane->unit_normal_vec) / rayn_planen_dot;
-	if (t < hit->t_min || t > hit->t_max)
+	if (t <= 0 || t > hit->t_max)
 		return (false);
 	hit->t = t;
 	hit->hit_point = ray_at(ray, hit->t);

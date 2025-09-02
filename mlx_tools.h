@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:43:53 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 08:27:00 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:29:27 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_window
 }	t_window;
 
 // main_utils.c
+void			clean_list_and_terminate(t_window *win);
 void			error_window(t_window *win);
 char			*check_file_arg(int argc, char **argv);
 void			init_window(t_window *win);

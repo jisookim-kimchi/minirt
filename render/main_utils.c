@@ -6,12 +6,23 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 13:42:41 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/08/30 13:52:30 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 17:43:12 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../parser/parser.h"
 #include "../mlx_tools.h"
+
+void	clean_list_and_terminate(t_window *win)
+{
+	if (win->mlx)
+		mlx_terminate(win->mlx);
+	if (win->objs)
+		free_objs_list(&win->objs);
+	win->objs = NULL;
+	printf(YELLOW"The cleanup finished before exiting.\n"DEFAULT);
+	exit(1);
+}
 
 void	error_window(t_window *win)
 {

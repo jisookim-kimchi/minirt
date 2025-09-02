@@ -6,7 +6,7 @@
 /*   By: tfarkas <tfarkas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 19:20:19 by tfarkas           #+#    #+#             */
-/*   Updated: 2025/09/02 10:45:13 by tfarkas          ###   ########.fr       */
+/*   Updated: 2025/09/02 18:06:44 by tfarkas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,7 @@ bool	hit_world(t_ray *ray, t_hit *record, t_objs_list *objects)
 	t_hit		temp;
 
 	if (!ray || !record || !objects)
-	{
-		printf("Error : NULL PTR in hit_world\n");
-		return (false);
-	}
+		return (printf("Error : NULL PTR in hit_world\n"), false);
 	temp.t_max = record->t_max;
 	temp.object.data = record->object.data;
 	found_hit = false;
